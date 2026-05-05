@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>The 1:3 scaling ratio · interactive diagram · uzinaduzina</title>
+<link rel="stylesheet" href="../tokens.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .frame {
+    box-sizing: border-box;
+    padding: var(--space-6) var(--space-7);
+    max-width: 720px;
+    margin: 0 auto;
+    color: var(--ink);
+  }
+  h1 {
+    font-size: var(--fs-h2);
+    font-weight: 800;
+    margin: 0 0 var(--space-3);
+  }
+  .lede {
+    font-size: var(--fs-lede);
+    font-style: italic;
+    color: var(--ink);
+    margin: 0 0 var(--space-6);
+    line-height: var(--lh-snug);
+  }
+
+  .diagram-wrap {
+    background: var(--bg-paper);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-3);
+    padding: var(--space-5);
+    margin: 0 0 var(--space-5);
+  }
+  svg { display: block; width: 100%; height: auto; }
+
+  /* Animations */
+  @keyframes growUp {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+  @keyframes fadeInLabel {
+    from { opacity: 0; transform: translateY(2px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes drawArrow {
+    from { stroke-dashoffset: 100; opacity: 0; }
+    to { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes appearMultiplier {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes drawAxis {
+    from { stroke-dasharray: 300; stroke-dashoffset: 300; }
+    to { stroke-dasharray: 300; stroke-dashoffset: 0; }
+  }
+
+  .axis-line {
+    stroke: var(--ink-muted);
+    stroke-width: 1;
+    animation: drawAxis 600ms var(--ease-out) backwards;
+  }
+  .gridline {
+    stroke: var(--rule);
+    stroke-width: 1;
+    stroke-dasharray: 1 3;
+    opacity: 0;
+    animation: fadeInLabel 400ms var(--ease-out) forwards;
+  }
+  .gridline:nth-of-type(1) { animation-delay: 300ms; }
+  .gridline:nth-of-type(2) { animation-delay: 350ms; }
+  .gridline:nth-of-type(3) { animation-delay: 400ms; }
+  .gridline:nth-of-type(4) { animation-delay: 450ms; }
+
+  .axis-label {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: var(--tracking-meta);
+    fill: var(--ink-muted);
+    text-transform: uppercase;
+  }
+  .axis-tick {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    fill: var(--ink-muted);
+    animation: fadeInLabel 300ms var(--ease-out) backwards;
+  }
+  .axis-tick:nth-of-type(1) { animation-delay: 350ms; }
+  .axis-tick:nth-of-type(2) { animation-delay: 400ms; }
+  .axis-tick:nth-of-type(3) { animation-delay: 450ms; }
+  .axis-tick:nth-of-type(4) { animation-delay: 500ms; }
+
+  /* Layer markers */
+  .layer-bar {
+    cursor: pointer;
+  }
+  .bar-fill {
+    fill: var(--bg);
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    transform-origin: center bottom;
+    transform-box: fill-box;
+    animation: growUp 500ms var(--ease-out) backwards;
+    transition: fill 200ms var(--ease-out),
+                stroke-width 200ms var(--ease-out);
+  }
+  .layer-bar:nth-of-type(1) .bar-fill { animation-delay: 600ms; }
+  .layer-bar:nth-of-type(2) .bar-fill { animation-delay: 800ms; }
+  .layer-bar:nth-of-type(3) .bar-fill { animation-delay: 1000ms; }
+  .layer-bar:nth-of-type(4) .bar-fill { animation-delay: 1200ms; }
+
+  .layer-bar:hover .bar-fill,
+  .layer-bar.active .bar-fill {
+    fill: var(--accent-soft);
+    stroke-width: 2.5;
+  }
+  .layer-bar.dozen .bar-fill {
+    fill: var(--accent-soft);
+    stroke-width: 2;
+  }
+  .layer-name, .layer-value {
+    pointer-events: none;
+    animation: fadeInLabel 400ms var(--ease-out) backwards;
+  }
+  .layer-bar:nth-of-type(1) .layer-name,
+  .layer-bar:nth-of-type(1) .layer-value { animation-delay: 1100ms; }
+  .layer-bar:nth-of-type(2) .layer-name,
+  .layer-bar:nth-of-type(2) .layer-value { animation-delay: 1300ms; }
+  .layer-bar:nth-of-type(3) .layer-name,
+  .layer-bar:nth-of-type(3) .layer-value { animation-delay: 1500ms; }
+  .layer-bar:nth-of-type(4) .layer-name,
+  .layer-bar:nth-of-type(4) .layer-value { animation-delay: 1700ms; }
+
+  .layer-name {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: var(--tracking-meta);
+    fill: var(--ink-muted);
+    text-transform: uppercase;
+    text-anchor: middle;
+  }
+  .layer-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    fill: var(--accent);
+    text-anchor: middle;
+  }
+
+  /* Multiplier arrows */
+  .mult-arrow {
+    stroke: var(--ochre);
+    stroke-width: 1.5;
+    fill: none;
+    stroke-dasharray: 100;
+    animation: drawArrow 600ms var(--ease-out) backwards;
+  }
+  .mult-arrow:nth-of-type(1) { animation-delay: 1900ms; }
+  .mult-arrow:nth-of-type(2) { animation-delay: 2100ms; }
+  .mult-arrow:nth-of-type(3) { animation-delay: 2300ms; }
+
+  .mult-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    fill: var(--ochre);
+    font-weight: 500;
+    text-anchor: middle;
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: appearMultiplier 400ms var(--ease-out) backwards;
+  }
+  .mult-label:nth-of-type(1) { animation-delay: 2050ms; }
+  .mult-label:nth-of-type(2) { animation-delay: 2250ms; }
+  .mult-label:nth-of-type(3) { animation-delay: 2450ms; }
+
+  /* Equation panel */
+  .equation-panel {
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-2);
+    padding: var(--space-5);
+    margin-top: var(--space-5);
+    opacity: 0;
+    animation: fadeInLabel 600ms var(--ease-out) 2700ms forwards;
+  }
+  .equation-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-h4);
+    color: var(--accent);
+    margin: 0 0 var(--space-3);
+  }
+  .formula {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--ink);
+    background: var(--bg-sunk);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-1);
+    margin: var(--space-3) 0;
+    overflow-x: auto;
+  }
+  .equation-body {
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+    color: var(--ink);
+    margin: 0;
+  }
+  .equation-body em { color: var(--accent); font-style: italic; }
+
+  .caption {
+    font-family: var(--font-ui);
+    font-size: var(--fs-meta);
+    letter-spacing: var(--tracking-meta);
+    color: var(--ink-muted);
+    margin: var(--space-3) 0 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition-duration: 0ms !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <h1>The 1:3 scaling ratio</h1>
+    <p class="lede">Zhou and colleagues showed in 2005 that each Dunbar layer is roughly three times the size of the one inside it. The ratio is empirical, observed across many human social structures, and remarkably stable.</p>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 600 380" role="img" aria-label="Logarithmic scale showing the four Dunbar layers and the constant 1:3 ratio between them">
+
+        <!-- Y-axis -->
+        <line class="axis-line" x1="80" y1="40" x2="80" y2="320"></line>
+
+        <!-- Y-axis ticks: log scale -->
+        <line class="gridline" x1="80" y1="300" x2="560" y2="300"></line>
+        <text class="axis-tick" x="74" y="304" text-anchor="end">5</text>
+
+        <line class="gridline" x1="80" y1="232" x2="560" y2="232"></line>
+        <text class="axis-tick" x="74" y="236" text-anchor="end">15</text>
+
+        <line class="gridline" x1="80" y1="156" x2="560" y2="156"></line>
+        <text class="axis-tick" x="74" y="160" text-anchor="end">50</text>
+
+        <line class="gridline" x1="80" y1="80" x2="560" y2="80"></line>
+        <text class="axis-tick" x="74" y="84" text-anchor="end">150</text>
+
+        <text class="axis-label" x="20" y="180" transform="rotate(-90, 20, 180)" text-anchor="middle">members (log scale)</text>
+
+        <!-- X-axis -->
+        <line class="axis-line" x1="80" y1="320" x2="560" y2="320"></line>
+
+        <!-- Layer bars -->
+        <g class="layer-bar" data-layer="5">
+          <rect class="bar-fill" x="130" y="300" width="60" height="20" rx="2"></rect>
+          <text class="layer-value" x="160" y="295" font-size="14">5</text>
+          <text class="layer-name" x="160" y="340">support</text>
+          <text class="layer-name" x="160" y="354" style="animation-delay: 1150ms">clique</text>
+        </g>
+
+        <g class="layer-bar dozen" data-layer="15">
+          <rect class="bar-fill" x="250" y="232" width="60" height="88" rx="2"></rect>
+          <text class="layer-value" x="280" y="227" font-size="14">15</text>
+          <text class="layer-name" x="280" y="340">sympathy</text>
+          <text class="layer-name" x="280" y="354" style="animation-delay: 1350ms">group</text>
+        </g>
+
+        <g class="layer-bar" data-layer="50">
+          <rect class="bar-fill" x="370" y="156" width="60" height="164" rx="2"></rect>
+          <text class="layer-value" x="400" y="151" font-size="14">50</text>
+          <text class="layer-name" x="400" y="340">close</text>
+          <text class="layer-name" x="400" y="354" style="animation-delay: 1550ms">network</text>
+        </g>
+
+        <g class="layer-bar" data-layer="150">
+          <rect class="bar-fill" x="490" y="80" width="60" height="240" rx="2"></rect>
+          <text class="layer-value" x="520" y="75" font-size="14">150</text>
+          <text class="layer-name" x="520" y="340">active</text>
+          <text class="layer-name" x="520" y="354" style="animation-delay: 1750ms">network</text>
+        </g>
+
+        <!-- Multiplier arrows -->
+        <path class="mult-arrow" d="M 195 290 Q 220 270 245 240"></path>
+        <path class="mult-arrow" d="M 315 230 Q 340 200 365 165"></path>
+        <path class="mult-arrow" d="M 435 155 Q 460 125 485 90"></path>
+
+        <text class="mult-label" x="220" y="262">×3</text>
+        <text class="mult-label" x="340" y="190">×3.3</text>
+        <text class="mult-label" x="460" y="115">×3</text>
+      </svg>
+    </div>
+
+    <div class="equation-panel">
+      <h3 class="equation-title">The relation</h3>
+      <p class="equation-body">Across the four layers, each successive grouping contains approximately three times the members of the one within it. Written as a recurrence:</p>
+      <div class="formula">L(n+1) ≈ 3 · L(n)</div>
+      <p class="equation-body">Starting from the support clique of about five people, the sequence becomes: <em>5, 15, 45 (observed: 50), 135 (observed: 150)</em>. The fit is not perfect, but the ratio holds across cultures and across very different kinds of human grouping: hunter-gatherer bands, military squads to companies, monastic communities, well-functioning research labs.</p>
+      <p class="equation-body">Zhou and colleagues (2005) interpret this as evidence that human social cognition has a discrete hierarchical structure rather than a continuous one. The brain does not scale relationships smoothly; it batches them into nested layers, each demanding roughly one-third the cognitive intensity of the one within it.</p>
+    </div>
+
+    <p class="caption">After Zhou, Sornette, Hill &amp; Dunbar, "Discrete hierarchical organization of social group sizes", Proceedings of the Royal Society B, 272(1561), 2005.</p>
+  </div>
+
+<script>
+  const bars = document.querySelectorAll('.layer-bar');
+  function activate(layer) {
+    bars.forEach(b => b.classList.toggle('active', b.dataset.layer === layer));
+  }
+  function clear() { bars.forEach(b => b.classList.remove('active')); }
+  bars.forEach(b => {
+    b.addEventListener('mouseenter', () => activate(b.dataset.layer));
+    b.addEventListener('mouseleave', clear);
+  });
+</script>
+</body>
+</html>

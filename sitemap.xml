@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Structural pages (rendered from notes.js) -->
+  <url><loc>https://uzinaduzina.org/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=who-we-are</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=manifesto</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=projects</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=team</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=partners</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=contact</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+
+  <!-- Project notes (Markdown source under /content/) -->
+  <url><loc>https://uzinaduzina.org/?n=project-democraicy</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=project-do-the-move</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=project-mini-grant-fdsc</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=project-green-genesis-startup</loc><changefreq>yearly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=project-greenycrafts</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=project-modeling-the-future</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=project-cabinet-retrofuturist</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=project-a-greener-future</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=project-atat-arta-nonstop</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=project-drops-sustainable-development</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=project-echoes-of-unity</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=project-goana-dupa-meteor</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=project-ai4ngos</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=project-wooden-wonders</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=project-belgica-100-workshops</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+
+  <!-- Team and partners -->
+  <url><loc>https://uzinaduzina.org/?n=team-liviu-pop</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://uzinaduzina.org/?n=partner-ccif</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Markdown source served alongside, for AI crawlers -->
+  <url><loc>https://uzinaduzina.org/content/project-democraicy.md</loc><priority>0.6</priority></url>
+  <url><loc>https://uzinaduzina.org/content/project-green-genesis-startup.md</loc><priority>0.6</priority></url>
+  <url><loc>https://uzinaduzina.org/content/project-drops-sustainable-development.md</loc><priority>0.6</priority></url>
+  <url><loc>https://uzinaduzina.org/content/project-cabinet-retrofuturist.md</loc><priority>0.6</priority></url>
+  <url><loc>https://uzinaduzina.org/content/project-ai4ngos.md</loc><priority>0.6</priority></url>
+  <url><loc>https://uzinaduzina.org/content/project-goana-dupa-meteor.md</loc><priority>0.6</priority></url>
+
+  <!-- AI crawler index -->
+  <url><loc>https://uzinaduzina.org/llms.txt</loc><priority>0.4</priority></url>
+</urlset>

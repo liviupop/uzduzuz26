@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# old import / scratch directories — kept locally, not deployed
+uploads/
+ds/
+
+# OS-level metadata
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Python build artefacts (regen.py is plain script; no venv needed,
+# but defensive in case anyone adds one later)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Cloudflare Pages local dev cache, if anyone uses wrangler
+.wrangler/

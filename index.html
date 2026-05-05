@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>uzinaduzina · a quiet factory for hard questions</title>
+<meta name="description" content="uzinaduzina is a non-profit cultural association in Cluj-Napoca, working at the intersection of art, intangible heritage, education, and critical technology. Five years of work on AI and democracy, 17 European projects, 11 partners across six countries.">
+<link rel="canonical" href="https://uzinaduzina.org/">
+<script>
+// Suppress benign ResizeObserver loop warning (browser-internal, not user code).
+window.addEventListener('error', (e) => {
+  if (e && e.message && /ResizeObserver loop/i.test(e.message)) {
+    e.stopImmediatePropagation();
+    e.preventDefault();
+    return false;
+  }
+}, true);
+const _origErr = window.onerror;
+window.onerror = function(msg) {
+  if (typeof msg === 'string' && /ResizeObserver loop/i.test(msg)) return true;
+  if (_origErr) return _origErr.apply(this, arguments);
+  return false;
+};
+</script>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="chrome">
+  <button class="brand" type="button" aria-label="uzinaduzina home">
+    <img src="assets/logo-uzinaduzina.png" alt="">
+    <span class="brand-mark">
+      <span class="name">uzinaduzina</span>
+      <span class="tag">a quiet factory for hard questions · Cluj-Napoca</span>
+    </span>
+  </button>
+
+  <nav class="chrome-nav" aria-label="primary"></nav>
+</header>
+
+<main class="stack" aria-label="stacked notes">
+  <div class="stack-inner"></div>
+</main>
+
+<script src="assets/data.js"></script>
+<script src="notes.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

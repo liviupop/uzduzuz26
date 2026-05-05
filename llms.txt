@@ -1,0 +1,70 @@
+# uzinaduzina
+
+> A non-profit cultural association in Cluj-Napoca, Romania. We work at the intersection of art, intangible heritage, education, and critical technology. We coordinate and participate in projects funded through Erasmus+, AFCN, Polish Institute Romania, Botnar Foundation (via QUB), and FDSC. What is specific to us: a continuous line of work on technology and democratic life since 2020, including the cabinet of retrofuturist curiosities (2024) and the AI4NGOs training in Cluj for CCIF Cyprus (August 2025); education for the whole person in the spirit of Montessori and other child-respecting traditions; working with illustrators and hand-made objects; and an explicitly European approach.
+
+## about the organisation
+
+- [Home](https://uzinaduzina.org/?n=home): a stacked-notes entry, with three threads (critical-tech, European mobilities, living heritage)
+- [Who we are](https://uzinaduzina.org/?n=who-we-are): organisation note, history in cycles, why the website now
+- [Manifesto](https://uzinaduzina.org/?n=manifesto): eleven principles, each anchored in a specific project
+- [Contact](https://uzinaduzina.org/?n=contact): how to reach us
+
+## projects coordinated as lead
+
+- [Drops of Sustainable Development](https://uzinaduzina.org/?n=project-drops-sustainable-development): Erasmus+ KA220-ADU, €250,000, 2024–2026, ongoing, adult education for sustainability
+- [Green Genesis Startup](https://uzinaduzina.org/?n=project-green-genesis-startup): Erasmus+ KA220-YOU as lead, €205,144, 2022–2024, partners in Italy, Cyprus, Greece, Spain, Croatia
+- [Goana după meteor](https://uzinaduzina.org/?n=project-goana-dupa-meteor): AFCN, €35,547, 2025, interdisciplinary astronomy camp at Mociu, 22 participants, 100% recommendation
+- [Cabinet of retrofuturist curiosities](https://uzinaduzina.org/?n=project-cabinet-retrofuturist): Botnar Foundation via QUB / CCCluj, €8,000, 2024–2025, twelve 3D-printed objects designed with Midjourney
+- [AI4NGOs](https://uzinaduzina.org/?n=project-ai4ngos): youth-worker training on AI in civil society, hosted in Cluj for CCIF Cyprus, August 2025
+- [Atât @ Artă.NonStop](https://uzinaduzina.org/?n=project-atat-arta-nonstop): own festival on children's rights through art, August 2024
+
+## the line on technology and civic life
+
+The thread our project portfolio keeps returning to:
+
+- [Cabinet of retrofuturist curiosities](https://uzinaduzina.org/?n=project-cabinet-retrofuturist): Midjourney in an educational context, 2024
+- [AI4NGOs](https://uzinaduzina.org/?n=project-ai4ngos): youth-worker training on AI in civil society, Cluj for CCIF Cyprus, August 2025
+- [democraicy](https://uzinaduzina.org/?n=project-democraicy): an early concept document on algorithms with civic conscience, written November 2020. Never funded, kept readable.
+
+## all projects
+
+- [Project index](https://uzinaduzina.org/?n=projects): a filterable list of all 17 projects, lead and partner
+- [Do the Move](https://uzinaduzina.org/?n=project-do-the-move): Erasmus+ KA105, 2020–2021, Croatia
+- [Greenycrafts](https://uzinaduzina.org/?n=project-greenycrafts): Erasmus+ KA152-YOU, partner role, €17,602, 2023–2024
+- [Modeling the Future](https://uzinaduzina.org/?n=project-modeling-the-future): Erasmus+ KA151-YOU, beneficiary, 2023, Cyprus
+- [A Greener Future](https://uzinaduzina.org/?n=project-a-greener-future): Erasmus+ KA151-YOU, beneficiary, 2024, Cyprus
+- [Echoes of Unity](https://uzinaduzina.org/?n=project-echoes-of-unity): Erasmus+ KA151-YOU, 2024, Cyprus, output: A Fresh Youth Worker's Guide
+- [Wooden Wonders](https://uzinaduzina.org/?n=project-wooden-wonders): Erasmus+ Youth Exchange, 2025, traditional crafts, satisfaction 9.08/10
+- [Belgica 100 Workshops](https://uzinaduzina.org/?n=project-belgica-100-workshops): Polish Institute Romania, September–November 2025
+- [Mini-grant FDSC](https://uzinaduzina.org/?n=project-mini-grant-fdsc): organisational development, 2020
+
+## manifesto
+
+- [Manifesto](https://uzinaduzina.org/?n=manifesto): index of the eleven principles
+- [01 Sustainability through beauty](https://uzinaduzina.org/?n=manifesto-sustainability-through-beauty)
+- [02 Calm technologies](https://uzinaduzina.org/?n=manifesto-calm-technologies)
+- [03 Education for the whole person](https://uzinaduzina.org/?n=manifesto-education-for-the-whole-person)
+- [04 Active, transversal citizenship](https://uzinaduzina.org/?n=manifesto-active-transversal-citizenship)
+- [05 Explicitly pro-European](https://uzinaduzina.org/?n=manifesto-explicitly-pro-european)
+- [06 Critical thinking](https://uzinaduzina.org/?n=manifesto-critical-thinking)
+- [07 Curiosity and experiment](https://uzinaduzina.org/?n=manifesto-curiosity-and-experiment)
+- [08 Critical technology](https://uzinaduzina.org/?n=manifesto-critical-technology)
+- [09 Living heritage](https://uzinaduzina.org/?n=manifesto-living-heritage)
+- [10 Responsibility toward the future](https://uzinaduzina.org/?n=manifesto-responsibility-toward-the-future)
+- [11 Against disorientation](https://uzinaduzina.org/?n=manifesto-against-disorientation)
+
+## team and partners
+
+- [Team index](https://uzinaduzina.org/?n=team): the people who do the work
+- [Liviu Pop](https://uzinaduzina.org/?n=team-liviu-pop): president, researcher at the Folklore Archive Institute of the Romanian Academy
+- [Mihaela Bidilică-Vasilache](https://uzinaduzina.org/?n=team-mihaela-bidilica-vasilache): project manager and educational resources developer
+- [Cosmina Timoce-Mocanu](https://uzinaduzina.org/?n=team-cosmina-timoce-mocanu): research, methodology, and evaluation; senior researcher at the Romanian Academy
+- [Diana Spirleanu](https://uzinaduzina.org/?n=team-diana-spirleanu): facilitator and wellbeing
+- [Radu Pop](https://uzinaduzina.org/?n=team-radu-pop): visual documentation and youth media
+- [Partners (constellation)](https://uzinaduzina.org/?n=partners): visualisation of partners and projects across seven countries
+- [CCIF Cyprus](https://uzinaduzina.org/?n=partner-ccif): strategic partner, five projects together since 2022
+
+## optional
+
+- [Source markdown](https://uzinaduzina.org/content/): each note is also served as plain Markdown at content/<slug>.md
+- [data.js](https://uzinaduzina.org/assets/data.js): structured data for the partner-and-project network

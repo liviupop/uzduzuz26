@@ -1,0 +1,634 @@
+[
+  {
+    "slug": "curiosity-dunbar-alexander-and-the-dozen",
+    "type": "curiosity",
+    "title": "Dunbar, Alexander, and the dozen",
+    "kicker": "curiosities",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "Why a dozen turns out to be the right number.",
+    "excerpt": "Why a dozen people, and not a hundred or three?",
+    "year": "",
+    "role": "",
+    "order": 1,
+    "pills": [
+      "anthropology",
+      "architecture",
+      "group size"
+    ]
+  },
+  {
+    "slug": "who-we-are",
+    "type": "org",
+    "title": "Who we are",
+    "kicker": "about",
+    "accent": "indigo",
+    "subtitle": "",
+    "summary": "",
+    "excerpt": "uzinaduzina is a non-profit association based in Cluj-Napoca, Romania.",
+    "year": "",
+    "role": "",
+    "order": 99,
+    "pills": [
+      "Cluj-Napoca",
+      "Romania",
+      "non-profit"
+    ]
+  },
+  {
+    "slug": "partner-ccif",
+    "type": "partner",
+    "title": "CCIF Cyprus",
+    "kicker": "partner · Cyprus",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "Strategic partner. Five projects together since 2022.",
+    "excerpt": "Our strategic Cypriot partner.",
+    "year": "",
+    "role": "",
+    "order": 1,
+    "pills": [
+      "strategic partner|on",
+      "6 projects together",
+      "Paphos",
+      "2022 → 2026"
+    ]
+  },
+  {
+    "slug": "team-liviu-pop",
+    "type": "person",
+    "title": "Liviu Pop",
+    "kicker": "team · president",
+    "accent": "indigo",
+    "subtitle": "",
+    "summary": "President. Strategy, grant writing, and editorial direction.",
+    "excerpt": "President of uzinaduzina.",
+    "year": "",
+    "role": "",
+    "order": 1,
+    "pills": [
+      "president",
+      "Cluj-Napoca"
+    ]
+  },
+  {
+    "slug": "team-mihaela-bidilica-vasilache",
+    "type": "person",
+    "title": "Mihaela Bidilică-Vasilache",
+    "kicker": "team · project manager",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "Project Manager & Educational Resources Developer.",
+    "excerpt": "Project manager and educational resources developer at uzinaduzina.",
+    "year": "",
+    "role": "",
+    "order": 2,
+    "pills": [
+      "project manager",
+      "educational resources",
+      "Cluj-Napoca"
+    ]
+  },
+  {
+    "slug": "team-cosmina-timoce-mocanu",
+    "type": "person",
+    "title": "Cosmina Timoce-Mocanu",
+    "kicker": "team · research",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "Research, methodology, and evaluation. Senior Researcher, Romanian Academy.",
+    "excerpt": "Researcher with the Romanian Academy.",
+    "year": "",
+    "role": "",
+    "order": 3,
+    "pills": [
+      "research",
+      "methodology",
+      "evaluation",
+      "Cluj-Napoca"
+    ]
+  },
+  {
+    "slug": "team-diana-spirleanu",
+    "type": "person",
+    "title": "Diana Spirleanu",
+    "kicker": "team · facilitator",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "Facilitator & Wellbeing. Accompanies youth groups through international exchanges.",
+    "excerpt": "Personal development counsellor and youth facilitator.",
+    "year": "",
+    "role": "",
+    "order": 4,
+    "pills": [
+      "facilitator",
+      "wellbeing",
+      "Cluj-Napoca"
+    ]
+  },
+  {
+    "slug": "team-radu-pop",
+    "type": "person",
+    "title": "Radu Pop",
+    "kicker": "team · visual documentation",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "Visual Documentation & Youth Media.",
+    "excerpt": "Photographer and creative practitioner with skills in visual storytelling, social media, and youth facilitation.",
+    "year": "",
+    "role": "",
+    "order": 5,
+    "pills": [
+      "photography",
+      "youth media",
+      "Cluj-Napoca"
+    ]
+  },
+  {
+    "slug": "manifesto-sustainability-through-beauty",
+    "type": "principle",
+    "title": "Sustainability through beauty",
+    "kicker": "principle · 01 of 11",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "",
+    "excerpt": "Sustainability is usually negotiated in spreadsheets and emissions audits.",
+    "year": "",
+    "role": "",
+    "order": 1,
+    "pills": [
+      "principle 01",
+      "sustainability",
+      "beauty"
+    ]
+  },
+  {
+    "slug": "manifesto-calm-technologies",
+    "type": "principle",
+    "title": "Calm technologies",
+    "kicker": "principle · 02 of 11",
+    "accent": "indigo",
+    "subtitle": "",
+    "summary": "",
+    "excerpt": "Most contemporary technology is designed to attract attention.",
+    "year": "",
+    "role": "",
+    "order": 2,
+    "pills": [
+      "principle 02",
+      "critical tech"
+    ]
+  },
+  {
+    "slug": "manifesto-education-for-the-whole-person",
+    "type": "principle",
+    "title": "Education for the whole person",
+    "kicker": "principle · 03 of 11",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "",
+    "excerpt": "Most of what is called education today is, in practice, training for a specific function.",
+    "year": "",
+    "role": "",
+    "order": 3,
+    "pills": [
+      "principle 03",
+      "education",
+      "whole-person"
+    ]
+  },
+  {
+    "slug": "manifesto-active-transversal-citizenship",
+    "type": "principle",
+    "title": "Active, transversal citizenship",
+    "kicker": "principle · 04 of 11",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "",
+    "excerpt": "Citizenship, in the standard account, is something you exercise on a few specific occasions: when you vote, when you attend a town hall, when you write to your representative.",
+    "year": "",
+    "role": "",
+    "order": 4,
+    "pills": [
+      "principle 04",
+      "civic"
+    ]
+  },
+  {
+    "slug": "manifesto-explicitly-pro-european",
+    "type": "principle",
+    "title": "Explicitly pro-European",
+    "kicker": "principle · 05 of 11",
+    "accent": "indigo",
+    "subtitle": "",
+    "summary": "",
+    "excerpt": "We declare this commitment openly because the moment requires it.",
+    "year": "",
+    "role": "",
+    "order": 5,
+    "pills": [
+      "principle 05",
+      "European"
+    ]
+  },
+  {
+    "slug": "manifesto-critical-thinking",
+    "type": "principle",
+    "title": "Critical thinking",
+    "kicker": "principle · 06 of 11",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "",
+    "excerpt": "Critical thinking has become a slogan, which is a problem, because slogans are exactly the kind of language that critical thinking is supposed to push back against.",
+    "year": "",
+    "role": "",
+    "order": 6,
+    "pills": [
+      "principle 06",
+      "method"
+    ]
+  },
+  {
+    "slug": "manifesto-curiosity-and-experiment",
+    "type": "principle",
+    "title": "Curiosity and experiment",
+    "kicker": "principle · 07 of 11",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "",
+    "excerpt": "A curious organisation is one that protects the right of its members to follow a question without knowing the answer in advance.",
+    "year": "",
+    "role": "",
+    "order": 7,
+    "pills": [
+      "principle 07",
+      "method"
+    ]
+  },
+  {
+    "slug": "manifesto-critical-technology",
+    "type": "principle",
+    "title": "Critical technology",
+    "kicker": "principle · 08 of 11",
+    "accent": "indigo",
+    "subtitle": "",
+    "summary": "",
+    "excerpt": "Critical technology is the slower cousin of digital transformation.",
+    "year": "",
+    "role": "",
+    "order": 8,
+    "pills": [
+      "principle 08",
+      "critical tech"
+    ]
+  },
+  {
+    "slug": "manifesto-living-heritage",
+    "type": "principle",
+    "title": "Living heritage",
+    "kicker": "principle · 09 of 11",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "",
+    "excerpt": "The default treatment of cultural heritage in much of Europe is curatorial.",
+    "year": "",
+    "role": "",
+    "order": 9,
+    "pills": [
+      "principle 09",
+      "heritage"
+    ]
+  },
+  {
+    "slug": "manifesto-responsibility-toward-the-future",
+    "type": "principle",
+    "title": "Responsibility toward the future",
+    "kicker": "principle · 10 of 11",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "",
+    "excerpt": "We are the ancestors of the people who will inherit our decisions.",
+    "year": "",
+    "role": "",
+    "order": 10,
+    "pills": [
+      "principle 10",
+      "long horizon"
+    ]
+  },
+  {
+    "slug": "manifesto-against-disorientation",
+    "type": "principle",
+    "title": "Against disorientation",
+    "kicker": "principle · 11 of 11",
+    "accent": "indigo",
+    "subtitle": "",
+    "summary": "",
+    "excerpt": "The contemporary information environment is, by structure rather than by accident, hostile to slow thought.",
+    "year": "",
+    "role": "",
+    "order": 11,
+    "pills": [
+      "principle 11",
+      "civic"
+    ]
+  },
+  {
+    "slug": "project-drops-sustainable-development",
+    "type": "project",
+    "title": "Drops of Sustainable Development",
+    "kicker": "project № 01 · 2024–2026 · lead · ongoing",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "Adult education for sustainability, our second major KA220 as lead.",
+    "excerpt": "The second Erasmus+ KA220 we coordinate.",
+    "year": "",
+    "role": "lead",
+    "order": 1,
+    "pills": [
+      "ongoing|on",
+      "2024–2026",
+      "Erasmus+ KA220-ADU",
+      "€250,000",
+      "lead"
+    ]
+  },
+  {
+    "slug": "project-green-genesis-startup",
+    "type": "project",
+    "title": "Green Genesis Startup",
+    "kicker": "project № 02 · 2022–2024 · lead",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "Green entrepreneurship for European youth. Five-partner consortium.",
+    "excerpt": "The first Erasmus+ KA220-YOU we coordinated.",
+    "year": "",
+    "role": "lead",
+    "order": 2,
+    "pills": [
+      "closed",
+      "2022–2024",
+      "Erasmus+ KA220-YOU",
+      "€205,144",
+      "lead"
+    ]
+  },
+  {
+    "slug": "project-goana-dupa-meteor",
+    "type": "project",
+    "title": "Goana după meteor",
+    "kicker": "project № 03 · 2025 · lead",
+    "accent": "indigo",
+    "subtitle": "",
+    "summary": "Astronomy camp at Mociu, the meteorite village. 100% recommendation.",
+    "excerpt": "August 2025.",
+    "year": "",
+    "role": "lead",
+    "order": 3,
+    "pills": [
+      "closed",
+      "2025",
+      "AFCN",
+      "€35,547",
+      "lead",
+      "100% recommendation"
+    ]
+  },
+  {
+    "slug": "project-cabinet-retrofuturist",
+    "type": "project",
+    "title": "Cabinet of retrofuturist curiosities",
+    "kicker": "project № 04 · 2024–2025 · lead",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "Twelve objects designed with Midjourney, 3D-printed and finished by hand.",
+    "excerpt": "April 2024 to February 2025.",
+    "year": "",
+    "role": "lead",
+    "order": 4,
+    "pills": [
+      "closed",
+      "2024–2025",
+      "Botnar / QUB / CCCluj",
+      "€8,000",
+      "lead"
+    ]
+  },
+  {
+    "slug": "project-ai4ngos",
+    "type": "project",
+    "title": "AI4NGOs",
+    "kicker": "project № 10 · 2025 · lead in Cluj for CCIF",
+    "accent": "indigo",
+    "subtitle": "",
+    "summary": "Youth-worker training on AI in civil society, hosted in Cluj for CCIF Cyprus.",
+    "excerpt": "August 2025.",
+    "year": "",
+    "role": "lead",
+    "order": 5,
+    "pills": [
+      "closed",
+      "August 2025",
+      "Cluj-Napoca",
+      "lead for CCIF Cyprus"
+    ]
+  },
+  {
+    "slug": "project-atat-arta-nonstop",
+    "type": "project",
+    "title": "Atât @ Artă.NonStop",
+    "kicker": "project № 06 · 2024 · lead",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "A small festival on children's rights through art.",
+    "excerpt": "August 2024.",
+    "year": "",
+    "role": "lead",
+    "order": 6,
+    "pills": [
+      "closed",
+      "August 2024",
+      "self-funded",
+      "€420",
+      "lead"
+    ]
+  },
+  {
+    "slug": "project-democraicy",
+    "type": "project",
+    "title": "democraicy: algorithms with civic conscience",
+    "kicker": "concept document · 2020 · unfunded",
+    "accent": "indigo",
+    "subtitle": "",
+    "summary": "An early concept document on algorithms with civic conscience. Never funded; still readable.",
+    "excerpt": "A project concept written in November 2020.",
+    "year": "",
+    "role": "lead",
+    "order": 7,
+    "pills": [
+      "2020",
+      "concept",
+      "unfunded"
+    ]
+  },
+  {
+    "slug": "project-greenycrafts",
+    "type": "project",
+    "title": "Greenycrafts: Manufactures for the Future",
+    "kicker": "project № 08 · 2023–2024 · partner",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "Green crafts mobility, partner role.",
+    "excerpt": "June 2023 to May 2024.",
+    "year": "",
+    "role": "partner",
+    "order": 8,
+    "pills": [
+      "closed",
+      "2023–2024",
+      "Erasmus+ KA152-YOU",
+      "€17,602",
+      "partner"
+    ]
+  },
+  {
+    "slug": "project-wooden-wonders",
+    "type": "project",
+    "title": "Wooden Wonders: Heritage and Innovation in European Green Tourism",
+    "kicker": "project № 09 · 2025 · beneficiary · 9.08/10",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "Traditional crafts and European youth, hosted by 4 Elements (Croatia).",
+    "excerpt": "September 2025.",
+    "year": "",
+    "role": "beneficiary",
+    "order": 9,
+    "pills": [
+      "closed",
+      "September 2025",
+      "Erasmus+ Youth Exchange",
+      "€11,742",
+      "9.08/10"
+    ]
+  },
+  {
+    "slug": "project-a-greener-future",
+    "type": "project",
+    "title": "A Greener Future",
+    "kicker": "project № 11 · 2024 · beneficiary",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "Sustainability training, hosted by CCIF Cyprus.",
+    "excerpt": "March 2024.",
+    "year": "",
+    "role": "beneficiary",
+    "order": 10,
+    "pills": [
+      "closed",
+      "March 2024",
+      "Erasmus+ KA151-YOU",
+      "€1,545",
+      "beneficiary"
+    ]
+  },
+  {
+    "slug": "project-belgica-100-workshops",
+    "type": "project",
+    "title": "Belgica 100 Workshops",
+    "kicker": "project № 12 · 2025 · beneficiary",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "Workshops marking 100 years of the Belgica expedition.",
+    "excerpt": "September to November 2025.",
+    "year": "",
+    "role": "beneficiary",
+    "order": 11,
+    "pills": [
+      "closed",
+      "Sept–Nov 2025",
+      "Polish Institute Romania",
+      "€1,350",
+      "beneficiary"
+    ]
+  },
+  {
+    "slug": "project-mini-grant-fdsc",
+    "type": "project",
+    "title": "FDSC mini-grant for organisational development",
+    "kicker": "project № 13 · 2020 · beneficiary",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "Organisational development, early-pandemic survival.",
+    "excerpt": "August to October 2020.",
+    "year": "",
+    "role": "beneficiary",
+    "order": 12,
+    "pills": [
+      "closed",
+      "2020",
+      "FDSC",
+      "€700",
+      "beneficiary"
+    ]
+  },
+  {
+    "slug": "project-modeling-the-future",
+    "type": "project",
+    "title": "Modeling the Future Together",
+    "kicker": "project № 14 · 2023 · beneficiary",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "Mobility on future-modelling and youth work.",
+    "excerpt": "November 2023.",
+    "year": "",
+    "role": "beneficiary",
+    "order": 13,
+    "pills": [
+      "closed",
+      "November 2023",
+      "Erasmus+ KA151-YOU",
+      "€34,660 frame",
+      "beneficiary"
+    ]
+  },
+  {
+    "slug": "project-echoes-of-unity",
+    "type": "project",
+    "title": "Echoes of Unity: A Journey Through Cultures",
+    "kicker": "project № 15 · 2024 · beneficiary",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "Output: A Fresh Youth Worker's Guide.",
+    "excerpt": "November 2024.",
+    "year": "",
+    "role": "beneficiary",
+    "order": 14,
+    "pills": [
+      "closed",
+      "November 2024",
+      "Erasmus+ KA151-YOU",
+      "€423",
+      "beneficiary"
+    ]
+  },
+  {
+    "slug": "project-do-the-move",
+    "type": "project",
+    "title": "Do the Move: the movement for rural development",
+    "kicker": "project № 16 · 2020–2021 · beneficiary",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "Our first international youth-work mobility.",
+    "excerpt": "February 2020 to December 2021.",
+    "year": "",
+    "role": "beneficiary",
+    "order": 15,
+    "pills": [
+      "closed",
+      "2020–2021",
+      "Erasmus+ KA105",
+      "Croatia",
+      "beneficiary"
+    ]
+  }
+]

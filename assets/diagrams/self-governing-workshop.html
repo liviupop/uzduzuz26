@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Self-governing workshop · interactive diagram · uzinaduzina</title>
+<link rel="stylesheet" href="../tokens.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .frame {
+    box-sizing: border-box;
+    padding: var(--space-6) var(--space-7);
+    max-width: 720px;
+    margin: 0 auto;
+    color: var(--ink);
+  }
+  h1 {
+    font-size: var(--fs-h2);
+    font-weight: 800;
+    margin: 0 0 var(--space-3);
+  }
+  .lede {
+    font-size: var(--fs-lede);
+    font-style: italic;
+    color: var(--ink);
+    margin: 0 0 var(--space-6);
+    line-height: var(--lh-snug);
+  }
+  .diagram-wrap {
+    background: var(--bg-paper);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-3);
+    padding: var(--space-5);
+    margin: 0 0 var(--space-5);
+  }
+  svg { display: block; width: 100%; height: auto; }
+
+  /* Animations */
+  @keyframes drawWall {
+    from { stroke-dasharray: 1700; stroke-dashoffset: 1700; }
+    to { stroke-dasharray: 1700; stroke-dashoffset: 0; }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes drop {
+    from { transform: translateY(-8px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes personPop {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes personBreathe {
+    0%, 100% { r: 6; }
+    50% { r: 6.5; }
+  }
+
+  /* Building outline draws first */
+  .wall {
+    stroke: var(--ink-muted);
+    stroke-width: 1.5;
+    fill: none;
+    animation: drawWall 1200ms var(--ease-out) backwards;
+  }
+
+  /* Rooms fade in after walls */
+  .room {
+    fill: var(--bg);
+    stroke: var(--ink-muted);
+    stroke-width: 1;
+    animation: fadeIn 400ms var(--ease-out) backwards;
+  }
+  .room:nth-of-type(1) { animation-delay: 1100ms; }
+  .room:nth-of-type(2) { animation-delay: 1150ms; }
+  .room:nth-of-type(3) { animation-delay: 1200ms; }
+  .room:nth-of-type(4) { animation-delay: 1250ms; }
+  .room:nth-of-type(5) { animation-delay: 1300ms; }
+  .room:nth-of-type(6) { animation-delay: 1350ms; }
+  .room:nth-of-type(7) { animation-delay: 1400ms; }
+  .room:nth-of-type(8) { animation-delay: 1450ms; }
+
+  .common {
+    fill: var(--ochre-soft);
+    stroke: var(--ochre);
+    stroke-width: 1;
+    animation: fadeIn 500ms var(--ease-out) 1500ms backwards;
+  }
+
+  /* People drop in */
+  .person {
+    fill: var(--accent);
+    cursor: pointer;
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: personPop 400ms var(--ease-out) backwards;
+    transition: fill 200ms var(--ease-out);
+  }
+  .person:nth-of-type(1) { animation-delay: 1700ms; }
+  .person:nth-of-type(2) { animation-delay: 1780ms; }
+  .person:nth-of-type(3) { animation-delay: 1860ms; }
+  .person:nth-of-type(4) { animation-delay: 1940ms; }
+  .person:nth-of-type(5) { animation-delay: 2020ms; }
+  .person:nth-of-type(6) { animation-delay: 2100ms; }
+  .person:nth-of-type(7) { animation-delay: 2180ms; }
+  .person:nth-of-type(8) { animation-delay: 2260ms; }
+  .person:nth-of-type(9) { animation-delay: 2340ms; }
+  .person:nth-of-type(10) { animation-delay: 2420ms; }
+  .person:nth-of-type(11) { animation-delay: 2500ms; }
+  .person:nth-of-type(12) { animation-delay: 2580ms; }
+
+  .person:hover, .person.active {
+    fill: var(--accent-hover);
+  }
+
+  /* Labels */
+  .room-label, .common-label {
+    pointer-events: none;
+    animation: fadeIn 300ms var(--ease-out) backwards;
+  }
+  .room-label {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: var(--tracking-meta);
+    fill: var(--ink-muted);
+    text-transform: uppercase;
+    text-anchor: middle;
+    animation-delay: 1500ms;
+  }
+  .common-label {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    fill: var(--ochre);
+    font-size: 14px;
+    text-anchor: middle;
+    animation-delay: 1700ms;
+  }
+
+  /* Threshold annotations */
+  .threshold-line {
+    stroke: var(--accent);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+    opacity: 0;
+    animation: fadeIn 400ms var(--ease-out) 2700ms forwards;
+  }
+  .threshold-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    fill: var(--accent);
+    opacity: 0;
+    animation: fadeIn 400ms var(--ease-out) 2800ms forwards;
+  }
+
+  /* Text panel */
+  .text-panel {
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-2);
+    padding: var(--space-5);
+    margin-top: var(--space-5);
+    opacity: 0;
+    animation: fadeIn 600ms var(--ease-out) 3000ms forwards;
+  }
+  .text-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-h4);
+    color: var(--accent);
+    margin: 0 0 var(--space-3);
+  }
+  .text-body {
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+    color: var(--ink);
+    margin: 0 0 var(--space-3);
+  }
+  .text-body em { color: var(--accent); font-style: italic; }
+  .quote {
+    border-left: 2px solid var(--accent);
+    padding-left: var(--space-4);
+    margin: var(--space-4) 0;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .caption {
+    font-family: var(--font-ui);
+    font-size: var(--fs-meta);
+    letter-spacing: var(--tracking-meta);
+    color: var(--ink-muted);
+    margin: var(--space-3) 0 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition-duration: 0ms !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <h1>The self-governing workshop</h1>
+    <p class="lede">Christopher Alexander's Pattern 80 in <i>A Pattern Language</i> (1977) describes a working group small enough that all members know each other, share a common space, and can govern themselves without an internal hierarchy. The number he proposes overlaps almost exactly with Dunbar's sympathy group.</p>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 600 400" role="img" aria-label="Floor plan of a self-governing workshop with twelve people, common area, and surrounding rooms">
+
+        <!-- Outer building boundary draws first -->
+        <rect class="wall" x="40" y="40" width="520" height="320" rx="2"></rect>
+
+        <!-- Rooms fade in -->
+        <rect class="room" x="60" y="60" width="120" height="80"></rect>
+        <rect class="room" x="60" y="160" width="120" height="80"></rect>
+        <rect class="room" x="60" y="260" width="120" height="80"></rect>
+        <rect class="room" x="420" y="60" width="120" height="80"></rect>
+        <rect class="room" x="420" y="160" width="120" height="80"></rect>
+        <rect class="room" x="420" y="260" width="120" height="80"></rect>
+        <rect class="room" x="200" y="60" width="200" height="60"></rect>
+        <rect class="room" x="200" y="280" width="200" height="60"></rect>
+
+        <!-- Common area -->
+        <rect class="common" x="200" y="140" width="200" height="120" rx="2"></rect>
+
+        <!-- Room labels -->
+        <text class="room-label" x="120" y="105">workshop</text>
+        <text class="room-label" x="120" y="205">workshop</text>
+        <text class="room-label" x="120" y="305">workshop</text>
+        <text class="room-label" x="480" y="105">workshop</text>
+        <text class="room-label" x="480" y="205">workshop</text>
+        <text class="room-label" x="480" y="305">workshop</text>
+        <text class="room-label" x="300" y="95">entry / shared kitchen</text>
+        <text class="room-label" x="300" y="315">storage / archive</text>
+        <text class="common-label" x="300" y="195">common</text>
+        <text class="common-label" x="300" y="215">area</text>
+
+        <!-- Twelve people -->
+        <circle class="person" cx="95" cy="100" r="6" data-person="1"></circle>
+        <circle class="person" cx="145" cy="115" r="6" data-person="2"></circle>
+        <circle class="person" cx="120" cy="200" r="6" data-person="3"></circle>
+        <circle class="person" cx="100" cy="295" r="6" data-person="4"></circle>
+        <circle class="person" cx="150" cy="310" r="6" data-person="5"></circle>
+        <circle class="person" cx="455" cy="100" r="6" data-person="6"></circle>
+        <circle class="person" cx="455" cy="200" r="6" data-person="7"></circle>
+        <circle class="person" cx="505" cy="195" r="6" data-person="8"></circle>
+        <circle class="person" cx="480" cy="305" r="6" data-person="9"></circle>
+        <circle class="person" cx="260" cy="190" r="6" data-person="10"></circle>
+        <circle class="person" cx="310" cy="200" r="6" data-person="11"></circle>
+        <circle class="person" cx="350" cy="220" r="6" data-person="12"></circle>
+
+        <!-- Threshold annotation -->
+        <line class="threshold-line" x1="40" y1="380" x2="200" y2="380"></line>
+        <text class="threshold-label" x="40" y="376">5–20 people</text>
+        <text class="threshold-label" x="560" y="376" text-anchor="end">12 shown</text>
+      </svg>
+    </div>
+
+    <div class="text-panel">
+      <h3 class="text-title">The pattern</h3>
+      <p class="text-body">Alexander observed that workplaces grow rotten beyond a certain size. Once a workshop becomes large enough that the people in it no longer know each other by name, by trade, by family situation, the texture of work changes. Hierarchies appear; coordination costs rise; the worker begins to feel like a cog rather than a participant.</p>
+      <div class="quote">"No one enjoys his work if he is a cog in a machine. […] Encourage the formation of self-governing workshops and offices of 5 to 20 workers. Make each group autonomous, with respect to its own internal organisation, its methods, its hours, its policies."</div>
+      <p class="text-body">Pattern 80, <em>Self-Governing Workshops and Offices</em>. The range Alexander gives, 5 to 20, brackets the second Dunbar layer almost exactly. The pattern was published in 1977; Dunbar's quantitative work on social cognition would not appear until the early 1990s. Two independent traditions, an architect drawing on craft and observation, an evolutionary anthropologist drawing on neocortex measurements, converge on the same number.</p>
+      <p class="text-body">A connected pattern, <em>Pattern 148: Small Work Groups</em>, refines the observation: even within a larger institution, work happens best in clusters of around half a dozen people who share the same room and the same daily rhythm.</p>
+    </div>
+
+    <p class="caption">Reading: Alexander, Ishikawa &amp; Silverstein, <i>A Pattern Language</i>, Oxford University Press, 1977. Patterns 80 and 148.</p>
+  </div>
+
+<script>
+  const people = document.querySelectorAll('.person');
+  people.forEach(p => {
+    p.addEventListener('mouseenter', () => p.classList.add('active'));
+    p.addEventListener('mouseleave', () => p.classList.remove('active'));
+  });
+</script>
+</body>
+</html>

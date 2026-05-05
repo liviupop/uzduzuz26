@@ -1,0 +1,165 @@
+/* uzinaduzina design system: colors, type, spacing
+ * Self-hosted Bitter (variable + italic variable). Inter remains via Google Fonts
+ * for UI metadata; no sans-serif was supplied by the brand.
+ *
+ * Bitter is a slab serif with a friendly, editorial voice and full RO diacritics.
+ * It serves both display (heavy weights, large sizes) and body (regular, italic).
+ */
+
+@font-face {
+  font-family: 'Bitter';
+  src: url('../fonts/Bitter-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bitter';
+  src: url('../fonts/Bitter-Italic-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ---------- Colour ---------- */
+  --bg: #FAF6F0;
+  --bg-paper: #F5EFE5;
+  --bg-sunk: #EDE5D6;
+
+  --ink: #1A1F2E;
+  --ink-muted: #5B6178;
+
+  --rule: #D9D0BE;
+  --rule-soft: #E6DECC;
+
+  --accent: #4338D6;
+  --accent-hover: #2D24A8;
+  --accent-soft: #E5E2F8;
+
+  --ochre: #C99745;
+  --ochre-soft: #EFE0C0;
+
+  --green: #5A7A4E;
+  --green-soft: #DCE5D2;
+
+  /* Semantic aliases */
+  --color-bg: var(--bg);
+  --color-fg: var(--ink);
+  --color-fg-muted: var(--ink-muted);
+  --color-link: var(--accent);
+  --color-link-hover: var(--accent-hover);
+  --color-rule: var(--rule);
+
+  /* ---------- Type ---------- */
+  /* Bitter is the brand family; serves display and body. */
+  --font-display: 'Bitter', Georgia, serif;
+  --font-body: 'Bitter', Georgia, serif;
+  --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+  --fs-h1: 44px;
+  --fs-h2: 28px;
+  --fs-h3: 22px;
+  --fs-h4: 18px;
+  --fs-lede: 22px;
+  --fs-body: 19px;
+  --fs-small: 16px;
+  --fs-meta: 13px;
+  --fs-code: 16px;
+
+  --lh-tight: 1.15;
+  --lh-snug: 1.35;
+  --lh-body: 1.65;
+
+  --tracking-meta: 0.04em;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  --col-width: 600px;
+  --col-gap: 48px;
+  --bar-width: 280px;
+
+  --radius-1: 2px;
+  --radius-2: 4px;
+  --radius-3: 8px;
+
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 150ms;
+  --dur-base: 180ms;
+}
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body { margin: 0; background: var(--bg); color: var(--ink); }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--accent);
+  letter-spacing: -0.01em;
+  margin: var(--space-6) 0 var(--space-3);
+}
+
+h1 { font-size: var(--fs-h1); font-weight: 900; line-height: var(--lh-tight); }
+h2 { font-size: var(--fs-h2); font-weight: 800; line-height: var(--lh-snug); }
+h3 { font-size: var(--fs-h3); font-weight: 700; line-height: var(--lh-snug); }
+
+h4 {
+  font-family: var(--font-body);
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  color: var(--ink);
+  margin: var(--space-5) 0 var(--space-2);
+}
+
+p { margin: 0 0 var(--space-5); text-wrap: pretty; }
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease-out),
+              text-decoration-thickness var(--dur-fast) var(--ease-out);
+}
+a:hover { color: var(--accent-hover); text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--radius-1); }
+
+.lede { font-size: var(--fs-lede); font-style: italic; color: var(--ink); }
+
+.meta {
+  font-family: var(--font-ui);
+  font-size: var(--fs-meta);
+  letter-spacing: var(--tracking-meta);
+  color: var(--ink-muted);
+}
+
+code, pre {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code);
+  background: var(--bg-sunk);
+  border-radius: var(--radius-1);
+}
+code { padding: 1px 4px; }
+pre { padding: var(--space-4); overflow-x: auto; }
+
+hr { border: 0; border-top: 1px solid var(--rule); margin: var(--space-6) 0; }
+
+::selection { background: var(--accent-soft); color: var(--ink); }
