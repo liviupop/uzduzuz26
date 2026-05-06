@@ -28,3 +28,6 @@ venv/
 
 # Cloudflare Pages local dev cache, if anyone uses wrangler
 .wrangler/
+
+# Claude Code workspace files
+.claude/

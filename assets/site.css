@@ -471,6 +471,42 @@ button { font-family: inherit; }
   gap: 6px;
   margin-top: 18px;
 }
+
+/* "Next principle →" button placed in the principle note header. Bigger and
+   more visible than a "Read alongside" link at the bottom. */
+.note-nav-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+  padding: 12px 18px 12px 22px;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: var(--radius-3);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+}
+.note-nav-next:hover {
+  background: var(--accent);
+  transform: translateX(2px);
+}
+.note-nav-next .lbl {
+  text-transform: lowercase;
+}
+.note-nav-next .arr {
+  font-size: 22px;
+  line-height: 1;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.note-nav-next:hover .arr {
+  transform: translateX(4px);
+}
 .note-pill {
   font-family: var(--font-ui);
   font-size: 11px;

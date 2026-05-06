@@ -18,6 +18,24 @@
     ]
   },
   {
+    "slug": "curiosity-village-manifesto",
+    "type": "curiosity",
+    "title": "The Manifesto of City Dwellers Who Love the Village",
+    "kicker": "archive · 2020 manifesto",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "Reproduced in full from our 2020-era website. Eleven principles for digital nomads and remote workers who want to embrace rural life.",
+    "excerpt": "A general guide for digital nomads and remote workers who want to embrace the rural lifestyle.",
+    "year": "",
+    "role": "",
+    "order": 2,
+    "pills": [
+      "2020 archive",
+      "eleven principles",
+      "rural · digital nomads"
+    ]
+  },
+  {
     "slug": "who-we-are",
     "type": "org",
     "title": "Who we are",
@@ -25,7 +43,7 @@
     "accent": "indigo",
     "subtitle": "",
     "summary": "",
-    "excerpt": "uzinaduzina is a non-profit association based in Cluj-Napoca, Romania.",
+    "excerpt": "uzinaduzina is a non-profit cultural association founded in Cluj-Napoca in 2008 and rebooted in 2020.",
     "year": "",
     "role": "",
     "order": 99,
@@ -200,7 +218,7 @@
   {
     "slug": "manifesto-active-transversal-citizenship",
     "type": "principle",
-    "title": "Active, transversal citizenship",
+    "title": "Active citizenship as a transversal practice",
     "kicker": "principle · 04 of 11",
     "accent": "ochre",
     "subtitle": "",
@@ -629,6 +647,63 @@
       "Erasmus+ KA105",
       "Croatia",
       "beneficiary"
+    ]
+  },
+  {
+    "slug": "project-korczak-lens",
+    "type": "project",
+    "title": "Korczak Lens",
+    "kicker": "project · 2021–2022 · partner",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "Your story guided by Janusz Korczak's vision. A workshop and seminar series on children's rights, in partnership with the Polish Institute in Bucharest.",
+    "excerpt": "Your story guided by Janusz Korczak's vision.",
+    "year": "",
+    "role": "partner",
+    "order": 16,
+    "pills": [
+      "closed",
+      "2021–2022",
+      "Polish Institute Bucharest",
+      "partner"
+    ]
+  },
+  {
+    "slug": "project-sibiar",
+    "type": "project",
+    "title": "SibiAR · the houses' stories",
+    "kicker": "project · Sibiu · analog AR exploration kit",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "An analog augmented-reality exploration kit. Ten transparent overlays, ten what3words anchor points, ten hidden Sibiu stories told by the houses themselves.",
+    "excerpt": "An attempt to recover hidden stories of Sibiu.",
+    "year": "",
+    "role": "lead",
+    "order": 17,
+    "pills": [
+      "in development",
+      "Sibiu",
+      "analog AR",
+      "multi-ethnic heritage"
+    ]
+  },
+  {
+    "slug": "project-polish-discoveries",
+    "type": "project",
+    "title": "Polish Discoveries that Changed the World",
+    "kicker": "project · 2026 · partner",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "Four workshops for around 120 children, built around the Polish Institute exhibition *Polish Inventions That Changed the World* at the Octavian Goga County Library in Cluj.",
+    "excerpt": "March 2026.",
+    "year": "",
+    "role": "partner",
+    "order": 18,
+    "pills": [
+      "March 2026",
+      "Polish Institute Bucharest",
+      "Cluj-Napoca",
+      "4 workshops · ~120 children"
     ]
   }
 ]

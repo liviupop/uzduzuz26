@@ -25,5 +25,9 @@ This first principle leads naturally into the next, since the question of what w
 
 - [02. Calm technologies →](manifesto-calm-technologies)
 - [Manifesto](manifesto)
-- [Projects: Cabinet of retrofuturist curiosities](project-cabinet-retrofuturist)
-- [Projects: Wooden Wonders](project-wooden-wonders)
+- [Projects: Korczak Lens](project-korczak-lens)
+- [Projects: SibiAR](project-sibiar)
+- [Projects: Goana după meteor](project-goana-dupa-meteor)
+- [Projects: Green Genesis Startup](project-green-genesis-startup)
+- [Projects: Drops of Sustainable Development](project-drops-sustainable-development)
+- [Projects: Greenycrafts](project-greenycrafts)

@@ -17,8 +17,8 @@ window.NOTES = {
       { kind: 'h2', text: 'three lines we keep pulling' },
       { kind: 'tags', items: [
         { tag: '#critical-tech', text: 'A continuous line of work on technology and democratic life since 2020: the cabinet of retrofuturist curiosities (2024), the AI4NGOs training in Cluj (2025), and the educational materials we keep producing. We are reflective about technology, not enthusiastic about it.' },
-        { tag: '#european-mobilities', text: 'Eight Erasmus+ projects, two of them coordinated by us as lead, with partners in Cyprus, Italy, Greece, Spain, Croatia, and Poland. Being European is not a marketing claim; it is the funding architecture.' },
-        { tag: '#living-heritage', text: 'Folk astronomy, traditional crafts, intangible heritage as material that does not need a glass case to stay alive. Goana după meteor (2025), Wooden Wonders (2025), the cabinet of retrofuturist curiosities (2024).' },
+        { tag: '#european-projects', text: 'Eight Erasmus+ projects, two of them coordinated by us as lead. Being European is not a marketing claim; it is the funding architecture.' },
+        { tag: '#living-heritage', text: 'Folk & cultural astronomy, traditional crafts, intangible heritage as material that does not need a glass case to stay alive. Goana după meteor (2025), Wooden Wonders (2025). The cabinet of retrofuturist curiosities (2024).' },
       ]},
 
       { kind: 'h2', text: 'enter through any door' },
@@ -42,7 +42,7 @@ window.NOTES = {
       ]},
 
       { kind: 'h2', text: 'European network' },
-      { kind: 'md', html: '<p>Working alongside CCIF Cyprus (five projects together), 4 Elements Croatia, CO-LABORY Italy, Innovation Hive Greece, ACD La Hoya Spain, Udruga Murtila Croatia, and the Polish Institute Romania. The full constellation: see the <a href="?n=partners" data-note="partners">partners</a> note.</p>' },
+      { kind: 'md', html: '<p>Working alongside CCIF Cyprus, 4 Elements Croatia, CO-LABORY Italy, Innovation Hive Greece, ACD La Hoya Spain, Udruga Murtila Croatia, and the Polish Institute Romania. The full constellation: see the <a href="?n=partners" data-note="partners">partners</a> note.</p>' },
 
       { kind: 'addresses', items: [
         { label: 'most recent', value: 'AI4NGOs (Cluj, August 2025) · Goana după meteor (Mociu, August 2025)' },
@@ -86,10 +86,18 @@ window.NOTES = {
     type: 'org',
     kicker: 'projects',
     title: 'projects',
-    subtitle: '15 projects, 2020 → 2026. Roughly half a million euros coordinated as lead across the major Erasmus+ KA220 partnerships, plus international mobilities as partner and beneficiary.',
+    subtitle: 'Roughly half a million euros coordinated as lead across the major Erasmus+ KA220 partnerships, plus international mobilities as partner and beneficiary.',
     accent: 'indigo',
     body: [
       { kind: 'lede', text: 'Sorted by what we did, not by who funded it. Click any project to open its full note alongside.' },
+
+      { kind: 'h2', text: 'highlights' },
+      { kind: 'cards', items: [
+        { href: 'project-drops-sustainable-development', label: 'Drops of Sustainable Development', sub: 'KA220-ADU · €250,000 · 2024–2026 · ongoing' },
+        { href: 'project-green-genesis-startup', label: 'Green Genesis Startup', sub: 'KA220-YOU · €205,144 · 2022–2024' },
+        { href: 'project-goana-dupa-meteor', label: 'Goana după meteor', sub: 'AFCN · 2025 · astronomy at Mociu' },
+        { href: 'project-ai4ngos', label: 'AI4NGOs', sub: 'AI in civil society · Cluj for CCIF · August 2025' },
+      ]},
 
       { kind: 'h2', text: 'coordinated as lead' },
       { kind: 'auto-list', filter: { type: 'project', role: 'lead' } },

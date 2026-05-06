@@ -26,6 +26,8 @@ To work with the past in this way is, paradoxically, to work in service of the f
 
 - [10. Responsibility toward the future →](manifesto-responsibility-toward-the-future)
 - [Manifesto](manifesto)
+- [Archive: The 2020 *Manifesto of City Dwellers Who Love the Village*](curiosity-village-manifesto) — an earlier statement of this principle, reproduced in full
 - [Projects: Wooden Wonders](project-wooden-wonders)
-- [Projects: Goana după meteor](project-goana-dupa-meteor)
 - [Projects: Greenycrafts](project-greenycrafts)
+- [Projects: Goana după meteor](project-goana-dupa-meteor)
+- [Projects: SibiAR](project-sibiar)

@@ -27,4 +27,8 @@ The willingness to experiment, sustained over years, leaves an organisation with
 - [08. Critical technology →](manifesto-critical-technology)
 - [Manifesto](manifesto)
 - [Projects: Cabinet of retrofuturist curiosities](project-cabinet-retrofuturist)
-- [Projects: Goana după meteor](project-goana-dupa-meteor)
+- [Projects: Belgica 100 Workshops](project-belgica-100-workshops)
+- [Projects: Polish Discoveries](project-polish-discoveries)
+- [Projects: Goana după meteor](project-goana-dupa-meteor) — astronomy camp at Mociu
+- [Projects: SibiAR](project-sibiar)
+- [Projects → see all the others](projects)

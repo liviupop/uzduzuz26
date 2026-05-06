@@ -975,7 +975,7 @@
     // homepage-only flourish
     if (id === 'home') {
       const flo = el('div', { class: 'cover-flourish' });
-      flo.appendChild(el('div', { class: 'yr' }, 'EST. 2008 · CLUJ-NAPOCA'));
+      flo.appendChild(el('div', { class: 'yr' }, 'EST. 2008 · REBOOTED 2020 · CLUJ-NAPOCA'));
       flo.appendChild(el('div', { class: 'stamp' }, ['a factory', el('br'), 'by the dozen']));
       head.appendChild(flo);
     } else {
@@ -994,6 +994,31 @@
         pills.appendChild(el('span', { class: 'note-pill' + (p.variant === 'on' ? ' on' : '') }, p.label));
       }
       head.appendChild(pills);
+    }
+
+    // For principle notes, place a prominent "next principle →" button in the
+    // header. Loops back to principle 01 after 11.
+    if (data.type === 'principle' && AUTO_INDEX) {
+      const principles = AUTO_INDEX
+        .filter(n => n.type === 'principle')
+        .sort((a, b) => a.order - b.order || a.slug.localeCompare(b.slug));
+      const idx = principles.findIndex(n => n.slug === id);
+      if (idx >= 0) {
+        const next = principles[(idx + 1) % principles.length];
+        const btn = el('a', {
+          class: 'note-nav-next',
+          href: `?n=${next.slug}`,
+          'data-note': next.slug,
+        }, [
+          el('span', { class: 'lbl' }, `next: ${next.title}`),
+          el('span', { class: 'arr' }, '→'),
+        ]);
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          app.openNoteAt(next.slug, depth);
+        });
+        head.appendChild(btn);
+      }
     }
 
     inner.appendChild(head);
@@ -1105,7 +1130,7 @@
       const tabs = [
         { id: 'home', label: 'home' },
         { id: 'who-we-are', label: 'who we are' },
-        { id: 'manifesto', label: 'manifesto' },
+        { id: 'manifesto', label: 'fundamentals' },
         { id: 'projects', label: 'projects' },
         { id: 'team', label: 'team' },
         { id: 'partners', label: 'partners' },

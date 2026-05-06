@@ -1,5 +1,5 @@
 ---
-title: "Active, transversal citizenship"
+title: "Active citizenship as a transversal practice"
 slug: manifesto-active-transversal-citizenship
 type: principle
 kicker: "principle · 04 of 11"
@@ -24,5 +24,11 @@ There is an obvious risk, which is that a sufficiently capacious idea of citizen
 
 - [05. Explicitly pro-European →](manifesto-explicitly-pro-european)
 - [Manifesto](manifesto)
+- [Projects: Korczak Lens](project-korczak-lens)
+- [Projects: SibiAR](project-sibiar)
+- [Projects: Goana după meteor](project-goana-dupa-meteor)
+- [Projects: Wooden Wonders](project-wooden-wonders)
+- [Projects: Do the Move](project-do-the-move)
+- [Projects: Green Genesis Startup](project-green-genesis-startup)
 - [Projects: democraicy](project-democraicy)
 - [Projects: Atât @ Artă.NonStop](project-atat-arta-nonstop)

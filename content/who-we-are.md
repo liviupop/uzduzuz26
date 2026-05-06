@@ -12,7 +12,17 @@ pills:
 
 # Who we are
 
-uzinaduzina is a non-profit association based in Cluj-Napoca, Romania.
+## In one paragraph
+
+uzinaduzina is a non-profit cultural association founded in Cluj-Napoca in 2008 and rebooted in 2020. We work at the intersection of art, intangible heritage, education, and critical technology, in continuous dialogue with European partners across seven countries.
+
+## In a few
+
+uzinaduzina is a non-profit cultural association in Cluj-Napoca, Romania. Founded in 2008 by a small group of researchers and friends, we rebooted in 2020 with a sharpened focus: how cultural and educational institutions can hold their ground in an information environment increasingly hostile to slow thought.
+
+Since then we have coordinated two major Erasmus+ KA220 partnerships totalling roughly half a million euros (*Green Genesis Startup*, *Drops of Sustainable Development*), led the *Goana după meteor* astronomy camp at Mociu, and hosted the *AI4NGOs* youth-worker training in Cluj for CCIF Cyprus. Our partners come from Cyprus, Italy, Greece, Spain, Croatia, and Poland.
+
+What is specific to us: an explicit commitment to European cooperation as funding architecture; education for the whole person in the spirit of Comenius, Froebel, Montessori, and Korczak; and a continuous line of work on technology and democratic life. We work small on purpose. The dozen-person scale lets us coordinate by conversation rather than by command.
 
 ## The name
 
@@ -30,7 +40,7 @@ For a longer treatment, with the mathematical 1:3 scaling between layers (Zhou e
 
 ## What we have done
 
-We coordinate and participate in projects funded through **Erasmus+**, **AFCN**, **Polish Institute Romania**, **Botnar Foundation** (through QUB) and **FDSC**. For the full project list with references, periods and budgets, see the [projects page](/projects).
+We coordinate and participate in projects funded through [**Erasmus+**](https://erasmus-plus.ec.europa.eu/) and [**AFCN**](https://www.afcn.ro/), and by the [**Polish Institute Romania**](https://institutulpolonez.ro/), [**Botnar Foundation**](https://www.fondationbotnar.org/) (through QUB / [**Centrul Cultural Clujean**](https://centrulculturalclujean.ro/)), and [**FDSC** (Fundația pentru Dezvoltarea Societății Civile)](https://www.fdsc.ro/). For the full project list with references, periods and budgets, see the [projects page](/projects).
 
 Two major Erasmus+ KA220 projects coordinated as lead:
 

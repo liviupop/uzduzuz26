@@ -24,5 +24,7 @@ The discipline of staying quiet about technology is not the same as being indiff
 
 - [03. Education for the whole person →](manifesto-education-for-the-whole-person)
 - [Manifesto](manifesto)
-- [Projects: AI4NGOs](project-ai4ngos)
 - [Projects: Cabinet of retrofuturist curiosities](project-cabinet-retrofuturist)
+- [Projects: Polish Discoveries](project-polish-discoveries)
+- [Projects: SibiAR](project-sibiar)
+- [Projects: AI4NGOs](project-ai4ngos)
