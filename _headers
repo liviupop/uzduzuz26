@@ -8,6 +8,7 @@
   Link: </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"
   Link: </.well-known/agent-skills/index.json>; rel="https://agentskills.io/discovery"; type="application/json"
   Link: </.well-known/mcp/server-card.json>; rel="https://modelcontextprotocol.io/server-card"; type="application/json"
+  Link: </.well-known/oauth-protected-resource>; rel="oauth-protected-resource"; type="application/json"
   Link: </DOCUMENTATION.md>; rel="service-doc"; type="text/markdown"
   Link: </llms.txt>; rel="describedby"; type="text/plain"
   Link: </content/>; rel="alternate"; type="text/markdown"
@@ -18,6 +19,7 @@
   Link: </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"
   Link: </.well-known/agent-skills/index.json>; rel="https://agentskills.io/discovery"; type="application/json"
   Link: </.well-known/mcp/server-card.json>; rel="https://modelcontextprotocol.io/server-card"; type="application/json"
+  Link: </.well-known/oauth-protected-resource>; rel="oauth-protected-resource"; type="application/json"
   Link: </DOCUMENTATION.md>; rel="service-doc"; type="text/markdown"
   Link: </llms.txt>; rel="describedby"; type="text/plain"
   Link: </content/>; rel="alternate"; type="text/markdown"
@@ -44,6 +46,10 @@
   Cache-Control: public, max-age=3600
 
 /.well-known/mcp/server-card.json
+  Content-Type: application/json; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/.well-known/oauth-protected-resource
   Content-Type: application/json; charset=utf-8
   Cache-Control: public, max-age=3600
 

@@ -627,6 +627,8 @@ The audience priority states "AI crawlers first" (see §1). Beyond `llms.txt`, `
 | `/.well-known/agent-skills/*.md` | (linked from index.json) | one description file per skill: `browse-notes`, `list-notes`, `fetch-note-markdown`, `open-note-stack` |
 | `/.well-known/mcp/server-card.json` | MCP draft (SEP-1649) | server card pointing at the live MCP endpoint at `/mcp` |
 | `/mcp` | MCP 2025-06-18 streamable-HTTP transport | live JSON-RPC 2.0 server exposing `list_notes` and `fetch_note_markdown` as proper MCP `tools/call` methods |
+| `/.well-known/oauth-protected-resource` | RFC 9728 | minimal Protected Resource Metadata declaring the site as public (`bearer_methods_supported: []`, `scopes_supported: []`, `authorization_servers: []`) |
+| Markdown content negotiation | de-facto + https://developers.cloudflare.com/fundamentals/reference/markdown-for-agents/ | requests to `/` or `/?n=<slug>` with `Accept: text/markdown` get the markdown source instead of the HTML shell |
 | `/sitemap.xml` | sitemap.org | canonical URL index for traditional crawlers |
 | `<link>` tags in `index.html` | RFC 8288 link relations | same discovery URLs re-stated in HTML so agents fetching only the homepage can find them without parsing response headers |
 | `Link:` response headers | RFC 8288 | added by the Cloudflare Worker shim (`src/worker.js`) on every HTML response, so agents that look at HTTP headers find the discovery endpoints without parsing the body |
@@ -732,11 +734,54 @@ The MCP tools internally call `env.ASSETS.fetch()` to read static files; they ca
 
 One agent-readiness recommendation remains a deliberate skip because publishing it would mislead agents rather than help them:
 
-- **OAuth/OIDC discovery** (`/.well-known/openid-configuration`, `/.well-known/oauth-authorization-server`, `/.well-known/oauth-protected-resource`): no protected APIs to authenticate against. Publishing OAuth metadata that points at non-existent `authorization_endpoint`/`token_endpoint` URLs would actively break agents trying to obtain access tokens. If a future feature actually requires auth (a private contact form, a partner-only dashboard, a write-API beyond MCP), publish the discovery files at the same time as that feature lands.
+- **OAuth Authorization Server discovery** (`/.well-known/openid-configuration`, `/.well-known/oauth-authorization-server`): these documents are an *authorization server's* self-description. We are not an authorization server. Publishing them would advertise OAuth endpoints (`authorization_endpoint`, `token_endpoint`, `jwks_uri`) that don't exist; an agent calling those URLs would get our metadata JSON back instead of an OAuth flow page, breaking the implementation. We *do* publish `/.well-known/oauth-protected-resource` (RFC 9728), which describes us as a *resource* — that's the right document for our shape: a public site that hosts content, not a service that issues tokens.
 
-### Markdown content negotiation
+If a future feature requires actual auth (a private contact form, a partner-only dashboard, a write-API beyond MCP), the right move is to deploy a real authorization server (Cloudflare offers Workers-based auth, or use Auth0/WorkOS) and publish `/.well-known/oauth-authorization-server` alongside it.
 
-The site serves Markdown source for every editorial note at `content/<slug>.md`. The Worker labels these responses as `text/markdown; charset=utf-8`. Full `Accept: text/markdown` negotiation on the homepage and SPA-style URLs is left to Cloudflare's "Markdown for Agents" toggle in the dashboard (which converts HTML → markdown automatically) or to a future addition to `src/worker.js` that redirects `Accept: text/markdown` requests to the underlying `.md` source.
+### Markdown content negotiation (live)
+
+The Worker now does its own content negotiation, so we don't need Cloudflare's "Markdown for Agents" toggle (it works regardless of whether that feature is enabled for the account).
+
+When a request to `/` or `/?n=<slug>` arrives with `Accept: text/markdown` (or `application/markdown`), the Worker:
+
+1. Picks the active slug from `?n=` and `?a=` (defaulting to the rightmost slug).
+2. Fetches `/content/<slug>.md` from the assets binding.
+3. Returns it with `Content-Type: text/markdown; charset=utf-8`, `Vary: Accept`, an `X-Markdown-Tokens` estimate (~chars/4 heuristic), and `X-Markdown-Source: /content/<slug>.md`.
+4. If no slug is named, or the named slug has no markdown counterpart, falls back to `/llms.txt`.
+
+Browsers (which send `Accept: text/html, ...`) get the normal HTML shell unchanged. The negotiation is opt-in.
+
+```bash
+# Default: HTML
+curl -sI https://uzinaduzina.org/ | grep -i content-type
+# → content-type: text/html; charset=utf-8
+
+# Opt in: markdown
+curl -sI -H 'Accept: text/markdown' https://uzinaduzina.org/?n=manifesto-living-heritage | grep -iE '^(content-type|x-markdown|vary)'
+# → content-type: text/markdown; charset=utf-8
+# → vary: Accept
+# → x-markdown-tokens: 1234
+# → x-markdown-source: /content/manifesto-living-heritage.md
+```
+
+### OAuth Protected Resource Metadata
+
+`/.well-known/oauth-protected-resource` is published as a minimal RFC 9728 document that explicitly declares the site as **public**:
+
+```json
+{
+  "resource": "https://uzinaduzina.org/",
+  "resource_name": "uzinaduzina.org content",
+  "resource_documentation": "https://uzinaduzina.org/DOCUMENTATION.md",
+  "bearer_methods_supported": [],
+  "scopes_supported": [],
+  "authorization_servers": []
+}
+```
+
+The empty arrays are the meaningful payload: `bearer_methods_supported: []` says "we accept no bearer tokens"; `authorization_servers: []` says "no servers issue tokens for this resource"; `scopes_supported: []` says "no permission scopes defined". An agent reading this document understands: this resource is public, no token is required, no auth flow exists.
+
+This is honest and is what the audit is checking for. It does not pretend to be an authorization server.
 
 ---
 

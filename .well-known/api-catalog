@@ -49,6 +49,13 @@
           "title": "MCP server endpoint — JSON-RPC 2.0 over POST"
         }
       ],
+      "oauth-protected-resource": [
+        {
+          "href": "https://uzinaduzina.org/.well-known/oauth-protected-resource",
+          "type": "application/json",
+          "title": "OAuth Protected Resource Metadata (RFC 9728) — declares the site as a public, unauthenticated resource"
+        }
+      ],
       "alternate": [
         {
           "href": "https://uzinaduzina.org/content/",

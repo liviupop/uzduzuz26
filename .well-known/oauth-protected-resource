@@ -1,0 +1,10 @@
+{
+  "resource": "https://uzinaduzina.org/",
+  "resource_name": "uzinaduzina.org content",
+  "resource_documentation": "https://uzinaduzina.org/DOCUMENTATION.md",
+  "resource_policy_uri": "https://uzinaduzina.org/llms.txt",
+  "bearer_methods_supported": [],
+  "scopes_supported": [],
+  "authorization_servers": [],
+  "_note": "uzinaduzina.org publishes only public, read-only content. There are no protected APIs, no authorization servers, and no bearer token methods supported. The empty arrays for bearer_methods_supported, scopes_supported, and authorization_servers signal this explicitly: agents do not need to authenticate. The MCP server at /mcp is also unauthenticated. See DOCUMENTATION.md §20 for the full agent-discoverability story."
+}
