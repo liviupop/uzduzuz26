@@ -1,0 +1,9 @@
+{
+  "issuer": "https://uzinaduzina.org",
+  "grant_types_supported": [],
+  "response_types_supported": [],
+  "scopes_supported": [],
+  "token_endpoint_auth_methods_supported": [],
+  "service_documentation": "https://uzinaduzina.org/DOCUMENTATION.md",
+  "_note": "uzinaduzina.org is not actually an OAuth 2.0 authorization server. This metadata is published only to satisfy agent-discoverability tooling that checks for the file's existence. The empty arrays for grant_types_supported, response_types_supported, and scopes_supported are the meaningful payload: no OAuth flows are available here. The site hosts only public, read-only content. The canonical declaration is at /.well-known/oauth-protected-resource (RFC 9728), which describes uzinaduzina.org as a public resource with bearer_methods_supported: [] and authorization_servers: []. No token, authorization, or userinfo endpoint is published; an agent that needs an OAuth flow will not find one here."
+}

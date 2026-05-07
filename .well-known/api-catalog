@@ -56,6 +56,20 @@
           "title": "OAuth Protected Resource Metadata (RFC 9728) — declares the site as a public, unauthenticated resource"
         }
       ],
+      "oauth-authorization-server": [
+        {
+          "href": "https://uzinaduzina.org/.well-known/oauth-authorization-server",
+          "type": "application/json",
+          "title": "OAuth 2.0 Authorization Server Metadata (RFC 8414) — published with empty grants/responses; no flows available"
+        }
+      ],
+      "openid-configuration": [
+        {
+          "href": "https://uzinaduzina.org/.well-known/openid-configuration",
+          "type": "application/json",
+          "title": "OpenID Connect Discovery 1.0 — endpoints point at /.well-known/oauth-disabled (HTTP 410); no flows available"
+        }
+      ],
       "alternate": [
         {
           "href": "https://uzinaduzina.org/content/",

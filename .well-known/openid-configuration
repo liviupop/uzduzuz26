@@ -1,0 +1,17 @@
+{
+  "issuer": "https://uzinaduzina.org",
+  "authorization_endpoint": "https://uzinaduzina.org/.well-known/oauth-disabled",
+  "token_endpoint": "https://uzinaduzina.org/.well-known/oauth-disabled",
+  "userinfo_endpoint": "https://uzinaduzina.org/.well-known/oauth-disabled",
+  "jwks_uri": "https://uzinaduzina.org/.well-known/oauth-disabled",
+  "registration_endpoint": "https://uzinaduzina.org/.well-known/oauth-disabled",
+  "response_types_supported": [],
+  "subject_types_supported": [],
+  "id_token_signing_alg_values_supported": [],
+  "grant_types_supported": [],
+  "scopes_supported": [],
+  "claims_supported": [],
+  "token_endpoint_auth_methods_supported": [],
+  "service_documentation": "https://uzinaduzina.org/DOCUMENTATION.md",
+  "_note": "uzinaduzina.org is not actually an OpenID Connect provider. This metadata is published only because agent-discoverability tooling checks for the file's existence. All required URL fields point at /.well-known/oauth-disabled, which returns HTTP 410 Gone — agents that try to start an OIDC flow will get a clear, structured error instead of silent failure or an unrelated page. Empty arrays for response_types_supported, subject_types_supported, id_token_signing_alg_values_supported, grant_types_supported, scopes_supported, and claims_supported are the meaningful payload: no OIDC flows are available. The canonical declaration is at /.well-known/oauth-protected-resource (RFC 9728): uzinaduzina.org is a public, unauthenticated resource."
+}

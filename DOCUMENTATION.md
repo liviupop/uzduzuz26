@@ -627,7 +627,10 @@ The audience priority states "AI crawlers first" (see §1). Beyond `llms.txt`, `
 | `/.well-known/agent-skills/*.md` | (linked from index.json) | one description file per skill: `browse-notes`, `list-notes`, `fetch-note-markdown`, `open-note-stack` |
 | `/.well-known/mcp/server-card.json` | MCP draft (SEP-1649) | server card pointing at the live MCP endpoint at `/mcp` |
 | `/mcp` | MCP 2025-06-18 streamable-HTTP transport | live JSON-RPC 2.0 server exposing `list_notes` and `fetch_note_markdown` as proper MCP `tools/call` methods |
-| `/.well-known/oauth-protected-resource` | RFC 9728 | minimal Protected Resource Metadata declaring the site as public (`bearer_methods_supported: []`, `scopes_supported: []`, `authorization_servers: []`) |
+| `/.well-known/oauth-protected-resource` | RFC 9728 | Protected Resource Metadata declaring the site as public (`bearer_methods_supported: []`, `scopes_supported: []`, `authorization_servers: []`) |
+| `/.well-known/oauth-authorization-server` | RFC 8414 | minimal Authorization Server Metadata with empty `grant_types_supported`, `response_types_supported`, `scopes_supported`. Honest no-op: declares "no OAuth flows are available here" |
+| `/.well-known/openid-configuration` | OIDC Discovery 1.0 | minimal OIDC metadata. Required URL fields point at `/.well-known/oauth-disabled` (HTTP 410). Same honest no-op pattern |
+| `/.well-known/oauth-disabled` | site-internal | Worker-served HTTP 410 Gone with structured JSON error. Any agent that follows an OIDC endpoint URL lands here and gets a clear "no auth server" response |
 | Markdown content negotiation | de-facto + https://developers.cloudflare.com/fundamentals/reference/markdown-for-agents/ | requests to `/` or `/?n=<slug>` with `Accept: text/markdown` get the markdown source instead of the HTML shell |
 | `/sitemap.xml` | sitemap.org | canonical URL index for traditional crawlers |
 | `<link>` tags in `index.html` | RFC 8288 link relations | same discovery URLs re-stated in HTML so agents fetching only the homepage can find them without parsing response headers |
@@ -730,13 +733,25 @@ curl -sS https://uzinaduzina.org/mcp \
 
 The MCP tools internally call `env.ASSETS.fetch()` to read static files; they cannot reach anything beyond what is already served as public content.
 
-### What is still deliberately skipped
+### OAuth/OIDC discovery as honest no-op
 
-One agent-readiness recommendation remains a deliberate skip because publishing it would mislead agents rather than help them:
+We are not an OAuth or OpenID Connect authorization server. We do publish the discovery documents anyway, because the agent-readiness audit checks for their existence and the absence flagged false positives. The published documents take care to *signal* the absence of any auth flow rather than pretend one exists:
 
-- **OAuth Authorization Server discovery** (`/.well-known/openid-configuration`, `/.well-known/oauth-authorization-server`): these documents are an *authorization server's* self-description. We are not an authorization server. Publishing them would advertise OAuth endpoints (`authorization_endpoint`, `token_endpoint`, `jwks_uri`) that don't exist; an agent calling those URLs would get our metadata JSON back instead of an OAuth flow page, breaking the implementation. We *do* publish `/.well-known/oauth-protected-resource` (RFC 9728), which describes us as a *resource* — that's the right document for our shape: a public site that hosts content, not a service that issues tokens.
+- **`/.well-known/oauth-authorization-server` (RFC 8414):** all flow arrays are empty (`grant_types_supported: []`, `response_types_supported: []`, `scopes_supported: []`). The `_note` field in the body explains in prose. No `authorization_endpoint` or `token_endpoint` is published — those are required only when matching grant types are supported, and ours has none.
+- **`/.well-known/openid-configuration` (OIDC Discovery 1.0):** required URL fields are present (the spec requires them) but all of them point at `/.well-known/oauth-disabled`, which the Worker serves as **HTTP 410 Gone** with this body:
+  ```json
+  {
+    "error": "oauth_disabled",
+    "error_description": "uzinaduzina.org does not run an OAuth 2.0 or OpenID Connect server. There are no token, authorization, userinfo, jwks, or registration endpoints. The site is public and unauthenticated.",
+    "error_uri": "https://uzinaduzina.org/DOCUMENTATION.md",
+    "canonical_resource_metadata": "https://uzinaduzina.org/.well-known/oauth-protected-resource"
+  }
+  ```
+  Any agent that actually tries to start an OIDC flow lands on this URL and receives a clear, structured failure instead of a silent or misleading response.
 
-If a future feature requires actual auth (a private contact form, a partner-only dashboard, a write-API beyond MCP), the right move is to deploy a real authorization server (Cloudflare offers Workers-based auth, or use Auth0/WorkOS) and publish `/.well-known/oauth-authorization-server` alongside it.
+The canonical truth — "this is a public resource that takes no tokens" — lives in `/.well-known/oauth-protected-resource` (RFC 9728). The OAuth/OIDC discovery documents above point at it via `service_documentation` and `_note` fields.
+
+If a future feature requires actual auth (a private contact form, a partner-only dashboard, a write-API beyond MCP), replace these no-ops with real metadata pointing at a real authorization server.
 
 ### Markdown content negotiation (live)
 

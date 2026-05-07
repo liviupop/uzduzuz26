@@ -47,6 +47,8 @@ const LINK_HEADERS = [
   '</.well-known/agent-skills/index.json>; rel="https://agentskills.io/discovery"; type="application/json"',
   '</.well-known/mcp/server-card.json>; rel="https://modelcontextprotocol.io/server-card"; type="application/json"',
   '</.well-known/oauth-protected-resource>; rel="oauth-protected-resource"; type="application/json"',
+  '</.well-known/oauth-authorization-server>; rel="oauth-authorization-server"; type="application/json"',
+  '</.well-known/openid-configuration>; rel="openid-configuration"; type="application/json"',
   '</DOCUMENTATION.md>; rel="service-doc"; type="text/markdown"; title="Site documentation"',
   '</README.md>; rel="service-doc"; type="text/markdown"; title="Quickstart"',
   '</llms.txt>; rel="describedby"; type="text/plain"',
@@ -63,6 +65,36 @@ export default {
     // without going through the asset proxy or post-processing pipeline.
     if (url.pathname === "/mcp") {
       return handleMcp(request, env);
+    }
+
+    // Synthetic endpoint that the OIDC discovery document points at for
+    // every URL field (authorization_endpoint, token_endpoint, jwks_uri,
+    // userinfo_endpoint, registration_endpoint). Returns 410 Gone with a
+    // clear JSON error so an agent that actually tries to start an OIDC
+    // flow gets a structured response instead of silent failure.
+    if (url.pathname === "/.well-known/oauth-disabled") {
+      return new Response(
+        JSON.stringify(
+          {
+            error: "oauth_disabled",
+            error_description:
+              "uzinaduzina.org does not run an OAuth 2.0 or OpenID Connect server. There are no token, authorization, userinfo, jwks, or registration endpoints. The site is public and unauthenticated.",
+            error_uri: "https://uzinaduzina.org/DOCUMENTATION.md",
+            canonical_resource_metadata:
+              "https://uzinaduzina.org/.well-known/oauth-protected-resource",
+          },
+          null,
+          2
+        ),
+        {
+          status: 410,
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Cache-Control": "public, max-age=3600",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
     }
 
     // Markdown for Agents: content negotiation on the SPA shell.
@@ -92,10 +124,16 @@ export default {
     const isApiCatalog = path === "/.well-known/api-catalog";
     const isAgentSkills = path === "/.well-known/agent-skills/index.json";
     const isOauthProtectedResource = path === "/.well-known/oauth-protected-resource";
+    const isOauthAuthServer = path === "/.well-known/oauth-authorization-server";
+    const isOidcConfig = path === "/.well-known/openid-configuration";
     const isMcpServerCard = path === "/.well-known/mcp/server-card.json";
 
     // Fast path: no header changes needed.
-    if (!isHtml && !isMarkdown && !isApiCatalog && !isAgentSkills && !isOauthProtectedResource && !isMcpServerCard) {
+    if (
+      !isHtml && !isMarkdown && !isApiCatalog && !isAgentSkills &&
+      !isOauthProtectedResource && !isOauthAuthServer && !isOidcConfig &&
+      !isMcpServerCard
+    ) {
       return response;
     }
 
@@ -120,7 +158,10 @@ export default {
       newHeaders.set("Content-Type", "application/linkset+json; charset=utf-8");
     }
 
-    if (isAgentSkills || isMcpServerCard || isOauthProtectedResource) {
+    if (
+      isAgentSkills || isMcpServerCard || isOauthProtectedResource ||
+      isOauthAuthServer || isOidcConfig
+    ) {
       newHeaders.set("Content-Type", "application/json; charset=utf-8");
     }
 
