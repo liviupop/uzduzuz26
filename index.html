@@ -36,6 +36,13 @@ window.onerror = function(msg) {
   </button>
 
   <nav class="chrome-nav" aria-label="primary"></nav>
+  <button class="mobile-menu-toggle" type="button" aria-label="open menu" aria-expanded="false" aria-controls="mobile-menu">
+    <svg class="solar-icon" aria-hidden="true" viewBox="0 0 24 24">
+      <path fill="currentColor" opacity=".5" d="M12 22c-4.714 0-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2s7.071 0 8.535 1.464C22 4.93 22 7.286 22 12s0 7.071-1.465 8.535C19.072 22 16.714 22 12 22"/>
+      <path fill="currentColor" d="M18.75 8a.75.75 0 0 1-.75.75H6a.75.75 0 0 1 0-1.5h12a.75.75 0 0 1 .75.75m0 4a.75.75 0 0 1-.75.75H6a.75.75 0 0 1 0-1.5h12a.75.75 0 0 1 .75.75m0 4a.75.75 0 0 1-.75.75H6a.75.75 0 0 1 0-1.5h12a.75.75 0 0 1 .75.75"/>
+    </svg>
+  </button>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="mobile primary" hidden></nav>
 </header>
 
 <main class="stack" aria-label="stacked notes">

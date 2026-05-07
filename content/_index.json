@@ -163,6 +163,42 @@
     ]
   },
   {
+    "slug": "team-nectarie-pasca",
+    "type": "person",
+    "title": "Nectarie Pașca",
+    "kicker": "team · member",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "Member. High school student focused on astronomy and astrophysics; one of our main contacts for assessing youth needs.",
+    "excerpt": "High school student studying astronomy and astrophysics.",
+    "year": "",
+    "role": "",
+    "order": 6,
+    "pills": [
+      "member",
+      "youth needs",
+      "astronomy & astrophysics"
+    ]
+  },
+  {
+    "slug": "team-siluan-pasca",
+    "type": "person",
+    "title": "Siluan Pașca",
+    "kicker": "team · member",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "Member. High school student studying piano and classical music; one of our main contacts for assessing youth needs.",
+    "excerpt": "High school student studying piano and classical music.",
+    "year": "",
+    "role": "",
+    "order": 7,
+    "pills": [
+      "member",
+      "youth needs",
+      "piano & classical music"
+    ]
+  },
+  {
     "slug": "manifesto-sustainability-through-beauty",
     "type": "principle",
     "title": "Sustainability through beauty",

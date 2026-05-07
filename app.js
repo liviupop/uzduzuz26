@@ -36,6 +36,26 @@
   const $stackInner = document.querySelector('.stack-inner');
   const $stack = document.querySelector('.stack');
   const $chromeNav = document.querySelector('.chrome-nav');
+  const $mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+  const $mobileMenu = document.querySelector('.mobile-menu');
+
+  const PRIMARY_TABS = [
+    { id: 'who-we-are', label: 'who we are', icon: 'people' },
+    { id: 'manifesto', label: 'fundamentals', icon: 'document' },
+    { id: 'projects', label: 'projects', icon: 'folder' },
+    { id: 'team', label: 'team', icon: 'person' },
+    { id: 'partners', label: 'partners', icon: 'planet' },
+  ];
+
+  const SOLAR_DUOTONE = {
+    home: '<path fill="currentColor" opacity=".5" d="M2 12.204c0-2.289 0-3.433.52-4.381c.518-.949 1.467-1.537 3.364-2.715l2-1.241C9.889 2.622 10.892 2 12 2s2.11.622 4.116 1.867l2 1.241c1.897 1.178 2.846 1.766 3.365 2.715S22 9.915 22 12.203v1.522c0 3.9 0 5.851-1.172 7.063S17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.212S2 17.626 2 13.725z"/><path fill="currentColor" d="M11.25 18a.75.75 0 0 0 1.5 0v-3a.75.75 0 0 0-1.5 0z"/>',
+    people: '<circle cx="15" cy="6" r="3" fill="currentColor" opacity=".4"/><ellipse cx="16" cy="17" fill="currentColor" opacity=".4" rx="5" ry="3"/><circle cx="9.001" cy="6" r="4" fill="currentColor"/><ellipse cx="9.001" cy="17.001" fill="currentColor" rx="7" ry="4"/>',
+    document: '<path fill="currentColor" opacity=".5" d="M3 10c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h2c3.771 0 5.657 0 6.828 1.172S21 6.229 21 10v4c0 3.771 0 5.657-1.172 6.828S16.771 22 13 22h-2c-3.771 0-5.657 0-6.828-1.172S3 17.771 3 14z"/><path fill="currentColor" fill-rule="evenodd" d="M7.25 12a.75.75 0 0 1 .75-.75h8a.75.75 0 0 1 0 1.5H8a.75.75 0 0 1-.75-.75m0-4A.75.75 0 0 1 8 7.25h8a.75.75 0 0 1 0 1.5H8A.75.75 0 0 1 7.25 8m0 8a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5H8a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/>',
+    folder: '<path fill="currentColor" opacity=".5" d="M2 6.95c0-.883 0-1.324.07-1.692A4 4 0 0 1 5.257 2.07C5.626 2 6.068 2 6.95 2c.386 0 .58 0 .766.017a4 4 0 0 1 2.18.904c.144.119.28.255.554.529L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .848.352C14.098 6 14.675 6 15.828 6h.374c2.632 0 3.949 0 4.804.77q.119.105.224.224c.77.855.77 2.172.77 4.804V14c0 3.771 0 5.657-1.172 6.828S17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172S2 17.771 2 14z"/><path fill="currentColor" d="M20 6.238c0-.298-.005-.475-.025-.63a3 3 0 0 0-2.583-2.582C17.197 3 16.965 3 16.5 3H9.988c.116.104.247.234.462.45L11 4c.816.816 1.224 1.224 1.712 1.495a4 4 0 0 0 .849.352C14.098 6 14.675 6 15.829 6h.373c1.78 0 2.957 0 3.798.238"/><path fill="currentColor" fill-rule="evenodd" d="M12.25 10a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/>',
+    person: '<circle cx="12" cy="6" r="4" fill="currentColor"/><ellipse cx="12" cy="17" fill="currentColor" opacity=".5" rx="7" ry="4"/>',
+    planet: '<path fill="currentColor" opacity=".5" d="M20 12a8 8 0 1 1-16 0a8 8 0 0 1 16 0"/><path fill="currentColor" d="M19.009 6.784a.75.75 0 0 0-.138-1.494q-.637.06-1.345.2a.75.75 0 0 0-.472.309l1.117 1.097q.444-.075.838-.112"/><path fill="currentColor" fill-rule="evenodd" d="M20.937 5.38a.75.75 0 1 0-.346 1.459c.394.093.546.232.602.322c.063.102.133.366-.157.948a.75.75 0 0 0 1.343.67c.378-.759.563-1.65.086-2.413c-.344-.55-.923-.843-1.528-.987m-.225 5.581a.75.75 0 1 0-1.065-1.057c-.686.692-1.567 1.43-2.608 2.171a.75.75 0 0 0 .87 1.222c1.095-.78 2.044-1.572 2.803-2.336M3.587 14.947q.302-.378.706-.79l-.238-1.33a.75.75 0 0 0-.744.189q-.503.505-.896.995a.75.75 0 1 0 1.172.937m12.163-.243a.75.75 0 1 0-.77-1.287a35 35 0 0 1-3.092 1.645a.75.75 0 0 0 .638 1.357a37 37 0 0 0 3.224-1.715M2.815 16.25a.75.75 0 0 0-1.43-.455c-.191.601-.211 1.262.15 1.84c.453.724 1.307 1.006 2.154 1.087a.75.75 0 1 0 .143-1.493c-.694-.066-.948-.267-1.025-.39c-.05-.08-.102-.244.008-.589m7.268 1.203a.75.75 0 0 0-.527-1.404c-1.225.46-2.365.791-3.362.989a.75.75 0 0 0 .291 1.471c1.093-.216 2.313-.574 3.598-1.056" clip-rule="evenodd"/>',
+    letter: '<path fill="currentColor" opacity=".5" d="M14.2 3H9.8C5.652 3 3.577 3 2.289 4.318S1 7.758 1 12s0 6.364 1.289 7.682S5.652 21 9.8 21h4.4c4.148 0 6.223 0 7.511-1.318S23 16.242 23 12s0-6.364-1.289-7.682S18.348 3 14.2 3"/><path fill="currentColor" d="M19.128 8.033a.825.825 0 0 0-1.056-1.268l-2.375 1.98c-1.026.855-1.738 1.447-2.34 1.833c-.582.375-.977.5-1.357.5s-.774-.125-1.357-.5c-.601-.386-1.314-.978-2.34-1.834L5.928 6.765a.825.825 0 0 0-1.056 1.268l2.416 2.014c.975.812 1.765 1.47 2.463 1.92c.726.466 1.434.762 2.25.762c.814 0 1.522-.296 2.249-.763c.697-.448 1.487-1.107 2.462-1.92z"/>',
+  };
 
   function getStackFromUrl() {
     const params = new URLSearchParams(location.search);
@@ -692,6 +712,17 @@
     return node;
   }
 
+  function solarIcon(name) {
+    const svg = el('svg', {
+      class: 'solar-icon',
+      'aria-hidden': 'true',
+      viewBox: '0 0 24 24',
+      html: SOLAR_DUOTONE[name] || SOLAR_DUOTONE.document,
+    });
+    svg.setAttribute('focusable', 'false');
+    return svg;
+  }
+
   function emphasize(text) {
     // Allow simple *italic* in titles
     const span = document.createElement('span');
@@ -1037,8 +1068,15 @@
     // ---- footer micro ----
     const foot = el('div', { class: 'note-foot' }, [
       el('span', {}, `note · ${data.kicker || id}`),
+      el('a', { href: '?n=contact', 'data-note': 'contact', class: 'note-foot-contact' }, 'contact'),
       el('span', {}, depth === 0 ? 'click any link to stack →' : `depth ${depth + 1}`),
     ]);
+    foot.querySelectorAll('a[data-note]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        app.openNoteAt(a.dataset.note, depth);
+      });
+    });
     inner.appendChild(foot);
 
     note.appendChild(inner);
@@ -1127,42 +1165,49 @@
 
     renderChromeNav() {
       $chromeNav.innerHTML = '';
-      const tabs = [
-        { id: 'home', label: 'home' },
-        { id: 'who-we-are', label: 'who we are' },
-        { id: 'manifesto', label: 'fundamentals' },
-        { id: 'projects', label: 'projects' },
-        { id: 'team', label: 'team' },
-        { id: 'partners', label: 'partners' },
-        { id: 'contact', label: 'contact' },
-      ];
+      if ($mobileMenu) $mobileMenu.innerHTML = '';
       // Only the currently-active column marks its tab as active.
       const activeId = this.stack[this.activeIndex];
-      for (const t of tabs) {
+      const goToTab = (t) => {
+        // If the page is already in the stack, just promote it to active
+        // (no duplicate column). The flex transition slides its column from
+        // spine width (64px) to fill, and the previously-active column
+        // shrinks to a spine in place.
+        const existing = this.stack.indexOf(t.id);
+        if (existing !== -1) {
+          if (existing !== this.activeIndex) {
+            this.activeIndex = existing;
+            this.render();
+            scrollActiveIntoViewOnMobile();
+          }
+          return;
+        }
+        // Otherwise: replace the stack with this tab as the only column.
+        this.stack = [t.id];
+        this.activeIndex = 0;
+        this.render();
+        scrollActiveIntoViewOnMobile();
+      };
+      for (const t of PRIMARY_TABS) {
         const btn = el('button', {
           class: t.id === activeId ? 'is-active' : '',
         }, t.label);
-        btn.addEventListener('click', () => {
-          // If the page is already in the stack, just promote it to active
-          // (no duplicate column). The flex transition slides its column from
-          // spine width (64px) to fill, and the previously-active column
-          // shrinks to a spine in place.
-          const existing = this.stack.indexOf(t.id);
-          if (existing !== -1) {
-            if (existing !== this.activeIndex) {
-              this.activeIndex = existing;
-              this.render();
-              scrollActiveIntoViewOnMobile();
-            }
-            return;
-          }
-          // Otherwise: replace the stack with this tab as the only column.
-          this.stack = [t.id];
-          this.activeIndex = 0;
-          this.render();
-          scrollActiveIntoViewOnMobile();
-        });
+        btn.addEventListener('click', () => goToTab(t));
         $chromeNav.appendChild(btn);
+
+        if ($mobileMenu) {
+          const mobileBtn = el('button', {
+            class: 'mobile-menu-item' + (t.id === activeId ? ' is-active' : ''),
+          }, [
+            solarIcon(t.icon),
+            el('span', {}, t.label),
+          ]);
+          mobileBtn.addEventListener('click', () => {
+            closeMobileMenu();
+            goToTab(t);
+          });
+          $mobileMenu.appendChild(mobileBtn);
+        }
       }
     },
 
@@ -1216,6 +1261,44 @@
       this.render();
     },
   };
+
+  function closeMobileMenu() {
+    if (!$mobileMenu || !$mobileMenuToggle) return;
+    $mobileMenu.hidden = true;
+    $mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    $mobileMenuToggle.setAttribute('aria-label', 'open menu');
+  }
+
+  function openMobileMenu() {
+    if (!$mobileMenu || !$mobileMenuToggle) return;
+    $mobileMenu.hidden = false;
+    $mobileMenuToggle.setAttribute('aria-expanded', 'true');
+    $mobileMenuToggle.setAttribute('aria-label', 'close menu');
+  }
+
+  function toggleMobileMenu() {
+    if (!$mobileMenu || !$mobileMenuToggle) return;
+    if ($mobileMenu.hidden) openMobileMenu();
+    else closeMobileMenu();
+  }
+
+  if ($mobileMenuToggle && $mobileMenu) {
+    closeMobileMenu();
+    $mobileMenuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMobileMenu();
+    });
+    $mobileMenu.addEventListener('click', (e) => e.stopPropagation());
+    document.addEventListener('click', () => closeMobileMenu());
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMobileMenu();
+    });
+    window.addEventListener('resize', () => {
+      if (!window.matchMedia || !window.matchMedia('(max-width: 720px)').matches) {
+        closeMobileMenu();
+      }
+    });
+  }
 
   // Delegated handler for spine clicks. Survives in-place rebuilds, since
   // rebuildNoteContent recreates child elements but keeps the .note wrapper.

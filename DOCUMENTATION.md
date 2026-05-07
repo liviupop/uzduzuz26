@@ -438,10 +438,18 @@ There is **no build step** required for development beyond running `regen.py` af
 The repo is connected to Cloudflare Workers Static Assets:
 
 - Source: `github.com/liviupop/uzduzuz26`, branch `main`.
+- Local Git remote: `origin https://github.com/liviupop/uzduzuz26.git`.
 - Project name: `uzduzuz26` (a Cloudflare Worker with the `[assets]` binding).
 - Build command: `python3 regen.py` (regenerates `_index.json` on every deploy so an `_index.json` that's out of sync with the markdown can't sneak through).
 - Build output directory: `/` (repo root — the site files are at the top level).
 - Cloudflare URL: `https://uzduzuz26.uzinaduzina.workers.dev/`.
+
+Current verification, 2026-05-06:
+
+- GitHub CLI is authenticated as `liviupop` with push-capable repo access.
+- Local `main` tracks `origin/main`; `gh repo view liviupop/uzduzuz26` resolves correctly.
+- Cloudflare Worker URL responds with `HTTP 200`, `server: cloudflare`, and a `cf-ray` header, so the Cloudflare deployment itself is reachable.
+- Custom domains `uzinaduzina.org` and `www.uzinaduzina.org` are attached to Worker `uzduzuz26` in the `Uzinaduzina@gmail.com` Cloudflare account.
 
 Cloudflare's default `html_handling` strips `.html` extensions: a request for `/foo.html` returns a 307 to `/foo`, which then serves the contents of `foo.html`. This is fine for our diagram iframes (one extra round-trip) and works transparently for the SPA shell.
 
@@ -465,28 +473,29 @@ Nameservers:
 
 ### Records preserved across the migration
 
-When the zone moved to Cloudflare, the existing email infrastructure was carried over intact:
+When the zone moved to Cloudflare, the existing email infrastructure was carried over intact. On 2026-05-06, the final website cutover moved apex and `www` to the Worker while keeping mail on the old server:
 
 | Record | Value | Proxy |
 |---|---|---|
-| `MX` apex | priority 0 → `uzinaduzina.org` | DNS only |
-| `A` apex | currently `185.165.187.2` (Gazduire); will be replaced by the Worker on cutover | DNS only |
-| `CNAME www` | → apex | DNS only |
-| `A mail`, `webmail`, `cpanel`, `webdisk`, `whm`, `autodiscover`, `autoconfig` | `185.165.187.2` | DNS only (mail subdomains must never be proxied — Cloudflare's proxy only handles HTTP/S) |
+| Worker custom domain apex | `uzinaduzina.org` → Worker `uzduzuz26` | Proxied, Cloudflare-managed |
+| Worker custom domain `www` | `www.uzinaduzina.org` → Worker `uzduzuz26` | Proxied, Cloudflare-managed |
+| `MX` apex | priority 0 → `mail.uzinaduzina.org` | DNS only |
+| `A mail` | `185.165.187.2` | DNS only |
+| `A webmail`, `cpanel`, `webdisk`, `whm`, `autodiscover`, `autoconfig` | `185.165.187.2` | DNS only (mail subdomains must never be proxied — Cloudflare's proxy only handles HTTP/S) |
 | `TXT` apex (SPF) | `v=spf1 ip4:185.165.187.2 +a +mx +ip4:45.153.91.2 +ip4:185.248.197.0 +ip4:185.165.185.101 +include:relay.mailbaby.net ~all` | DNS only |
 | `TXT default._domainkey` (DKIM) | `v=DKIM1; k=rsa; p=...` | DNS only |
 | `SRV _caldav._tcp`, `_caldavs._tcp`, `_carddav._tcp`, `_carddavs._tcp` | calendar/contact discovery | DNS only |
 | `TXT _acme-challenge`, `_cpanel-dcv-test-record` | ACME and cPanel domain validation | DNS only |
 
-### Outstanding
+### Cutover verification
 
-The final apex/www → Worker cutover is **not yet done**. While DNS authority sits at Cloudflare, the apex `A` still points at Gazduire, so visitors to `uzinaduzina.org` still see the old WordPress site. The new site is live on the Worker URL only. To flip:
+Final cutover completed on 2026-05-06:
 
-1. Cloudflare dashboard → Workers & Pages → `uzduzuz26` → Settings → Domains & Routes → Add custom domain.
-2. Add `www.uzinaduzina.org`. Verify it serves the new site at `https://www.uzinaduzina.org/`.
-3. Add `uzinaduzina.org` (apex). Cloudflare overwrites the existing apex A record with an internal route to the Worker. Old WordPress site disappears from the domain.
-
-Email continues to function uninterrupted because we never touched MX/SPF/DKIM/A-mail.
+- Nameservers are correctly delegated to Cloudflare: `greg.ns.cloudflare.com` and `indie.ns.cloudflare.com`.
+- Cloudflare generated proxied Worker DNS records for apex and `www` (`AAAA 100::` internally, flattened by Cloudflare to edge IPs for public resolvers).
+- `https://uzinaduzina.org/` and `https://www.uzinaduzina.org/` return the static site through Cloudflare edge (`HTTP 200`, `server: cloudflare`) when resolved to the new Cloudflare IPs.
+- Mail is isolated from the website cutover: `MX` points to `mail.uzinaduzina.org`, and `mail.uzinaduzina.org` points directly to `185.165.187.2`, DNS only.
+- Some recursive resolvers may briefly serve the old `185.165.187.2` apex answer from cache. Authoritative Cloudflare DNS and public resolvers checked after cutover already returned Cloudflare edge IPs.
 
 ### Future hardening (not yet done)
 

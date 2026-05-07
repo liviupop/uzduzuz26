@@ -24,20 +24,15 @@ window.NOTES = {
       { kind: 'h2', text: 'enter through any door' },
       { kind: 'cards', items: [
         { href: 'who-we-are', label: 'who we are', sub: 'the organisation, in three lengths' },
-        { href: 'manifesto', label: 'manifesto', sub: 'eleven principles, each on its own page' },
+        { href: 'manifesto', label: 'fundamentals', sub: 'eleven fundamentals, each on its own page' },
         { href: 'projects', label: 'projects', sub: 'all 15 projects, lead and partner' },
-        { href: 'project-drops-sustainable-development', label: 'Drops of Sustainable Development', sub: 'KA220-ADU, €250,000, 2024–2026 ongoing' },
-        { href: 'project-ai4ngos', label: 'AI4NGOs', sub: 'AI in civil society, Cluj, August 2025' },
-        { href: 'project-goana-dupa-meteor', label: 'Goana după meteor', sub: 'astronomy camp at Mociu, AFCN 2025' },
         { href: 'team', label: 'team', sub: 'the people who do the work' },
         { href: 'partners', label: 'partners', sub: 'the network across Europe' },
-        { href: 'contact', label: 'contact', sub: 'how to reach us' },
       ]},
 
       { kind: 'h2', text: 'working with us' },
       { kind: 'cards', items: [
         { href: 'partners', label: 'partnership', sub: 'consortia, transnational projects, joint applications' },
-        { href: 'contact', label: 'contact', sub: 'write to us' },
         { href: 'curiosity-dunbar-alexander-and-the-dozen', label: 'why a dozen', sub: 'how we are organised, with a long footnote' },
       ]},
 
@@ -57,9 +52,9 @@ window.NOTES = {
   manifesto: {
     id: 'manifesto',
     type: 'manifesto',
-    kicker: 'manifesto',
-    title: 'manifesto',
-    subtitle: 'Eleven principles. Not rules we set out to obey, but tendencies our work has revealed about itself, retrospectively.',
+    kicker: 'fundamentals',
+    title: 'fundamentals',
+    subtitle: 'Eleven fundamentals. Not rules we set out to obey, but tendencies our work has revealed about itself, retrospectively.',
     accent: 'ochre',
     body: [
       { kind: 'lede', text: 'We name these so we can recognise them when they recur, and so we can refuse work that contradicts them. The principles are arranged to be read in sequence; each one ends by gesturing at the next, so the manifesto reads less like a list and more like a slow circuit through what we believe. You can also read them out of order; they will not collapse.' },
@@ -114,7 +109,7 @@ window.NOTES = {
 
       { kind: 'h2', text: 'read alongside' },
       { kind: 'links', items: [
-        { href: 'manifesto', label: 'the manifesto: eleven principles' },
+        { href: 'manifesto', label: 'the fundamentals: eleven texts' },
         { href: 'team', label: 'the team' },
         { href: 'partners', label: 'partners' },
       ]},
@@ -191,7 +186,7 @@ window.NOTES = {
 
       { kind: 'h2', text: 'wander further' },
       { kind: 'links', items: [
-        { href: 'manifesto', label: 'the manifesto' },
+        { href: 'manifesto', label: 'the fundamentals' },
         { href: 'projects', label: 'all projects' },
         { href: 'project-ai4ngos', label: 'AI4NGOs: AI in civil society, Cluj 2025' },
         { href: 'project-democraicy', label: 'democraicy: an early concept document, 2020' },
