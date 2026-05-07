@@ -1,4 +1,5 @@
 import { handleMcp } from "./mcp.js";
+import { handleAdmin } from "./admin.js";
 
 // uzinaduzina.org · Cloudflare Worker.
 //
@@ -65,6 +66,14 @@ export default {
     // without going through the asset proxy or post-processing pipeline.
     if (url.pathname === "/mcp") {
       return handleMcp(request, env);
+    }
+
+    // Password-gated content editor at /admin/*. Handles its own auth,
+    // HTML rendering, and GitHub API calls — bypass the asset proxy and
+    // post-processing pipeline so admin pages aren't decorated with the
+    // public-facing Link headers.
+    if (url.pathname === "/admin" || url.pathname.startsWith("/admin/")) {
+      return handleAdmin(request, env);
     }
 
     // Synthetic endpoint that the OIDC discovery document points at for

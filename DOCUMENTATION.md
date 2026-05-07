@@ -800,7 +800,63 @@ This is honest and is what the audit is checking for. It does not pretend to be 
 
 ---
 
-## 21 · Quick reference: working with the site
+## 21 · Admin (`/admin`)
+
+A password-gated content editor lives at `https://uzinaduzina.org/admin`. It lets any number of authorised editors create, edit, and delete `content/*.md` files from a browser. Every save commits to the GitHub repo (`liviupop/uzduzuz26`) on `main`, which triggers Cloudflare's auto-deploy and reaches the live site in roughly one minute.
+
+The editor is implemented entirely in `src/admin.js` (one file, no dependencies). It exposes:
+
+| Path                    | Method | What it does                                     |
+| ----------------------- | ------ | ------------------------------------------------ |
+| `/admin`                | GET    | Login page (when signed out) or redirect to list |
+| `/admin/login`          | POST   | Verify credentials, set session cookie           |
+| `/admin/logout`         | GET    | Clear session cookie                             |
+| `/admin/notes`          | GET    | List every `.md` in `content/`, grouped by type  |
+| `/admin/edit?slug=...`  | GET    | Markdown editor for one note                     |
+| `/admin/save`           | POST   | Commit edits to GitHub                           |
+| `/admin/delete`         | POST   | Delete a note (commits the deletion)             |
+| `/admin/new`            | GET    | New-note form (slug, title, kicker, accent…)     |
+| `/admin/new`            | POST   | Create the file with a templated front matter    |
+
+### Authentication
+
+Sessions are HMAC-SHA256-signed cookies (`uzd_admin_session`) with a 7-day TTL. There is no database — credentials are stored in a Worker secret.
+
+`ADMIN_USERS` is a JSON map of `username → password`:
+
+```json
+{ "username": "password", "another-user": "another-password" }
+```
+
+Add users by appending entries to that map and re-deploying the secret. There's no per-user role: every signed-in user can read, edit, and delete every note, and commits are authored under their own username in `git log`.
+
+### Required Worker secrets
+
+| Name             | What it is                                                                  |
+| ---------------- | --------------------------------------------------------------------------- |
+| `ADMIN_USERS`    | JSON object mapping usernames to passwords                                  |
+| `SESSION_SECRET` | A long random string used to sign session cookies                           |
+| `GITHUB_TOKEN`   | A fine-grained GitHub PAT with **Contents: Read & write** on `uzduzuz26`    |
+
+Setting them via Wrangler:
+
+```sh
+echo '{"username":"password"}' | wrangler secret put ADMIN_USERS
+openssl rand -hex 32 | wrangler secret put SESSION_SECRET
+echo 'ghp_...' | wrangler secret put GITHUB_TOKEN
+```
+
+…or via Cloudflare dashboard: **Workers → uzduzuz26 → Settings → Variables and Secrets → Add → Type: Secret**.
+
+The GitHub PAT is created at https://github.com/settings/personal-access-tokens. Choose **Fine-grained**, scope it to the single repo `uzduzuz26`, and grant **Contents: Read and write** plus **Metadata: Read-only** (auto-required). Set an expiry that matches your operational comfort (90 days is a reasonable default; the admin will return clear errors when the token expires).
+
+### Discoverability
+
+`/admin` is excluded from `robots.txt`, marked `noindex, nofollow` in its HTML, and is not advertised in any of the agent-discovery files (`api-catalog`, `agent-skills`, MCP). The path is intentionally invisible to the public-facing parts of the site — the only way to find it is to know it.
+
+---
+
+## 22 · Quick reference: working with the site
 
 **Add a project note:**
 ```sh
