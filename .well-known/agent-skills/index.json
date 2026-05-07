@@ -34,6 +34,8 @@
   "links": {
     "service-doc": "https://uzinaduzina.org/DOCUMENTATION.md",
     "api-catalog": "https://uzinaduzina.org/.well-known/api-catalog",
-    "describedby": "https://uzinaduzina.org/llms.txt"
+    "describedby": "https://uzinaduzina.org/llms.txt",
+    "mcp-server-card": "https://uzinaduzina.org/.well-known/mcp/server-card.json",
+    "mcp-endpoint": "https://uzinaduzina.org/mcp"
   }
 }

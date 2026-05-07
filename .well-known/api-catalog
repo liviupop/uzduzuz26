@@ -35,6 +35,20 @@
           "title": "Agent Skills Discovery index v0.2"
         }
       ],
+      "https://modelcontextprotocol.io/server-card": [
+        {
+          "href": "https://uzinaduzina.org/.well-known/mcp/server-card.json",
+          "type": "application/json",
+          "title": "MCP Server Card — describes the streamable-HTTP MCP endpoint at /mcp"
+        }
+      ],
+      "https://modelcontextprotocol.io/transport": [
+        {
+          "href": "https://uzinaduzina.org/mcp",
+          "type": "application/json",
+          "title": "MCP server endpoint — JSON-RPC 2.0 over POST"
+        }
+      ],
       "alternate": [
         {
           "href": "https://uzinaduzina.org/content/",

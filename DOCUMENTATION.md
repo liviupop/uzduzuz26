@@ -625,6 +625,8 @@ The audience priority states "AI crawlers first" (see §1). Beyond `llms.txt`, `
 | `/.well-known/api-catalog` | RFC 9727 | linkset listing the content endpoints, docs, and the `_index.json` "service description" |
 | `/.well-known/agent-skills/index.json` | Cloudflare Agent Skills RFC v0.2 | discovery index for the four agent skills the site exposes (with sha256 digests) |
 | `/.well-known/agent-skills/*.md` | (linked from index.json) | one description file per skill: `browse-notes`, `list-notes`, `fetch-note-markdown`, `open-note-stack` |
+| `/.well-known/mcp/server-card.json` | MCP draft (SEP-1649) | server card pointing at the live MCP endpoint at `/mcp` |
+| `/mcp` | MCP 2025-06-18 streamable-HTTP transport | live JSON-RPC 2.0 server exposing `list_notes` and `fetch_note_markdown` as proper MCP `tools/call` methods |
 | `/sitemap.xml` | sitemap.org | canonical URL index for traditional crawlers |
 | `<link>` tags in `index.html` | RFC 8288 link relations | same discovery URLs re-stated in HTML so agents fetching only the homepage can find them without parsing response headers |
 | `Link:` response headers | RFC 8288 | added by the Cloudflare Worker shim (`src/worker.js`) on every HTML response, so agents that look at HTTP headers find the discovery endpoints without parsing the body |
@@ -678,12 +680,59 @@ cd .well-known/agent-skills
 shasum -a 256 *.md     # paste the new hashes into index.json
 ```
 
+### MCP server (live)
+
+The site runs a real Model Context Protocol server, embedded in the same Cloudflare Worker as the asset shim. Source: `src/mcp.js` (~250 lines, no dependencies). Spec: https://modelcontextprotocol.io/specification/2025-06-18
+
+- **Transport:** streamable-HTTP. JSON-RPC 2.0 over POST. No SSE, no batched requests, no session IDs (the server is stateless and read-only).
+- **Endpoint:** `https://uzinaduzina.org/mcp`
+- **Server card:** `https://uzinaduzina.org/.well-known/mcp/server-card.json`
+- **GET to /mcp:** returns a brief human-readable summary of the server (helpful for `curl` debugging); JSON-RPC clients always POST.
+- **CORS:** open (`Access-Control-Allow-Origin: *`) so any origin can connect.
+- **Auth:** none required.
+
+#### Tools
+
+| MCP method | Action |
+|---|---|
+| `initialize` | returns `serverInfo`, `protocolVersion: "2025-06-18"`, `capabilities: { tools: { listChanged: false } }`, and human-readable instructions |
+| `tools/list` | returns the two tools below with their JSON Schemas |
+| `tools/call` with `name: "list_notes"` | returns the full content of `/content/_index.json` as `text` content + `structuredContent.notes` |
+| `tools/call` with `name: "fetch_note_markdown"`, `arguments: { slug: "..." }` | returns the markdown of a single note as `text` content + `structuredContent.{slug, markdown}` |
+| `ping` | returns `{}` |
+| `notifications/initialized` etc. | accepted with HTTP 202 |
+
+#### Quick test
+
+```bash
+# initialize
+curl -sS https://uzinaduzina.org/mcp \
+  -H 'Content-Type: application/json' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' | jq
+
+# list tools
+curl -sS https://uzinaduzina.org/mcp \
+  -H 'Content-Type: application/json' \
+  -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' | jq
+
+# call list_notes
+curl -sS https://uzinaduzina.org/mcp \
+  -H 'Content-Type: application/json' \
+  -d '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"list_notes","arguments":{}}}' | jq
+
+# call fetch_note_markdown
+curl -sS https://uzinaduzina.org/mcp \
+  -H 'Content-Type: application/json' \
+  -d '{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"fetch_note_markdown","arguments":{"slug":"manifesto-living-heritage"}}}' | jq
+```
+
+The MCP tools internally call `env.ASSETS.fetch()` to read static files; they cannot reach anything beyond what is already served as public content.
+
 ### What is still deliberately skipped
 
-Two of the agent-readiness recommendations would mislead agents rather than help them, so we don't publish them — at least until they have something real to point at:
+One agent-readiness recommendation remains a deliberate skip because publishing it would mislead agents rather than help them:
 
-- **OAuth/OIDC discovery** (`/.well-known/openid-configuration`, `/.well-known/oauth-authorization-server`, `/.well-known/oauth-protected-resource`): no protected APIs to authenticate against. Publishing OAuth metadata that points at non-existent `authorization_endpoint`/`token_endpoint` URLs would actively break agents trying to obtain access tokens. If a future feature actually requires auth (e.g. a private contact form, a partner-only dashboard), publishing the discovery files at the same time is the right pattern.
-- **MCP Server Card** (`/.well-known/mcp/server-card.json`): we don't run an MCP server. The card declares a transport URL (e.g. an SSE endpoint) — without a real MCP server behind it, agents trying to connect would just fail. Two paths forward if this becomes important: (a) deploy a small MCP-over-HTTP server in the same Worker exposing the `list_notes` / `fetch_note_markdown` tools as proper MCP `tools/call` methods, and publish the card pointing at it; or (b) use Cloudflare's `agents` SDK to spin up a hosted MCP server and link to that.
+- **OAuth/OIDC discovery** (`/.well-known/openid-configuration`, `/.well-known/oauth-authorization-server`, `/.well-known/oauth-protected-resource`): no protected APIs to authenticate against. Publishing OAuth metadata that points at non-existent `authorization_endpoint`/`token_endpoint` URLs would actively break agents trying to obtain access tokens. If a future feature actually requires auth (a private contact form, a partner-only dashboard, a write-API beyond MCP), publish the discovery files at the same time as that feature lands.
 
 ### Markdown content negotiation
 

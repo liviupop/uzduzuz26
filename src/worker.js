@@ -1,9 +1,21 @@
-// uzinaduzina.org · Cloudflare Worker shim wrapping the static-assets binding.
+import { handleMcp } from "./mcp.js";
+
+// uzinaduzina.org · Cloudflare Worker.
 //
-// This Worker proxies every request through env.ASSETS (the Cloudflare
-// Workers Static Assets bundle, configured in wrangler.jsonc) and post-
-// processes the response to add discovery and security headers that pure
-// static hosting cannot set on its own.
+// Two responsibilities:
+//
+//   1. Static asset proxy.
+//      Every request not aimed at /mcp is forwarded to env.ASSETS (the
+//      Cloudflare Workers Static Assets bundle, configured in wrangler.jsonc)
+//      and the response is post-processed to add discovery and security
+//      headers that pure static hosting cannot set on its own.
+//
+//   2. MCP server.
+//      Requests to /mcp are handled by src/mcp.js, which speaks JSON-RPC 2.0
+//      over Cloudflare's streamable-HTTP transport and exposes two read-only
+//      tools (list_notes, fetch_note_markdown). The MCP handler maintains
+//      its own CORS and content-type headers; the asset post-processing
+//      pipeline is bypassed for /mcp.
 //
 // What it adds, by content type:
 //
@@ -33,6 +45,7 @@
 const LINK_HEADERS = [
   '</.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"',
   '</.well-known/agent-skills/index.json>; rel="https://agentskills.io/discovery"; type="application/json"',
+  '</.well-known/mcp/server-card.json>; rel="https://modelcontextprotocol.io/server-card"; type="application/json"',
   '</DOCUMENTATION.md>; rel="service-doc"; type="text/markdown"; title="Site documentation"',
   '</README.md>; rel="service-doc"; type="text/markdown"; title="Quickstart"',
   '</llms.txt>; rel="describedby"; type="text/plain"',
@@ -43,6 +56,14 @@ const LINK_HEADERS = [
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    // The MCP server lives at /mcp. It handles its own CORS, content type,
+    // method validation, and JSON-RPC framing — let it answer directly
+    // without going through the asset proxy or post-processing pipeline.
+    if (url.pathname === "/mcp") {
+      return handleMcp(request, env);
+    }
+
     const response = await env.ASSETS.fetch(request);
 
     // Only post-process successful or 304 responses; pass others through

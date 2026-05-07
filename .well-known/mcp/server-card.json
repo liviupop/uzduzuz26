@@ -1,0 +1,38 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schemas/draft/server-card.json",
+  "serverInfo": {
+    "name": "uzinaduzina-content",
+    "version": "0.1.0",
+    "description": "Read-only MCP server exposing the editorial content of uzinaduzina.org. Two tools: list_notes (full index) and fetch_note_markdown (markdown source by slug). No authentication required.",
+    "vendor": "uzinaduzina",
+    "homepage": "https://uzinaduzina.org/"
+  },
+  "transport": {
+    "type": "streamable-http",
+    "url": "https://uzinaduzina.org/mcp"
+  },
+  "protocolVersion": "2025-06-18",
+  "capabilities": {
+    "tools": {
+      "listChanged": false
+    }
+  },
+  "tools": [
+    {
+      "name": "list_notes",
+      "description": "Return the index of every published note on uzinaduzina.org with type, title, kicker, summary, and slug."
+    },
+    {
+      "name": "fetch_note_markdown",
+      "description": "Fetch the original Markdown source for a single note by slug (e.g. 'project-democraicy', 'manifesto-living-heritage')."
+    }
+  ],
+  "auth": {
+    "required": false
+  },
+  "links": {
+    "service-doc": "https://uzinaduzina.org/DOCUMENTATION.md",
+    "api-catalog": "https://uzinaduzina.org/.well-known/api-catalog",
+    "agent-skills": "https://uzinaduzina.org/.well-known/agent-skills/index.json"
+  }
+}
