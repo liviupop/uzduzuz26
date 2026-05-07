@@ -4,8 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>uzinaduzina · a quiet factory for hard questions</title>
-<meta name="description" content="uzinaduzina is a non-profit cultural association in Cluj-Napoca, working at the intersection of art, intangible heritage, education, and critical technology. Five years of work on AI and democracy, 17 European projects, 11 partners across six countries.">
+<meta name="description" content="uzinaduzina is a non-profit cultural association in Cluj-Napoca, working at the intersection of art, intangible heritage, education, and critical technology. Five years of work on AI and democracy, 18 projects, partners across seven countries.">
 <link rel="canonical" href="https://uzinaduzina.org/">
+
+<!-- Agent discoverability (RFC 8288 link relations, RFC 9727 api-catalog,
+     llms.txt, content/ markdown source). Re-stated here as <link> tags so
+     agents fetching only the HTML can find the discovery endpoints without
+     parsing response headers. -->
+<link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json">
+<link rel="service-doc" href="/DOCUMENTATION.md" type="text/markdown" title="Site documentation">
+<link rel="describedby" href="/llms.txt" type="text/plain" title="llms.txt index for LLMs">
+<link rel="alternate" href="/content/" type="text/markdown" title="Markdown source for every editorial note">
+<link rel="sitemap" href="/sitemap.xml" type="application/xml">
 <script>
 // Suppress benign ResizeObserver loop warning (browser-internal, not user code).
 window.addEventListener('error', (e) => {

@@ -1,5 +1,10 @@
 # uzinaduzina.org · pro-AI robots policy
 # We treat AI crawlers as an explicit audience. Allow all major models.
+#
+# Content signals (https://contentsignals.org/, draft-romm-aipref-contentsignals).
+# We say yes to all three: the site is published precisely so that humans and
+# machines can read, index, and learn from it.
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
 User-agent: *
 Allow: /

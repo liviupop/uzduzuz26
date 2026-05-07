@@ -612,7 +612,40 @@ Things known to be incomplete, in rough priority order:
 
 ---
 
-## 20 · Quick reference: working with the site
+## 20 · Agent discoverability
+
+The audience priority states "AI crawlers first" (see §1). Beyond `llms.txt`, `robots.txt`, and serving Markdown source alongside HTML, the site publishes a small set of standardised discovery files so agents can find structure without scraping.
+
+### What is published
+
+| Endpoint | Spec | Purpose |
+|---|---|---|
+| `/robots.txt` | de-facto + draft Content Signals | crawler permissions; Content-Signal directive `ai-train=yes, search=yes, ai-input=yes` |
+| `/llms.txt` | https://llmstxt.org/ | flat overview optimised for LLMs |
+| `/.well-known/api-catalog` | RFC 9727 | linkset listing the content endpoints, docs, and the `_index.json` "service description" |
+| `/sitemap.xml` | sitemap.org | canonical URL index for traditional crawlers |
+| `<link>` tags in `index.html` | RFC 8288 link relations | same discovery URLs re-stated in HTML so agents fetching only the homepage can find them without parsing response headers |
+| `_headers` file | Cloudflare Pages convention | sets `Link:` response headers on `/`, `Content-Type` on markdown and JSON, plus `Vary: Accept` for content negotiation |
+| WebMCP tools (in `app.js`) | https://webmachinelearning.github.io/webmcp/ | three read-only tools exposed to in-browser AI agents: `list_notes`, `fetch_note_markdown`, `open_note_stack` |
+
+### What is deliberately skipped
+
+A few of the standardised "is it agent ready?" recommendations would be empty or misleading on a content-only site:
+
+- **OAuth/OIDC discovery** (`/.well-known/openid-configuration`, `/.well-known/oauth-authorization-server`): the site has no protected APIs to authenticate against. Publishing empty discovery metadata would advertise an OAuth surface that does not exist.
+- **OAuth Protected Resource Metadata** (`/.well-known/oauth-protected-resource`): same.
+- **MCP Server Card** (`/.well-known/mcp/server-card.json`): we do not run an MCP server. A card pointing at a non-existent transport endpoint would mislead agents.
+- **Agent Skills Discovery** (`/.well-known/agent-skills/index.json`): we do not expose runnable skills. The WebMCP tools cover the in-browser case; an empty server-side skills index would not help.
+
+If any of these become applicable later (for example, if the markdown export or a search endpoint is wrapped in an MCP server), publishing the matching `.well-known` files would be a clean addition.
+
+### Markdown content negotiation
+
+The site already serves Markdown source for every editorial note at `content/<slug>.md`. The `_headers` file labels these responses as `text/markdown; charset=utf-8`. To turn this into full `Accept: text/markdown` content negotiation on the homepage and SPA-style URLs, Cloudflare's "Markdown for Agents" feature can be enabled in the dashboard, or a small Worker shim can wrap the assets binding and rewrite responses. Both are non-invasive next steps.
+
+---
+
+## 21 · Quick reference: working with the site
 
 **Add a project note:**
 ```sh

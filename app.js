@@ -1349,4 +1349,72 @@
     app.activeIndex = next.activeIndex;
     app.render({ history: 'none' });
   });
+
+  // ---------- WebMCP (browser-side agent tool surface) ----------
+  // Expose a tiny set of tools to AI agents browsing the page, per the W3C
+  // WebMCP draft. The intent is discoverability, not site control: tools
+  // are read-only and call the same fetches a browser would make anyway.
+  // Spec: https://webmachinelearning.github.io/webmcp/
+  if (typeof navigator !== 'undefined' && navigator.modelContext &&
+      typeof navigator.modelContext.provideContext === 'function') {
+    try {
+      navigator.modelContext.provideContext({
+        tools: [
+          {
+            name: 'list_notes',
+            description: 'Return the index of every published note on uzinaduzina.org with type, title, summary, and slug.',
+            inputSchema: { type: 'object', properties: {}, additionalProperties: false },
+            execute: async () => {
+              const idx = await loadAutoIndex();
+              return { notes: idx };
+            },
+          },
+          {
+            name: 'fetch_note_markdown',
+            description: 'Fetch the original Markdown source for a single note by slug (e.g. "project-democraicy", "manifesto-living-heritage", "team-liviu-pop"). Returns front matter + body verbatim.',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                slug: { type: 'string', description: 'Note slug, no .md extension. See list_notes for available slugs.' },
+              },
+              required: ['slug'],
+              additionalProperties: false,
+            },
+            execute: async ({ slug }) => {
+              if (typeof slug !== 'string' || !/^[\w-]+$/.test(slug)) {
+                return { error: 'invalid slug' };
+              }
+              const r = await fetch(`content/${slug}.md`, { cache: 'no-cache' });
+              if (!r.ok) return { error: `not found (HTTP ${r.status})` };
+              return { slug, markdown: await r.text() };
+            },
+          },
+          {
+            name: 'open_note_stack',
+            description: 'Open one or more notes in the user-visible stacked-notes UI. Useful when guiding a human reader to a particular page.',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                slugs: { type: 'array', items: { type: 'string' }, minItems: 1, maxItems: 6,
+                  description: 'Ordered slugs to push onto the stack, left-to-right. Last one becomes the active column.' },
+              },
+              required: ['slugs'],
+              additionalProperties: false,
+            },
+            execute: async ({ slugs }) => {
+              if (!Array.isArray(slugs) || slugs.length === 0) return { error: 'no slugs' };
+              const clean = slugs.filter(s => typeof s === 'string' && /^[\w-]+$/.test(s)).slice(0, 6);
+              if (!clean.length) return { error: 'no valid slugs' };
+              app.stack = clean;
+              app.activeIndex = clean.length - 1;
+              app.render();
+              return { opened: clean, activeIndex: clean.length - 1 };
+            },
+          },
+        ],
+      });
+    } catch (e) {
+      // WebMCP not actually available or rejected; ignore silently.
+    }
+  }
 })();

@@ -1,0 +1,52 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://uzinaduzina.org/",
+      "service-desc": [
+        {
+          "href": "https://uzinaduzina.org/content/_index.json",
+          "type": "application/json",
+          "title": "Note index — every published note with type, title, kicker, summary, and pills"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://uzinaduzina.org/DOCUMENTATION.md",
+          "type": "text/markdown",
+          "title": "Site documentation — content model, structure, conventions, deployment"
+        },
+        {
+          "href": "https://uzinaduzina.org/README.md",
+          "type": "text/markdown",
+          "title": "Quickstart — how to add a note as a markdown file"
+        }
+      ],
+      "describedby": [
+        {
+          "href": "https://uzinaduzina.org/llms.txt",
+          "type": "text/plain",
+          "title": "llms.txt — site overview optimised for LLMs"
+        }
+      ],
+      "alternate": [
+        {
+          "href": "https://uzinaduzina.org/content/",
+          "type": "text/markdown",
+          "title": "Markdown source for every editorial note"
+        }
+      ],
+      "sitemap": [
+        {
+          "href": "https://uzinaduzina.org/sitemap.xml",
+          "type": "application/xml"
+        }
+      ],
+      "license": [
+        {
+          "href": "https://uzinaduzina.org/",
+          "title": "All content © uzinaduzina, 2008–. Editorial reuse welcome with attribution."
+        }
+      ]
+    }
+  ]
+}

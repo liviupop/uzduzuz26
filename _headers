@@ -1,0 +1,40 @@
+# Cloudflare Pages headers file. Picked up automatically when this repo is
+# deployed via Pages. With Workers Static Assets the same headers can be set
+# from a small Worker shim that wraps the assets binding.
+#
+# Spec: https://developers.cloudflare.com/pages/configuration/headers/
+
+/
+  Link: </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"
+  Link: </DOCUMENTATION.md>; rel="service-doc"; type="text/markdown"
+  Link: </llms.txt>; rel="describedby"; type="text/plain"
+  Link: </content/>; rel="alternate"; type="text/markdown"
+  Link: </sitemap.xml>; rel="sitemap"; type="application/xml"
+  Vary: Accept
+
+/index.html
+  Link: </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"
+  Link: </DOCUMENTATION.md>; rel="service-doc"; type="text/markdown"
+  Link: </llms.txt>; rel="describedby"; type="text/plain"
+  Link: </content/>; rel="alternate"; type="text/markdown"
+
+# Markdown source served alongside HTML. Tell agents the right Content-Type so
+# `Accept: text/markdown` content negotiation works downstream.
+/content/*.md
+  Content-Type: text/markdown; charset=utf-8
+  Cache-Control: public, max-age=300
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/.well-known/api-catalog
+  Content-Type: application/linkset+json; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/_index.json
+  Content-Type: application/json; charset=utf-8
+
+# Privacy: do not let third-party referrers see in-stack URLs.
+/*
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Content-Type-Options: nosniff
