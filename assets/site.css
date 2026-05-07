@@ -84,7 +84,7 @@ button { font-family: inherit; }
   padding: 8px 14px;
   background: transparent;
   border: 1px solid transparent;
-  border-radius: 999px;
+  border-radius: 2px;
   cursor: pointer;
   color: var(--ink);
   transition: background var(--dur-fast) var(--ease-out);
@@ -117,7 +117,7 @@ button { font-family: inherit; }
     width: 38px;
     height: 38px;
     border: 1px solid var(--rule);
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--bg-paper);
     color: var(--ink);
     display: grid;
@@ -162,7 +162,7 @@ button { font-family: inherit; }
     gap: 9px;
     padding: 9px 10px;
     border: 1px solid transparent;
-    border-radius: var(--radius-3);
+    border-radius: 2px;
     background: transparent;
     color: var(--ink);
     font-family: var(--font-display);
@@ -574,7 +574,7 @@ button { font-family: inherit; }
   padding: 12px 18px 12px 22px;
   background: var(--ink);
   color: var(--bg);
-  border-radius: var(--radius-3);
+  border-radius: 2px;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 16px;
@@ -586,7 +586,12 @@ button { font-family: inherit; }
 }
 .note-nav-next:hover {
   background: var(--accent);
+  color: var(--bg);
   transform: translateX(2px);
+}
+.note-nav-next:hover .lbl,
+.note-nav-next:hover .arr {
+  color: var(--bg);
 }
 .note-nav-next .lbl {
   text-transform: lowercase;

@@ -28,11 +28,6 @@ window.NOTES = {
         { href: 'projects', label: 'projects', sub: 'all 15 projects, lead and partner' },
         { href: 'team', label: 'team', sub: 'the people who do the work' },
         { href: 'partners', label: 'partners', sub: 'the network across Europe' },
-      ]},
-
-      { kind: 'h2', text: 'working with us' },
-      { kind: 'cards', items: [
-        { href: 'partners', label: 'partnership', sub: 'consortia, transnational projects, joint applications' },
         { href: 'curiosity-dunbar-alexander-and-the-dozen', label: 'why a dozen', sub: 'how we are organised, with a long footnote' },
       ]},
 
@@ -40,7 +35,7 @@ window.NOTES = {
       { kind: 'md', html: '<p>Working alongside CCIF Cyprus, 4 Elements Croatia, CO-LABORY Italy, Innovation Hive Greece, ACD La Hoya Spain, Udruga Murtila Croatia, and the Polish Institute Romania. The full constellation: see the <a href="?n=partners" data-note="partners">partners</a> note.</p>' },
 
       { kind: 'addresses', items: [
-        { label: 'most recent', value: 'AI4NGOs (Cluj, August 2025) · Goana după meteor (Mociu, August 2025)' },
+        { label: 'most recent', value: '<a href="?n=project-ai4ngos" data-note="project-ai4ngos">AI4NGOs</a> (Cluj, August 2025) · <a href="?n=project-goana-dupa-meteor" data-note="project-goana-dupa-meteor">Goana după meteor</a> (Mociu, August 2025)' },
         { label: 'last update', value: '2026-05' },
       ]},
     ],

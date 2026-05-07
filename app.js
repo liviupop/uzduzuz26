@@ -903,11 +903,21 @@
       case 'addresses': {
         const wrap = el('div', { class: 'b-addresses' });
         for (const it of b.items) {
+          const valueNode =
+            typeof it.value === 'string' && /<\s*[a-z!/]/i.test(it.value)
+              ? el('div', { class: 'val', html: it.value })
+              : el('div', { class: 'val' }, it.value);
           wrap.appendChild(el('div', { class: 'addr-row' }, [
             el('div', { class: 'lbl' }, it.label),
-            el('div', { class: 'val' }, it.value),
+            valueNode,
           ]));
         }
+        wrap.querySelectorAll('a[data-note]').forEach(a => {
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            ctx.openNote(a.dataset.note, ctx.depth);
+          });
+        });
         return wrap;
       }
       default: return null;
