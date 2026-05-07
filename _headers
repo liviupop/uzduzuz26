@@ -6,6 +6,7 @@
 
 /
   Link: </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"
+  Link: </.well-known/agent-skills/index.json>; rel="https://agentskills.io/discovery"; type="application/json"
   Link: </DOCUMENTATION.md>; rel="service-doc"; type="text/markdown"
   Link: </llms.txt>; rel="describedby"; type="text/plain"
   Link: </content/>; rel="alternate"; type="text/markdown"
@@ -14,6 +15,7 @@
 
 /index.html
   Link: </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"
+  Link: </.well-known/agent-skills/index.json>; rel="https://agentskills.io/discovery"; type="application/json"
   Link: </DOCUMENTATION.md>; rel="service-doc"; type="text/markdown"
   Link: </llms.txt>; rel="describedby"; type="text/plain"
   Link: </content/>; rel="alternate"; type="text/markdown"
@@ -29,6 +31,14 @@
 
 /.well-known/api-catalog
   Content-Type: application/linkset+json; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/.well-known/agent-skills/index.json
+  Content-Type: application/json; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/.well-known/agent-skills/*.md
+  Content-Type: text/markdown; charset=utf-8
   Cache-Control: public, max-age=3600
 
 /_index.json

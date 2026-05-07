@@ -28,6 +28,13 @@
           "title": "llms.txt — site overview optimised for LLMs"
         }
       ],
+      "https://agentskills.io/discovery": [
+        {
+          "href": "https://uzinaduzina.org/.well-known/agent-skills/index.json",
+          "type": "application/json",
+          "title": "Agent Skills Discovery index v0.2"
+        }
+      ],
       "alternate": [
         {
           "href": "https://uzinaduzina.org/content/",

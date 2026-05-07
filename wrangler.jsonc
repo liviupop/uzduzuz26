@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "uzduzuz26",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-05-07",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    // Run the Worker on every request so it can post-process responses
+    // (Link headers, Content-Type fixes). Without this flag, the Worker
+    // is only invoked when no static asset matches the request path.
+    "run_worker_first": true
+  }
+}

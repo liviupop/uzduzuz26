@@ -620,28 +620,74 @@ The audience priority states "AI crawlers first" (see §1). Beyond `llms.txt`, `
 
 | Endpoint | Spec | Purpose |
 |---|---|---|
-| `/robots.txt` | de-facto + draft Content Signals | crawler permissions; Content-Signal directive `ai-train=yes, search=yes, ai-input=yes` |
+| `/robots.txt` | de-facto + draft Content Signals | crawler permissions; `Content-Signal: ai-train=yes, search=yes, ai-input=yes` |
 | `/llms.txt` | https://llmstxt.org/ | flat overview optimised for LLMs |
 | `/.well-known/api-catalog` | RFC 9727 | linkset listing the content endpoints, docs, and the `_index.json` "service description" |
+| `/.well-known/agent-skills/index.json` | Cloudflare Agent Skills RFC v0.2 | discovery index for the four agent skills the site exposes (with sha256 digests) |
+| `/.well-known/agent-skills/*.md` | (linked from index.json) | one description file per skill: `browse-notes`, `list-notes`, `fetch-note-markdown`, `open-note-stack` |
 | `/sitemap.xml` | sitemap.org | canonical URL index for traditional crawlers |
 | `<link>` tags in `index.html` | RFC 8288 link relations | same discovery URLs re-stated in HTML so agents fetching only the homepage can find them without parsing response headers |
-| `_headers` file | Cloudflare Pages convention | sets `Link:` response headers on `/`, `Content-Type` on markdown and JSON, plus `Vary: Accept` for content negotiation |
-| WebMCP tools (in `app.js`) | https://webmachinelearning.github.io/webmcp/ | three read-only tools exposed to in-browser AI agents: `list_notes`, `fetch_note_markdown`, `open_note_stack` |
+| `Link:` response headers | RFC 8288 | added by the Cloudflare Worker shim (`src/worker.js`) on every HTML response, so agents that look at HTTP headers find the discovery endpoints without parsing the body |
+| `_headers` file | Cloudflare Pages convention | mirrors the same headers; picked up if you redeploy via Pages |
+| WebMCP tools (in `app.js`) | https://webmachinelearning.github.io/webmcp/ | three read-only tools exposed to in-browser agents: `list_notes`, `fetch_note_markdown`, `open_note_stack` |
 
-### What is deliberately skipped
+### How the Worker shim works
 
-A few of the standardised "is it agent ready?" recommendations would be empty or misleading on a content-only site:
+The site is deployed as a Cloudflare Worker with a static-assets binding. `wrangler.jsonc` declares:
 
-- **OAuth/OIDC discovery** (`/.well-known/openid-configuration`, `/.well-known/oauth-authorization-server`): the site has no protected APIs to authenticate against. Publishing empty discovery metadata would advertise an OAuth surface that does not exist.
-- **OAuth Protected Resource Metadata** (`/.well-known/oauth-protected-resource`): same.
-- **MCP Server Card** (`/.well-known/mcp/server-card.json`): we do not run an MCP server. A card pointing at a non-existent transport endpoint would mislead agents.
-- **Agent Skills Discovery** (`/.well-known/agent-skills/index.json`): we do not expose runnable skills. The WebMCP tools cover the in-browser case; an empty server-side skills index would not help.
+```jsonc
+{
+  "name": "uzduzuz26",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-05-07",
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  }
+}
+```
 
-If any of these become applicable later (for example, if the markdown export or a search endpoint is wrapped in an MCP server), publishing the matching `.well-known` files would be a clean addition.
+`run_worker_first: true` makes the Worker run on every request. The Worker (`src/worker.js`, ~80 lines) calls `env.ASSETS.fetch(request)` to get the static asset, then post-processes the response:
+
+- For HTML, appends seven `Link:` headers (api-catalog, agent-skills, two service-doc, describedby, alternate, sitemap) and `Vary: Accept`.
+- For `.md` paths, sets `Content-Type: text/markdown; charset=utf-8`.
+- For `/.well-known/api-catalog`, sets `Content-Type: application/linkset+json; charset=utf-8`.
+- For `/.well-known/agent-skills/index.json`, sets `Content-Type: application/json; charset=utf-8`.
+- For all responses, sets `Referrer-Policy: strict-origin-when-cross-origin` and `X-Content-Type-Options: nosniff` if not already present.
+
+The Worker is intentionally minimal: no state, no third-party calls, no rewriting of bodies. If the Worker fails to deploy, the static assets continue serving (without the extra headers) — the site does not go dark.
+
+### Agent Skills index
+
+The four published skills:
+
+| Name | Type | What it does |
+|---|---|---|
+| `browse-notes` | navigation | Construct a `?n=slug,slug,slug` URL that opens a stacked-notes view |
+| `list-notes` | data-fetch | `GET /content/_index.json` — every published note's metadata in one JSON array |
+| `fetch-note-markdown` | data-fetch | `GET /content/<slug>.md` — the original markdown source of a single note |
+| `open-note-stack` | webmcp-tool | In-browser only: programmatically open a stack via `navigator.modelContext.provideContext()` |
+
+Each skill has a markdown description at `/.well-known/agent-skills/<name>.md` with the full URL grammar, examples, and edge cases. The index pins each description by sha256 so an agent can verify the file content matches what it expects.
+
+When a skill description changes, recompute the digest and update the index:
+
+```sh
+cd .well-known/agent-skills
+shasum -a 256 *.md     # paste the new hashes into index.json
+```
+
+### What is still deliberately skipped
+
+Two of the agent-readiness recommendations would mislead agents rather than help them, so we don't publish them — at least until they have something real to point at:
+
+- **OAuth/OIDC discovery** (`/.well-known/openid-configuration`, `/.well-known/oauth-authorization-server`, `/.well-known/oauth-protected-resource`): no protected APIs to authenticate against. Publishing OAuth metadata that points at non-existent `authorization_endpoint`/`token_endpoint` URLs would actively break agents trying to obtain access tokens. If a future feature actually requires auth (e.g. a private contact form, a partner-only dashboard), publishing the discovery files at the same time is the right pattern.
+- **MCP Server Card** (`/.well-known/mcp/server-card.json`): we don't run an MCP server. The card declares a transport URL (e.g. an SSE endpoint) — without a real MCP server behind it, agents trying to connect would just fail. Two paths forward if this becomes important: (a) deploy a small MCP-over-HTTP server in the same Worker exposing the `list_notes` / `fetch_note_markdown` tools as proper MCP `tools/call` methods, and publish the card pointing at it; or (b) use Cloudflare's `agents` SDK to spin up a hosted MCP server and link to that.
 
 ### Markdown content negotiation
 
-The site already serves Markdown source for every editorial note at `content/<slug>.md`. The `_headers` file labels these responses as `text/markdown; charset=utf-8`. To turn this into full `Accept: text/markdown` content negotiation on the homepage and SPA-style URLs, Cloudflare's "Markdown for Agents" feature can be enabled in the dashboard, or a small Worker shim can wrap the assets binding and rewrite responses. Both are non-invasive next steps.
+The site serves Markdown source for every editorial note at `content/<slug>.md`. The Worker labels these responses as `text/markdown; charset=utf-8`. Full `Accept: text/markdown` negotiation on the homepage and SPA-style URLs is left to Cloudflare's "Markdown for Agents" toggle in the dashboard (which converts HTML → markdown automatically) or to a future addition to `src/worker.js` that redirects `Accept: text/markdown` requests to the underlying `.md` source.
 
 ---
 

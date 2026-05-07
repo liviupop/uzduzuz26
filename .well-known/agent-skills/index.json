@@ -1,0 +1,39 @@
+{
+  "$schema": "https://agentskills.io/v0.2.0/schema.json",
+  "issuer": "https://uzinaduzina.org/",
+  "skills": [
+    {
+      "name": "browse-notes",
+      "type": "navigation",
+      "description": "Navigate the stacked-notes UI of uzinaduzina.org by composing a URL. Returns the URL grammar, slug conventions, and worked examples.",
+      "url": "https://uzinaduzina.org/.well-known/agent-skills/browse-notes.md",
+      "sha256": "04bcbfbb939ed72520a30aa157772414cb8937ceb2d4ff6a2e63d3ba08b0c178"
+    },
+    {
+      "name": "list-notes",
+      "type": "data-fetch",
+      "description": "Retrieve the full machine-readable index of every published note on uzinaduzina.org. JSON array, no auth.",
+      "url": "https://uzinaduzina.org/.well-known/agent-skills/list-notes.md",
+      "sha256": "bb1b02d0d0103a509440281158cb2c07877d013fc09d644c05d4b4dfbcc9ce15"
+    },
+    {
+      "name": "fetch-note-markdown",
+      "type": "data-fetch",
+      "description": "Retrieve the original Markdown source of any single note on uzinaduzina.org by slug.",
+      "url": "https://uzinaduzina.org/.well-known/agent-skills/fetch-note-markdown.md",
+      "sha256": "f14ec1e6e828e16caf24fa4002ba3b5d80e016096d6c81557482899f95c768a5"
+    },
+    {
+      "name": "open-note-stack",
+      "type": "webmcp-tool",
+      "description": "Open one or more notes in the user-visible stacked-notes UI. WebMCP tool exposed only to in-browser agents via navigator.modelContext.provideContext().",
+      "url": "https://uzinaduzina.org/.well-known/agent-skills/open-note-stack.md",
+      "sha256": "ea378fd09a303a552987b823cd4d3c0144685ffe419f0092ec615c45a2bbaa25"
+    }
+  ],
+  "links": {
+    "service-doc": "https://uzinaduzina.org/DOCUMENTATION.md",
+    "api-catalog": "https://uzinaduzina.org/.well-known/api-catalog",
+    "describedby": "https://uzinaduzina.org/llms.txt"
+  }
+}
