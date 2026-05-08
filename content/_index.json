@@ -79,13 +79,16 @@
     "kicker": "team · president",
     "accent": "indigo",
     "subtitle": "",
-    "summary": "President. Strategy, grant writing, and editorial direction.",
-    "excerpt": "President of uzinaduzina.",
+    "summary": "President. Strategy, grant writing, editorial direction. Researcher at the Folklore Archive Institute of the Romanian Academy.",
+    "excerpt": "Researcher at the Folklore Archive Institute of the Romanian Academy in Cluj-Napoca and president of uzinaduzina.",
     "year": "",
     "role": "",
     "order": 1,
     "pills": [
       "president",
+      "folklore archive",
+      "digital humanities",
+      "grant writing",
       "Cluj-Napoca"
     ]
   },
