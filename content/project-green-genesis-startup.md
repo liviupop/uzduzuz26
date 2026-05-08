@@ -13,6 +13,10 @@ pills:
 role: "lead"
 order: 2
 summary: "Green entrepreneurship for European youth. Five-partner consortium."
+images:
+  - project-green-genesis-startup-01.jpg
+  - project-green-genesis-startup-02.jpg
+  - project-green-genesis-startup-03.jpg
 ---
 
 The first Erasmus+ KA220-YOU we coordinated. €205,144. Two years. Five partners across Italy, Cyprus, Greece, Spain, and Croatia. Closed January 2024.
