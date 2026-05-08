@@ -532,7 +532,7 @@ button { font-family: inherit; }
 
 .note-title {
   font-family: var(--font-display);
-  font-weight: 900;
+  font-weight: 700;
   font-size: clamp(36px, 4.6vw, 56px);
   line-height: 1.02;
   letter-spacing: -0.025em;
