@@ -60,4 +60,4 @@ Adjacent applied-research lines include the SAVOR project (*Semantic AI Valorisa
 - [Team](team)
 - [Who we are](who-we-are)
 - [Projects](projects)
-- [Manifesto](manifesto)
+- [Fundamentals](fundamentals)
