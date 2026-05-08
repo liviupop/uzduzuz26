@@ -46,7 +46,6 @@ In parallel, he edits *min.work* / *The Idle Gazette*, a small publication on th
 - [Goana după meteor](project-goana-dupa-meteor) (2025, AFCN): co-author and coordinator
 - [Cabinet of retrofuturist curiosities](project-cabinet-retrofuturist) (2024): coordinator
 - [AI4NGOs](project-ai4ngos) (2025, Cluj for CCIF Cyprus): coordinator
-- BAIT (2026, CERV submission, in preparation)
 - [democraicy](project-democraicy) (2020 concept document, unfunded): author
 
 ## languages
