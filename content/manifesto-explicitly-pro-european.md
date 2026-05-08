@@ -2,7 +2,7 @@
 title: "Explicitly pro-European"
 slug: manifesto-explicitly-pro-european
 type: principle
-kicker: "principle · 05 of 11"
+kicker: "principle · 05 of 9"
 accent: indigo
 pills:
   - principle 05

@@ -2,7 +2,7 @@
 title: "Living heritage"
 slug: manifesto-living-heritage
 type: principle
-kicker: "principle · 09 of 11"
+kicker: "principle · 09 of 9"
 accent: green
 pills:
   - principle 09
@@ -20,11 +20,11 @@ This work involves a careful negotiation. Heritage that is over-romanticised bec
 
 There is a quiet political content to this work, which connects it to several earlier principles. Living heritage gives a community a way of locating itself in time that does not depend on the cycle of consumption. It is an antidote to the perpetual present in which the digital economy would prefer that we live. The communities that have access to their own heritage, in the active sense, are more difficult to disorient.
 
-To work with the past in this way is, paradoxically, to work in service of the future. The communities we form, the techniques we keep alive, the children we teach are all going to outlast us. That long horizon is itself a principle.
+To work with the past in this way is, paradoxically, to work in service of the future. The communities we form, the techniques we keep alive, the children we teach are all going to outlast us. Which returns us to where the list began: what survives is what someone, at some point, judged worth keeping, and beauty is the test that has lasted longest. The circuit closes; the work continues.
 
 ## read alongside
 
-- [10. Responsibility toward the future →](manifesto-responsibility-toward-the-future)
+- [01. Sustainability through beauty →](manifesto-sustainability-through-beauty) (back to the start)
 - [Manifesto](manifesto)
 - [Archive: The 2020 *Manifesto of City Dwellers Who Love the Village*](curiosity-village-manifesto) — an earlier statement of this principle, reproduced in full
 - [Projects: Wooden Wonders](project-wooden-wonders)

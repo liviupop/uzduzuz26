@@ -2,7 +2,7 @@
 title: "Sustainability through beauty"
 slug: manifesto-sustainability-through-beauty
 type: principle
-kicker: "principle · 01 of 11"
+kicker: "principle · 01 of 9"
 accent: ochre
 pills:
   - principle 01

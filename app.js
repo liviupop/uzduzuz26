@@ -1038,7 +1038,7 @@
     }
 
     // For principle notes, place a prominent "next principle →" button in the
-    // header. Loops back to principle 01 after 11.
+    // header. Loops back to principle 01 after the last one.
     if (data.type === 'principle' && AUTO_INDEX) {
       const principles = AUTO_INDEX
         .filter(n => n.type === 'principle')

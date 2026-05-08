@@ -2,7 +2,7 @@
 title: "Education for the whole person"
 slug: manifesto-education-for-the-whole-person
 type: principle
-kicker: "principle · 03 of 11"
+kicker: "principle · 03 of 9"
 accent: green
 pills:
   - principle 03

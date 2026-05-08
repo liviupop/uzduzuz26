@@ -2,7 +2,7 @@
 title: "Active citizenship as a transversal practice"
 slug: manifesto-active-transversal-citizenship
 type: principle
-kicker: "principle · 04 of 11"
+kicker: "principle · 04 of 9"
 accent: ochre
 pills:
   - principle 04

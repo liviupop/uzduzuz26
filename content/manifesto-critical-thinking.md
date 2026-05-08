@@ -2,7 +2,7 @@
 title: "Critical thinking"
 slug: manifesto-critical-thinking
 type: principle
-kicker: "principle · 06 of 11"
+kicker: "principle · 06 of 9"
 accent: green
 pills:
   - principle 06

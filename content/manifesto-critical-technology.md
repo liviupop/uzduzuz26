@@ -2,7 +2,7 @@
 title: "Critical technology"
 slug: manifesto-critical-technology
 type: principle
-kicker: "principle · 08 of 11"
+kicker: "principle · 08 of 9"
 accent: indigo
 pills:
   - principle 08

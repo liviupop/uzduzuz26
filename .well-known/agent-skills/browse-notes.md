@@ -26,7 +26,7 @@ https://uzinaduzina.org/?n=<slug>[,<slug>...]&a=<index>
 | `project-<slug>` | project notes (18 currently) | `n=project-goana-dupa-meteor` |
 | `team-<slug>` | team profiles (7 currently) | `n=team-liviu-pop` |
 | `partner-<slug>` | partner profiles | `n=partner-ccif` |
-| `manifesto-<slug>` | the eleven principles | `n=manifesto-living-heritage` |
+| `manifesto-<slug>` | the nine principles | `n=manifesto-living-heritage` |
 | `curiosity-<slug>` | one-off side notes | `n=curiosity-dunbar-alexander-and-the-dozen` |
 
 The full list of available slugs is published at `https://uzinaduzina.org/content/_index.json` (see also the `list-notes` skill).

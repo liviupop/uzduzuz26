@@ -2,7 +2,7 @@
 title: "Curiosity and experiment"
 slug: manifesto-curiosity-and-experiment
 type: principle
-kicker: "principle · 07 of 11"
+kicker: "principle · 07 of 9"
 accent: ochre
 pills:
   - principle 07

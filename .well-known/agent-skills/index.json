@@ -7,14 +7,14 @@
       "type": "navigation",
       "description": "Navigate the stacked-notes UI of uzinaduzina.org by composing a URL. Returns the URL grammar, slug conventions, and worked examples.",
       "url": "https://uzinaduzina.org/.well-known/agent-skills/browse-notes.md",
-      "sha256": "04bcbfbb939ed72520a30aa157772414cb8937ceb2d4ff6a2e63d3ba08b0c178"
+      "sha256": "4c804a5f05c7aae47accbccc70f7b5d0e1a2472c987577fe7e61785829c66755"
     },
     {
       "name": "list-notes",
       "type": "data-fetch",
       "description": "Retrieve the full machine-readable index of every published note on uzinaduzina.org. JSON array, no auth.",
       "url": "https://uzinaduzina.org/.well-known/agent-skills/list-notes.md",
-      "sha256": "bb1b02d0d0103a509440281158cb2c07877d013fc09d644c05d4b4dfbcc9ce15"
+      "sha256": "40faf9227845396c37febf1479c95d9ab685eea47d5953c99dea7a5236755cbf"
     },
     {
       "name": "fetch-note-markdown",

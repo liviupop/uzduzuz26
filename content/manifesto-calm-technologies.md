@@ -2,7 +2,7 @@
 title: "Calm technologies"
 slug: manifesto-calm-technologies
 type: principle
-kicker: "principle · 02 of 11"
+kicker: "principle · 02 of 9"
 accent: indigo
 pills:
   - principle 02

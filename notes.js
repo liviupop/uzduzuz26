@@ -24,7 +24,7 @@ window.NOTES = {
       { kind: 'h2', text: 'enter through any door' },
       { kind: 'cards', items: [
         { href: 'who-we-are', label: 'who we are', sub: 'the organisation, in three lengths' },
-        { href: 'manifesto', label: 'fundamentals', sub: 'eleven fundamentals, each on its own page' },
+        { href: 'manifesto', label: 'fundamentals', sub: 'nine fundamentals, each on its own page' },
         { href: 'projects', label: 'projects', sub: 'all 15 projects, lead and partner' },
         { href: 'team', label: 'team', sub: 'the people who do the work' },
         { href: 'partners', label: 'partners', sub: 'the network across Europe' },
@@ -49,18 +49,18 @@ window.NOTES = {
     type: 'manifesto',
     kicker: 'fundamentals',
     title: 'fundamentals',
-    subtitle: 'Eleven fundamentals. Not rules we set out to obey, but tendencies our work has revealed about itself, retrospectively.',
+    subtitle: 'Nine fundamentals. Not rules we set out to obey, but tendencies our work has revealed about itself, retrospectively.',
     accent: 'ochre',
     body: [
       { kind: 'lede', text: 'We name these so we can recognise them when they recur, and so we can refuse work that contradicts them. The principles are arranged to be read in sequence; each one ends by gesturing at the next, so the manifesto reads less like a list and more like a slow circuit through what we believe. You can also read them out of order; they will not collapse.' },
 
       { kind: 'p', text: 'We try to keep the principles independent of any particular project, so they remain useful as our work evolves. Where a principle has a natural home in something we have done, we link to it. The principle does not depend on the project; the project is one way the principle has, so far, taken shape.' },
 
-      { kind: 'h2', text: 'the eleven' },
+      { kind: 'h2', text: 'the nine' },
 
       { kind: 'auto-list', filter: { type: 'principle' } },
 
-      { kind: 'callout', text: 'Read in order, the manifesto loops: the eleventh principle hands you back to the first. Read out of order, each principle is a self-contained essay.' },
+      { kind: 'callout', text: 'Read in order, the manifesto loops: the ninth principle hands you back to the first. Read out of order, each principle is a self-contained essay.' },
 
       { kind: 'h2', text: 'read alongside' },
       { kind: 'links', items: [
@@ -104,7 +104,7 @@ window.NOTES = {
 
       { kind: 'h2', text: 'read alongside' },
       { kind: 'links', items: [
-        { href: 'manifesto', label: 'the fundamentals: eleven texts' },
+        { href: 'manifesto', label: 'the fundamentals: nine texts' },
         { href: 'team', label: 'the team' },
         { href: 'partners', label: 'partners' },
       ]},

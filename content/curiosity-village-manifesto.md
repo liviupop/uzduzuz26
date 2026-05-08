@@ -14,7 +14,7 @@ summary: "Reproduced in full from our 2020-era website. Eleven principles for di
 
 A general guide for digital nomads and remote workers who want to embrace the rural lifestyle. Eleven principles, signed in 2020 by twenty-something people who recognised themselves in them. Reproduced here in full from the previous uzinaduzina website, as an archive of one stage of our thinking.
 
-The current [manifesto](manifesto) is structurally different — eleven principles each on its own page, written for a different moment. The 2020 manifesto stays interesting on its own terms, especially for the [Living heritage](manifesto-living-heritage) line of work it foreshadowed.
+The current [manifesto](manifesto) is structurally different: nine principles each on its own page, written for a different moment. The 2020 manifesto stays interesting on its own terms, especially for the [Living heritage](manifesto-living-heritage) line of work it foreshadowed.
 
 ## § 1. With roots in traditions and head in the clouds
 
@@ -89,6 +89,6 @@ The original 2020 invitation closed: *to sign the manifesto, send us an email at
 ## read alongside
 
 - [Manifesto: living heritage](manifesto-living-heritage) — the contemporary principle that grew from this stage of work
-- [Manifesto](manifesto) — the current eleven principles
+- [Manifesto](manifesto) — the current nine principles
 - [Wooden Wonders](project-wooden-wonders) — heritage and craft in the new register
 - [Greenycrafts](project-greenycrafts)
