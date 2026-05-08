@@ -193,6 +193,7 @@ def build_entry(md: Path) -> dict:
         "role": fm.get("role", ""),
         "order": coerce_int(fm.get("order", 99)),
         "pills": fm.get("pills") if isinstance(fm.get("pills"), list) else [],
+        "images": fm.get("images") if isinstance(fm.get("images"), list) else [],
     }
 
 

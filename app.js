@@ -192,6 +192,7 @@
       subtitle: front.subtitle || front.tagline || '',
       accent,
       pills,
+      images: Array.isArray(front.images) ? front.images.filter(Boolean) : [],
       body: [{ kind: 'md', html: mdToHtml(body) }],
       _md: true,
     };
@@ -977,6 +978,76 @@
     return note;
   }
 
+  // Slideshow: a sticky-right-column auto-advancing carousel of images for a
+  // note. Images are stored at /assets/images/<slug>/<filename>; the note's
+  // front matter declares the order via `images: [...]`. Auto-advances every
+  // 5 s; pauses on hover; prev/next arrows; dot indicators below.
+  function buildSlideshow(slug, images) {
+    const wrap = el('div', { class: 'note-slideshow', 'data-slug': slug });
+    const stage = el('div', { class: 'slideshow-stage' });
+    const imgEls = images.map((name, i) => {
+      const src = `assets/images/${slug}/${name}`;
+      const im = el('img', {
+        class: 'slideshow-img' + (i === 0 ? ' is-active' : ''),
+        src,
+        alt: '',
+        loading: i === 0 ? 'eager' : 'lazy',
+        decoding: 'async',
+      });
+      stage.appendChild(im);
+      return im;
+    });
+    wrap.appendChild(stage);
+
+    if (images.length > 1) {
+      const prev = el('button', { class: 'slideshow-arrow prev', type: 'button', 'aria-label': 'previous image' }, '‹');
+      const next = el('button', { class: 'slideshow-arrow next', type: 'button', 'aria-label': 'next image' }, '›');
+      const dots = el('div', { class: 'slideshow-dots' });
+      const dotEls = images.map((_, i) => {
+        const d = el('button', {
+          class: 'slideshow-dot' + (i === 0 ? ' is-active' : ''),
+          type: 'button',
+          'aria-label': `image ${i + 1}`,
+          'data-i': String(i),
+        });
+        dots.appendChild(d);
+        return d;
+      });
+
+      wrap.appendChild(prev);
+      wrap.appendChild(next);
+      wrap.appendChild(dots);
+
+      let idx = 0;
+      let timer = null;
+      const setActive = (i) => {
+        idx = (i + images.length) % images.length;
+        imgEls.forEach((e, k) => e.classList.toggle('is-active', k === idx));
+        dotEls.forEach((e, k) => e.classList.toggle('is-active', k === idx));
+      };
+      const advance = () => setActive(idx + 1);
+      const start = () => { if (!timer) timer = setInterval(advance, 5000); };
+      const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+
+      prev.addEventListener('click', () => { setActive(idx - 1); stop(); start(); });
+      next.addEventListener('click', () => { setActive(idx + 1); stop(); start(); });
+      dotEls.forEach((d) => d.addEventListener('click', () => {
+        setActive(parseInt(d.dataset.i, 10)); stop(); start();
+      }));
+      wrap.addEventListener('mouseenter', stop);
+      wrap.addEventListener('mouseleave', start);
+      // Cleanup when the note's column is removed from the DOM. Uses a
+      // MutationObserver up the tree to detect detachment.
+      const obs = new MutationObserver(() => {
+        if (!wrap.isConnected) { stop(); obs.disconnect(); }
+      });
+      obs.observe(document.body, { childList: true, subtree: true });
+      start();
+    }
+
+    return wrap;
+  }
+
   function renderNote(id, depth, isActive) {
     const data = getNote(id);
     if (!data) return renderPlaceholder(id, depth, isActive);
@@ -1075,7 +1146,7 @@
 
     inner.appendChild(head);
 
-    // ---- body ----
+    // ---- body + optional slideshow column ----
     const body = el('div', { class: 'note-body' });
     const ctx = { depth, openNote: (target, fromDepth) => app.openNoteAt(target, fromDepth) };
 
@@ -1084,7 +1155,16 @@
       if (node) body.appendChild(node);
     }
 
-    inner.appendChild(body);
+    const hasSlideshow = Array.isArray(data.images) && data.images.length > 0;
+    if (hasSlideshow) {
+      inner.classList.add('has-slideshow');
+      const grid = el('div', { class: 'note-grid' });
+      grid.appendChild(body);
+      grid.appendChild(buildSlideshow(id, data.images));
+      inner.appendChild(grid);
+    } else {
+      inner.appendChild(body);
+    }
 
     // ---- footer micro ----
     const foot = el('div', { class: 'note-foot' }, [

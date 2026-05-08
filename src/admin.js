@@ -60,6 +60,8 @@ export async function handleAdmin(request, env) {
   if (path === "/admin/delete" && method === "POST") return await handleDelete(request, env, session);
   if (path === "/admin/new" && method === "GET") return newNotePage(session);
   if (path === "/admin/new" && method === "POST") return await handleNewNote(request, env, session);
+  if (path === "/admin/images/upload" && method === "POST") return await handleImageUpload(request, env, session);
+  if (path === "/admin/images/delete" && method === "POST") return await handleImageDelete(request, env, session);
 
   return errorPage("Not found", `No admin route matches ${path}.`, 404);
 }
@@ -227,6 +229,62 @@ async function writeContentFile({ slug, content, sha, message, username, env }) 
   return await r.json();
 }
 
+// List the image files at assets/images/<slug>/. Returns [] if the
+// directory does not exist yet. Sorted by filename so the order matches
+// what the renderer shows.
+async function listImages(slug, env) {
+  const r = await ghFetch(`/contents/assets/images/${encodeURIComponent(slug)}?ref=${REPO_BRANCH}`, {}, env);
+  if (r.status === 404) return [];
+  if (!r.ok) throw new Error(`GitHub image list failed: HTTP ${r.status}`);
+  const data = await r.json();
+  if (!Array.isArray(data)) return [];
+  return data
+    .filter((f) => f.type === "file" && /\.(jpe?g|png|webp|gif|avif)$/i.test(f.name))
+    .map((f) => ({ name: f.name, sha: f.sha, size: f.size, path: f.path }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+async function writeBinaryFile({ path, base64Content, sha, message, username, env }) {
+  const body = {
+    message,
+    content: base64Content,
+    branch: REPO_BRANCH,
+    committer: { name: username, email: `${username}@admin.uzinaduzina.org` },
+    author: { name: username, email: `${username}@admin.uzinaduzina.org` },
+  };
+  if (sha) body.sha = sha;
+  const r = await ghFetch(
+    `/contents/${path.split("/").map(encodeURIComponent).join("/")}`,
+    { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) },
+    env
+  );
+  if (!r.ok) {
+    const errBody = await r.text();
+    throw new Error(`GitHub binary PUT failed: HTTP ${r.status} ${errBody}`);
+  }
+  return await r.json();
+}
+
+async function deleteFileAtPath({ path, sha, message, username, env }) {
+  const body = {
+    message,
+    sha,
+    branch: REPO_BRANCH,
+    committer: { name: username, email: `${username}@admin.uzinaduzina.org` },
+    author: { name: username, email: `${username}@admin.uzinaduzina.org` },
+  };
+  const r = await ghFetch(
+    `/contents/${path.split("/").map(encodeURIComponent).join("/")}`,
+    { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) },
+    env
+  );
+  if (!r.ok) {
+    const errBody = await r.text();
+    throw new Error(`GitHub DELETE failed: HTTP ${r.status} ${errBody}`);
+  }
+  return await r.json();
+}
+
 async function deleteContentFile({ slug, sha, message, username, env }) {
   const body = {
     message,
@@ -343,6 +401,36 @@ function shell(title, bodyHtml, session) {
   .login-card h1 { font-size: 24px; margin: 0 0 16px; }
   .commit-msg { font-family: var(--font-ui); font-size: 12px; color: var(--ink-muted); margin: 8px 0; }
   .commit-msg input { width: 100%; }
+  .hint { font-family: var(--font-ui); font-size: 13px; color: var(--ink-muted); margin: 8px 0 16px; }
+  .hint code { background: var(--bg-paper); padding: 1px 4px; border-radius: 2px; }
+  .upload-form { margin: 16px 0 24px; }
+  .dropzone {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 6px; padding: 32px; margin: 0 0 12px;
+    border: 2px dashed var(--rule); border-radius: 6px;
+    background: var(--bg-paper); cursor: pointer;
+    transition: border-color 150ms var(--ease-out), background 150ms var(--ease-out);
+  }
+  .dropzone:hover { border-color: var(--accent); background: var(--bg); }
+  .dropzone input[type=file] { position: absolute; opacity: 0; pointer-events: none; }
+  .dropzone-text { font-family: var(--font-ui); font-size: 14px; color: var(--ink); }
+  .dropzone-hint { font-family: var(--font-ui); font-size: 11px; color: var(--ink-muted); }
+  .img-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin: 16px 0; }
+  .img-tile {
+    display: flex; flex-direction: column; gap: 6px;
+    padding: 8px; background: var(--bg-paper); border: 1px solid var(--rule); border-radius: 4px;
+  }
+  .img-tile img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 2px; background: var(--bg); }
+  .img-name {
+    font-family: var(--font-mono); font-size: 11px; color: var(--ink-muted);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .btn-mini {
+    padding: 4px 8px; font-size: 11px; font-family: var(--font-ui);
+    background: transparent; color: var(--ink-muted);
+    border: 1px solid var(--rule); border-radius: 2px; cursor: pointer;
+  }
+  .btn-mini:hover { background: #c44; color: white; border-color: #c44; }
 </style>
 </head>
 <body>
@@ -436,19 +524,29 @@ async function editorPage(url, env, session) {
   if (!/^[\w-]+$/.test(slug)) return errorPage("Invalid slug", "Slug must match ^[\\w-]+$.", 400);
 
   let file;
+  let images = [];
   try {
     file = await readContentFile(slug, env);
+    images = await listImages(slug, env);
   } catch (e) {
     return errorPage("Failed to load note", e.message, 502);
   }
   if (!file) return errorPage("Note not found", `No file at content/${slug}.md.`, 404);
 
   const saved = url.searchParams.get("saved");
+  const uploaded = url.searchParams.get("uploaded");
+  const removed = url.searchParams.get("removed");
   let alert = "";
   if (saved === "1") {
     const sha = url.searchParams.get("sha") || "";
     alert = `<div class="alert success">Saved to GitHub${sha ? ` (commit <code>${escapeHtml(sha.slice(0, 7))}</code>)` : ""}. Cloudflare will redeploy in ~60 s.</div>`;
+  } else if (uploaded) {
+    alert = `<div class="alert success">Uploaded ${escapeHtml(uploaded)} image(s). Cloudflare will redeploy in ~60 s.</div>`;
+  } else if (removed) {
+    alert = `<div class="alert info">Deleted ${escapeHtml(removed)}.</div>`;
   }
+
+  const imagesHtml = renderImagesPanel(slug, images);
 
   const body = `
 <h1>edit · ${escapeHtml(slug)}</h1>
@@ -473,9 +571,50 @@ ${alert}
 <form id="del" method="POST" action="/admin/delete" style="display:none">
   <input type="hidden" name="slug" value="${escapeHtml(slug)}">
   <input type="hidden" name="sha" value="${escapeHtml(file.sha)}">
-</form>`;
+</form>
+
+${imagesHtml}`;
 
   return htmlResponse(shell(`Edit ${slug}`, body, session));
+}
+
+function renderImagesPanel(slug, images) {
+  const list = images.map((im) => `
+    <div class="img-tile">
+      <img src="/assets/images/${encodeURIComponent(slug)}/${encodeURIComponent(im.name)}" alt="">
+      <div class="img-name">${escapeHtml(im.name)}</div>
+      <form method="POST" action="/admin/images/delete" style="margin:0">
+        <input type="hidden" name="slug" value="${escapeHtml(slug)}">
+        <input type="hidden" name="filename" value="${escapeHtml(im.name)}">
+        <input type="hidden" name="sha" value="${escapeHtml(im.sha)}">
+        <button type="submit" class="btn-mini" onclick="return confirm('Delete ${escapeHtml(im.name)}?')">delete</button>
+      </form>
+    </div>
+  `).join("");
+
+  const noteOnFrontMatter = images.length === 0
+    ? `<p class="hint">No images yet. Upload a few. They'll be saved to <code>assets/images/${escapeHtml(slug)}/</code> and listed in this note's <code>images:</code> front-matter array — the slideshow will then appear automatically on the live note.</p>`
+    : `<p class="hint">Slideshow auto-advances every 5 s. The <code>images:</code> array in the note's front matter controls the order — edit it in the textarea above to reorder. Files live at <code>assets/images/${escapeHtml(slug)}/</code>.</p>`;
+
+  return `
+<h2 style="margin-top: 48px;">images <span class="count">${images.length}</span></h2>
+${noteOnFrontMatter}
+
+<form method="POST" action="/admin/images/upload" enctype="multipart/form-data" class="upload-form">
+  <input type="hidden" name="slug" value="${escapeHtml(slug)}">
+  <label class="dropzone">
+    <input type="file" name="files" accept="image/*" multiple required>
+    <span class="dropzone-text">drop image(s) here, or click to choose</span>
+    <span class="dropzone-hint">JPG / PNG / WEBP / GIF · max ~5 MB each</span>
+  </label>
+  <div class="row">
+    <button type="submit" class="btn">upload</button>
+    <span class="hint">Each upload is one commit; multiple files in one upload are batched into a single commit when possible.</span>
+  </div>
+</form>
+
+${images.length ? `<div class="img-grid">${list}</div>` : ""}
+`;
 }
 
 async function handleSave(request, env, session) {
@@ -653,6 +792,233 @@ Body. Standard Markdown.
 
 function jsonStr(s) {
   return JSON.stringify(s);
+}
+
+// ------------------------------------------ image upload + delete ---
+
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5 MB per file
+const ALLOWED_IMAGE_EXT = /\.(jpe?g|png|webp|gif|avif)$/i;
+
+async function handleImageUpload(request, env, session) {
+  let form;
+  try {
+    form = await request.formData();
+  } catch {
+    return errorPage("Bad request", "Could not parse multipart form.", 400);
+  }
+  const slug = String(form.get("slug") || "");
+  if (!/^[\w-]+$/.test(slug)) return errorPage("Invalid slug", "Slug must match ^[\\w-]+$.", 400);
+
+  const files = form.getAll("files").filter((f) => typeof f === "object" && f && f.size > 0);
+  if (!files.length) return errorPage("No files", "No files were uploaded.", 400);
+
+  const uploaded = [];
+  for (const file of files) {
+    const safeName = sanitiseFilename(file.name || "image");
+    if (!ALLOWED_IMAGE_EXT.test(safeName)) {
+      return errorPage("Bad file type", `${file.name}: only jpg, png, webp, gif, avif are allowed.`, 415);
+    }
+    if (file.size > MAX_IMAGE_BYTES) {
+      return errorPage("File too large", `${file.name}: ${(file.size / 1024 / 1024).toFixed(1)} MB exceeds the 5 MB limit.`, 413);
+    }
+    const buffer = await file.arrayBuffer();
+    const b64 = arrayBufferToBase64(buffer);
+    try {
+      await writeBinaryFile({
+        path: `assets/images/${slug}/${safeName}`,
+        base64Content: b64,
+        sha: null,
+        message: `Upload ${safeName} to ${slug} via /admin`,
+        username: session.username,
+        env,
+      });
+      uploaded.push(safeName);
+    } catch (e) {
+      // If the file already exists, GitHub returns 422; surface a helpful error.
+      return errorPage("Upload failed", `${safeName}: ${e.message}`, 502);
+    }
+  }
+
+  // Append the new filenames to the note's front-matter `images:` list so the
+  // renderer picks them up. If the .md isn't found, skip silently — the user
+  // may be uploading images for a slug whose .md hasn't been authored yet.
+  try {
+    await appendImagesToFrontMatter(slug, uploaded, session.username, env);
+  } catch (e) {
+    return errorPage(
+      "Images uploaded, but front-matter update failed",
+      `${e.message}\n\nThe image files are on disk; you can also add them to the note's images: list manually.`,
+      502
+    );
+  }
+
+  const url = new URL(request.url);
+  return Response.redirect(
+    new URL(`/admin/edit?slug=${encodeURIComponent(slug)}&uploaded=${uploaded.length}`, url).toString(),
+    302
+  );
+}
+
+async function handleImageDelete(request, env, session) {
+  const form = await request.formData();
+  const slug = String(form.get("slug") || "");
+  const filename = String(form.get("filename") || "");
+  const sha = String(form.get("sha") || "");
+
+  if (!/^[\w-]+$/.test(slug)) return errorPage("Invalid slug", "Slug must match ^[\\w-]+$.", 400);
+  if (!filename || filename.includes("/") || filename.includes("..")) {
+    return errorPage("Invalid filename", "Bad filename.", 400);
+  }
+  if (!sha) return errorPage("Missing sha", "Stale request: no sha provided.", 400);
+
+  try {
+    await deleteFileAtPath({
+      path: `assets/images/${slug}/${filename}`,
+      sha,
+      message: `Delete ${filename} from ${slug} via /admin`,
+      username: session.username,
+      env,
+    });
+  } catch (e) {
+    return errorPage("Delete failed", e.message, 502);
+  }
+
+  // Remove from the note's front-matter `images:` list if present.
+  try {
+    await removeImageFromFrontMatter(slug, filename, session.username, env);
+  } catch {
+    // Non-fatal: the binary is gone; the array may still reference it. The
+    // editor textarea lets the user clean up by hand.
+  }
+
+  const url = new URL(request.url);
+  return Response.redirect(
+    new URL(`/admin/edit?slug=${encodeURIComponent(slug)}&removed=${encodeURIComponent(filename)}`, url).toString(),
+    302
+  );
+}
+
+async function appendImagesToFrontMatter(slug, newFiles, username, env) {
+  if (!newFiles.length) return;
+  const file = await readContentFile(slug, env);
+  if (!file) return;
+  const { content, sha } = file;
+  const updated = patchFrontMatterImages(content, (current) => {
+    const merged = [...current];
+    for (const f of newFiles) if (!merged.includes(f)) merged.push(f);
+    return merged;
+  });
+  if (updated === content) return;
+  await writeContentFile({
+    slug,
+    content: updated,
+    sha,
+    message: `Update ${slug}.md images list (+${newFiles.length}) via /admin`,
+    username,
+    env,
+  });
+}
+
+async function removeImageFromFrontMatter(slug, filename, username, env) {
+  const file = await readContentFile(slug, env);
+  if (!file) return;
+  const { content, sha } = file;
+  const updated = patchFrontMatterImages(content, (current) => current.filter((f) => f !== filename));
+  if (updated === content) return;
+  await writeContentFile({
+    slug,
+    content: updated,
+    sha,
+    message: `Update ${slug}.md images list (-${filename}) via /admin`,
+    username,
+    env,
+  });
+}
+
+// Given the full text of a content/<slug>.md file, transform the
+// `images:` array in its YAML-ish front matter and return the new text.
+// Works with both the indented form (`images:\n  - foo\n  - bar`) and an
+// inline list (`images: [foo, bar]`). Inserts a fresh `images:` block
+// before the closing `---` if none exists.
+function patchFrontMatterImages(text, transform) {
+  const fmMatch = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
+  if (!fmMatch) return text;
+  const fm = fmMatch[1];
+  const rest = fmMatch[2];
+  const eol = text.includes("\r\n") ? "\r\n" : "\n";
+
+  const current = readImagesFromFm(fm);
+  const next = transform(current);
+
+  let newFm = stripImagesFromFm(fm, eol);
+  if (next.length) {
+    const block = "images:" + eol + next.map((n) => `  - ${n}`).join(eol);
+    newFm = newFm.replace(/[\r\n]+$/, "") + eol + block;
+  }
+  return `---${eol}${newFm}${eol}---${eol}${rest}`;
+}
+
+function readImagesFromFm(fm) {
+  // Inline form: images: [a, b, c]
+  const inline = fm.match(/^images:\s*\[(.*)\]\s*$/m);
+  if (inline) {
+    return inline[1]
+      .split(",")
+      .map((s) => s.trim().replace(/^["']|["']$/g, ""))
+      .filter(Boolean);
+  }
+  // Block form: images:\n  - a\n  - b
+  const blockHeader = fm.match(/^images:\s*$/m);
+  if (!blockHeader) return [];
+  const lines = fm.split(/\r?\n/);
+  const startIdx = lines.findIndex((l) => /^images:\s*$/.test(l));
+  const out = [];
+  for (let i = startIdx + 1; i < lines.length; i++) {
+    const line = lines[i];
+    if (/^\s+-\s+/.test(line)) {
+      out.push(line.trim().replace(/^-\s*/, "").replace(/^["']|["']$/g, ""));
+    } else if (/^\S/.test(line)) {
+      break;
+    }
+  }
+  return out;
+}
+
+function stripImagesFromFm(fm, eol) {
+  // Remove inline form
+  let out = fm.replace(/^images:\s*\[.*\]\s*$\r?\n?/m, "");
+  // Remove block form
+  const lines = out.split(/\r?\n/);
+  const startIdx = lines.findIndex((l) => /^images:\s*$/.test(l));
+  if (startIdx >= 0) {
+    let endIdx = startIdx + 1;
+    while (endIdx < lines.length && /^\s+-\s+/.test(lines[endIdx])) endIdx++;
+    lines.splice(startIdx, endIdx - startIdx);
+    out = lines.join(eol);
+  }
+  return out.replace(/[\r\n]+$/, "");
+}
+
+function sanitiseFilename(name) {
+  // Strip any path; lowercase; replace whitespace + unsafe chars with '-'.
+  const base = name.split(/[\\/]/).pop() || "image";
+  return base
+    .toLowerCase()
+    .replace(/[^a-z0-9._-]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function arrayBufferToBase64(buffer) {
+  const bytes = new Uint8Array(buffer);
+  // btoa chokes on large strings if we materialise the whole thing in one
+  // call; chunk through 0x8000-byte windows.
+  const CHUNK = 0x8000;
+  let s = "";
+  for (let i = 0; i < bytes.length; i += CHUNK) {
+    s += String.fromCharCode.apply(null, bytes.subarray(i, i + CHUNK));
+  }
+  return btoa(s);
 }
 
 // ----------------------------------------------------------- helpers ---

@@ -663,6 +663,99 @@ button { font-family: inherit; }
 .note[data-accent="green"] .note-depth { background: var(--green); }
 .note:first-child .note-depth { display: none; }
 
+/* ============ SLIDESHOW (per-note sticky right column) ============ */
+
+/* When a note has images, body + slideshow share a two-column grid. */
+.note-inner.has-slideshow .note-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 32px;
+  align-items: start;
+}
+
+.note-slideshow {
+  position: sticky;
+  top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-self: start;
+}
+
+.note-slideshow .slideshow-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: var(--bg-paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.note-slideshow .slideshow-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 600ms var(--ease-out);
+}
+.note-slideshow .slideshow-img.is-active { opacity: 1; }
+
+.note-slideshow .slideshow-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  background: rgba(26, 31, 46, 0.6);
+  color: var(--bg);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out);
+}
+.note-slideshow .slideshow-arrow.prev { left: 8px; }
+.note-slideshow .slideshow-arrow.next { right: 8px; }
+.note-slideshow:hover .slideshow-arrow { opacity: 1; }
+.note-slideshow .slideshow-arrow:hover { background: var(--ink); }
+
+.note-slideshow .slideshow-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+.note-slideshow .slideshow-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 150ms var(--ease-out), border-color 150ms var(--ease-out);
+}
+.note-slideshow .slideshow-dot.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .note-inner.has-slideshow .note-grid {
+    grid-template-columns: 1fr;
+  }
+  .note-slideshow {
+    position: static;
+    order: -1;
+  }
+  .note-slideshow .slideshow-stage { aspect-ratio: 16 / 10; }
+}
+
 /* ============ BODY BLOCKS ============ */
 
 .note-body { font-size: 17px; line-height: 1.65; }

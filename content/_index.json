@@ -15,7 +15,8 @@
       "anthropology",
       "architecture",
       "group size"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "curiosity-village-manifesto",
@@ -33,7 +34,8 @@
       "2020 manifesto",
       "eleven principles",
       "rural · digital nomads"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "who-we-are",
@@ -51,7 +53,8 @@
       "Cluj-Napoca",
       "Romania",
       "non-profit"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "partner-ccif",
@@ -70,7 +73,8 @@
       "6 projects together",
       "Paphos",
       "2022 → 2026"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "team-liviu-pop",
@@ -90,7 +94,8 @@
       "digital humanities",
       "grant writing",
       "Cluj-Napoca"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "team-mihaela-bidilica-vasilache",
@@ -108,7 +113,8 @@
       "project manager",
       "educational resources",
       "Cluj-Napoca"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "team-cosmina-timoce-mocanu",
@@ -127,7 +133,8 @@
       "methodology",
       "evaluation",
       "Cluj-Napoca"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "team-diana-spirleanu",
@@ -145,7 +152,8 @@
       "facilitator",
       "wellbeing",
       "Cluj-Napoca"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "team-radu-pop",
@@ -163,7 +171,8 @@
       "photography",
       "youth media",
       "Cluj-Napoca"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "team-nectarie-pasca",
@@ -181,7 +190,8 @@
       "member",
       "youth needs",
       "astronomy & astrophysics"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "team-siluan-pasca",
@@ -199,7 +209,8 @@
       "member",
       "youth needs",
       "piano & classical music"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "manifesto-sustainability-through-beauty",
@@ -217,7 +228,8 @@
       "principle 01",
       "sustainability",
       "beauty"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "manifesto-calm-technologies",
@@ -234,7 +246,8 @@
     "pills": [
       "principle 02",
       "critical tech"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "manifesto-education-for-the-whole-person",
@@ -252,7 +265,8 @@
       "principle 03",
       "education",
       "whole-person"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "manifesto-active-transversal-citizenship",
@@ -269,7 +283,8 @@
     "pills": [
       "principle 04",
       "civic"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "manifesto-explicitly-pro-european",
@@ -286,7 +301,8 @@
     "pills": [
       "principle 05",
       "European"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "manifesto-critical-thinking",
@@ -303,7 +319,8 @@
     "pills": [
       "principle 06",
       "method"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "manifesto-curiosity-and-experiment",
@@ -320,7 +337,8 @@
     "pills": [
       "principle 07",
       "method"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "manifesto-critical-technology",
@@ -337,7 +355,8 @@
     "pills": [
       "principle 08",
       "critical tech"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "manifesto-living-heritage",
@@ -354,7 +373,8 @@
     "pills": [
       "principle 09",
       "heritage"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-drops-sustainable-development",
@@ -374,7 +394,8 @@
       "Erasmus+ KA220-ADU",
       "€250,000",
       "lead"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-green-genesis-startup",
@@ -394,7 +415,8 @@
       "Erasmus+ KA220-YOU",
       "€205,144",
       "lead"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-goana-dupa-meteor",
@@ -415,7 +437,8 @@
       "€35,547",
       "lead",
       "100% recommendation"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-cabinet-retrofuturist",
@@ -435,7 +458,8 @@
       "Botnar / QUB / CCCluj",
       "€8,000",
       "lead"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-ai4ngos",
@@ -454,7 +478,8 @@
       "August 2025",
       "Cluj-Napoca",
       "lead for CCIF Cyprus"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-atat-arta-nonstop",
@@ -474,7 +499,8 @@
       "self-funded",
       "€420",
       "lead"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-democraicy",
@@ -492,7 +518,8 @@
       "2020",
       "concept",
       "unfunded"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-greenycrafts",
@@ -512,7 +539,8 @@
       "Erasmus+ KA152-YOU",
       "€17,602",
       "partner"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-wooden-wonders",
@@ -532,7 +560,8 @@
       "Erasmus+ Youth Exchange",
       "€11,742",
       "9.08/10"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-a-greener-future",
@@ -552,7 +581,8 @@
       "Erasmus+ KA151-YOU",
       "€1,545",
       "beneficiary"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-belgica-100-workshops",
@@ -572,7 +602,8 @@
       "Polish Institute Romania",
       "€1,350",
       "beneficiary"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-mini-grant-fdsc",
@@ -592,7 +623,8 @@
       "FDSC",
       "€700",
       "beneficiary"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-modeling-the-future",
@@ -612,7 +644,8 @@
       "Erasmus+ KA151-YOU",
       "€34,660 frame",
       "beneficiary"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-echoes-of-unity",
@@ -632,7 +665,8 @@
       "Erasmus+ KA151-YOU",
       "€423",
       "beneficiary"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-do-the-move",
@@ -652,7 +686,8 @@
       "Erasmus+ KA105",
       "Croatia",
       "beneficiary"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-korczak-lens",
@@ -671,7 +706,8 @@
       "2021–2022",
       "Polish Institute Bucharest",
       "partner"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-sibiar",
@@ -690,7 +726,8 @@
       "Sibiu",
       "analog AR",
       "multi-ethnic heritage"
-    ]
+    ],
+    "images": []
   },
   {
     "slug": "project-polish-discoveries",
@@ -709,6 +746,7 @@
       "Polish Institute Bucharest",
       "Cluj-Napoca",
       "4 workshops · ~120 children"
-    ]
+    ],
+    "images": []
   }
 ]
