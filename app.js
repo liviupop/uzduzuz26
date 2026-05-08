@@ -1146,7 +1146,7 @@
 
     inner.appendChild(head);
 
-    // ---- body + optional slideshow column ----
+    // ---- body ----
     const body = el('div', { class: 'note-body' });
     const ctx = { depth, openNote: (target, fromDepth) => app.openNoteAt(target, fromDepth) };
 
@@ -1155,16 +1155,7 @@
       if (node) body.appendChild(node);
     }
 
-    const hasSlideshow = Array.isArray(data.images) && data.images.length > 0;
-    if (hasSlideshow) {
-      inner.classList.add('has-slideshow');
-      const grid = el('div', { class: 'note-grid' });
-      grid.appendChild(body);
-      grid.appendChild(buildSlideshow(id, data.images));
-      inner.appendChild(grid);
-    } else {
-      inner.appendChild(body);
-    }
+    inner.appendChild(body);
 
     // ---- footer micro ----
     const foot = el('div', { class: 'note-foot' }, [
@@ -1180,7 +1171,17 @@
     });
     inner.appendChild(foot);
 
-    note.appendChild(inner);
+    // The slideshow lives OUTSIDE the .note-inner max-width box so the body
+    // keeps its full editorial width. Wraps inner + slideshow in a flex row.
+    const hasSlideshow = Array.isArray(data.images) && data.images.length > 0;
+    if (hasSlideshow) {
+      const flex = el('div', { class: 'note-flex' });
+      flex.appendChild(inner);
+      flex.appendChild(buildSlideshow(id, data.images));
+      note.appendChild(flex);
+    } else {
+      note.appendChild(inner);
+    }
 
     return note;
   }

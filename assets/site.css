@@ -665,21 +665,29 @@ button { font-family: inherit; }
 
 /* ============ SLIDESHOW (per-note sticky right column) ============ */
 
-/* When a note has images, body + slideshow share a two-column grid. */
-.note-inner.has-slideshow .note-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 240px;
+/* When a note has images, .note-inner (body, max-width 720px) and
+   .note-slideshow (240px column) sit side by side inside .note-flex.
+   The slideshow is OUTSIDE .note-inner so the body keeps its full
+   editorial width. */
+.note-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   gap: 32px;
-  align-items: start;
+}
+.note-flex .note-inner {
+  flex: 0 1 auto;
 }
 
 .note-slideshow {
+  flex: 0 0 280px;
   position: sticky;
   top: 16px;
+  margin-top: 48px; /* match .note-inner top padding so the top of the image lines up with the kicker */
   display: flex;
   flex-direction: column;
   gap: 8px;
-  align-self: start;
+  align-self: flex-start;
 }
 
 .note-slideshow .slideshow-stage {
@@ -745,13 +753,21 @@ button { font-family: inherit; }
   border-color: var(--ink);
 }
 
-@media (max-width: 900px) {
-  .note-inner.has-slideshow .note-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 1100px) {
+  /* Below ~1100 px there isn't room for a 720 px body + 280 px slideshow
+     side by side. Stack the slideshow above the body, full width. */
+  .note-flex {
+    flex-direction: column;
   }
   .note-slideshow {
     position: static;
+    margin-top: 48px;
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 720px;
     order: -1;
+    padding: 0 52px;
+    box-sizing: border-box;
   }
   .note-slideshow .slideshow-stage { aspect-ratio: 16 / 10; }
 }
