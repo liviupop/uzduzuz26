@@ -14,13 +14,12 @@ order: 1
 summary: "President. Strategy, grant writing, editorial direction. Researcher at the Folklore Archive Institute of the Romanian Academy."
 ---
 
-Researcher at the Folklore Archive Institute of the Romanian Academy in Cluj-Napoca and president of uzinaduzina. Works at the intersection of folklore archives, digital humanities, intangible heritage, and the ethics of contemporary technology. Publishes essays under the pen name Leo Umilio.
+Researcher at the Folklore Archive Institute of the Romanian Academy in Cluj-Napoca and president of uzinaduzina. Works at the intersection of folklore archives, digital humanities, intangible heritage, and the ethics of contemporary technology. 
 
 ## role at uzinaduzina
 
 Liviu carries the strategic and editorial direction of the organisation: long-form grant writing for European programmes, the choice of which projects to take on as lead and which to support as partner, and the editorial voice of what we publish. He represents uzinaduzina in the European partnership networks that the organisation has been part of since 2020, and is the day-to-day point of contact for funders, partners, and collaborators.
 
-He is the principal author of the larger Erasmus+ KA220 applications uzinaduzina has coordinated as lead, and of most of its smaller AFCN, Botnar, and Polish Institute applications. The 2026 BAIT submission to CERV (Citizenship priority) was also written from this desk.
 
 ## background
 
