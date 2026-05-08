@@ -65,6 +65,6 @@ In development. The next steps:
 
 ## read alongside
 
-- [Manifesto: living heritage](manifesto-living-heritage)
-- [Manifesto: active citizenship as a transversal practice](manifesto-active-transversal-citizenship)
+- [living heritage](manifesto-living-heritage)
+- [active citizenship as a transversal practice](manifesto-active-transversal-citizenship)
 - [Cabinet of retrofuturist curiosities](project-cabinet-retrofuturist): a sister project on analog/AI hybrids.

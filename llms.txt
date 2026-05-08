@@ -6,7 +6,8 @@
 
 - [Home](https://uzinaduzina.org/?n=home): a stacked-notes entry, with three threads (critical-tech, European mobilities, living heritage)
 - [Who we are](https://uzinaduzina.org/?n=who-we-are): organisation note, history in cycles, why the website now
-- [Manifesto](https://uzinaduzina.org/?n=manifesto): eleven principles, each anchored in a specific project
+- [Fundamentals](https://uzinaduzina.org/?n=fundamentals): the nine fundamentals of uzinaduzina, each anchored in a specific project
+- [The Manifesto of City Dwellers Who Love the Village (2020)](https://uzinaduzina.org/?n=curiosity-village-manifesto): a separate, standalone manifesto in eleven principles, signed in 2020
 - [Contact](https://uzinaduzina.org/?n=contact): how to reach us
 
 ## projects coordinated as lead
@@ -38,9 +39,9 @@ The thread our project portfolio keeps returning to:
 - [Belgica 100 Workshops](https://uzinaduzina.org/?n=project-belgica-100-workshops): Polish Institute Romania, September–November 2025
 - [Mini-grant FDSC](https://uzinaduzina.org/?n=project-mini-grant-fdsc): organisational development, 2020
 
-## manifesto
+## fundamentals
 
-- [Manifesto](https://uzinaduzina.org/?n=manifesto): index of the eleven principles
+- [Fundamentals](https://uzinaduzina.org/?n=fundamentals): index of the nine fundamentals
 - [01 Sustainability through beauty](https://uzinaduzina.org/?n=manifesto-sustainability-through-beauty)
 - [02 Calm technologies](https://uzinaduzina.org/?n=manifesto-calm-technologies)
 - [03 Education for the whole person](https://uzinaduzina.org/?n=manifesto-education-for-the-whole-person)
@@ -50,8 +51,10 @@ The thread our project portfolio keeps returning to:
 - [07 Curiosity and experiment](https://uzinaduzina.org/?n=manifesto-curiosity-and-experiment)
 - [08 Critical technology](https://uzinaduzina.org/?n=manifesto-critical-technology)
 - [09 Living heritage](https://uzinaduzina.org/?n=manifesto-living-heritage)
-- [10 Responsibility toward the future](https://uzinaduzina.org/?n=manifesto-responsibility-toward-the-future)
-- [11 Against disorientation](https://uzinaduzina.org/?n=manifesto-against-disorientation)
+
+## the 2020 Manifesto of City Dwellers Who Love the Village
+
+- [The 2020 Manifesto](https://uzinaduzina.org/?n=curiosity-village-manifesto): a separate, standalone document in eleven §-numbered principles, signed in 2020 by twenty-something people who recognised themselves in it. Distinct from the organisational fundamentals above.
 
 ## team and partners
 

@@ -42,7 +42,7 @@ No authentication. No rate limit beyond Cloudflare's default. The response is re
 
 ## How to use
 
-1. **Filter by type** to find a specific category. `type === "project"` returns the 18 projects, `type === "principle"` returns the 9 manifesto pages, etc.
+1. **Filter by type** to find a specific category. `type === "project"` returns the 18 projects, `type === "principle"` returns the 9 fundamental pages, etc.
 2. **Sort by `order` then `slug`** to match the on-site display order.
 3. **Read each note** by either:
    - Fetching its markdown source: `https://uzinaduzina.org/content/<slug>.md` (see `fetch-note-markdown` skill).

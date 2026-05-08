@@ -2,19 +2,19 @@
 title: "The Manifesto of City Dwellers Who Love the Village"
 slug: curiosity-village-manifesto
 type: curiosity
-kicker: "archive · 2020 manifesto"
+kicker: "manifesto · 2020"
 accent: green
 pills:
-  - 2020 archive
+  - 2020 manifesto
   - eleven principles
   - rural · digital nomads
 order: 2
-summary: "Reproduced in full from our 2020-era website. Eleven principles for digital nomads and remote workers who want to embrace rural life."
+summary: "A standalone manifesto in eleven principles, signed in 2020. Written for digital nomads and remote workers who want to embrace rural life."
 ---
 
-A general guide for digital nomads and remote workers who want to embrace the rural lifestyle. Eleven principles, signed in 2020 by twenty-something people who recognised themselves in them. Reproduced here in full from the previous uzinaduzina website, as an archive of one stage of our thinking.
+A general guide for digital nomads and remote workers who want to embrace the rural lifestyle. Eleven principles, signed in 2020 by twenty-something people who recognised themselves in them. First published on the 2020-era uzinaduzina website and kept here as a standalone text of its own.
 
-The current [manifesto](manifesto) is structurally different: nine principles each on its own page, written for a different moment. The 2020 manifesto stays interesting on its own terms, especially for the [Living heritage](manifesto-living-heritage) line of work it foreshadowed.
+This is a separate document from the current organisational [fundamentals](fundamentals). The 2020 manifesto reads on its own terms, with its own internal sequence of eleven principles, and is especially close to the [Living heritage](manifesto-living-heritage) line of work it foreshadowed.
 
 ## § 1. With roots in traditions and head in the clouds
 
@@ -88,7 +88,7 @@ The original 2020 invitation closed: *to sign the manifesto, send us an email at
 
 ## read alongside
 
-- [Manifesto: living heritage](manifesto-living-heritage) — the contemporary principle that grew from this stage of work
-- [Manifesto](manifesto) — the current nine principles
+- [living heritage](manifesto-living-heritage) — the contemporary principle that grew from this stage of work
+- [Fundamentals](fundamentals) — the current nine principles
 - [Wooden Wonders](project-wooden-wonders) — heritage and craft in the new register
 - [Greenycrafts](project-greenycrafts)

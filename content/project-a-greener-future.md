@@ -49,4 +49,4 @@ Third, **integration of sustainability values** into youth activities, in contin
 - [Echoes of Unity](project-echoes-of-unity): the second Cyprus mobility of 2024.
 - [CCIF Cyprus](partner-ccif): the host organiser.
 - [Green Genesis Startup](project-green-genesis-startup): the parent sustainability project.
-- [Manifesto: explicitly pro-European](manifesto)
+- [explicitly pro-European](fundamentals)

@@ -67,4 +67,4 @@ This, for us, is what critical technology means: not refusing technology, but *n
 - [democraicy](project-democraicy) (2020): the root of our questions about AI.
 - [AI4NGOs](project-ai4ngos) (2025): the continuation in workshop form, on AI in civil society.
 - [Goana după meteor](project-goana-dupa-meteor) (2025): another interdisciplinary project.
-- [Manifesto: critical technology; curiosity and experiment](manifesto)
+- [critical technology; curiosity and experiment](fundamentals)

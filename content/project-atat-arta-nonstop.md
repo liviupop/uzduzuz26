@@ -38,4 +38,4 @@ Second, **a model for a small, coherent project**: with €420, the festival off
 ## read alongside
 
 - [Cabinet of retrofuturist curiosities](project-cabinet-retrofuturist): the other 2024 project with children.
-- [Manifesto: education for the whole person; active, transversal citizenship](manifesto)
+- [education for the whole person; active, transversal citizenship](fundamentals)

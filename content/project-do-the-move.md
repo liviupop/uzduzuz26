@@ -42,4 +42,4 @@ Third: it forced into us a set of pandemic-adaptation capabilities that we carri
 - [Wooden Wonders](project-wooden-wonders): the most recent rural-themed activity.
 - [democraicy](project-democraicy): the other founding moment of 2020.
 - [Mini-grant FDSC](project-mini-grant-fdsc): the other small project from 2020.
-- [Manifesto: living heritage](manifesto)
+- [living heritage](fundamentals)

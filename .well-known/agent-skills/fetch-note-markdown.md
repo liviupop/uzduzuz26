@@ -77,7 +77,7 @@ Standard GitHub-flavoured Markdown plus:
 # Fetch a project note
 curl https://uzinaduzina.org/content/project-goana-dupa-meteor.md
 
-# Fetch a manifesto principle
+# Fetch a fundamental principle (the file prefix is "manifesto-" for legacy reasons)
 curl https://uzinaduzina.org/content/manifesto-living-heritage.md
 
 # Fetch the who-we-are page
@@ -86,7 +86,7 @@ curl https://uzinaduzina.org/content/who-we-are.md
 
 ## Caveats
 
-- The home page, manifesto outer page, and contact page are **not** served as `.md` — they live in `notes.js` because they have richer structure (cards, constellation, etc.). For those, use the `browse-notes` skill or read `llms.txt` for a flattened summary.
+- The home page, fundamentals outer page, and contact page are **not** served as `.md` — they live in `notes.js` because they have richer structure (cards, constellation, etc.). For those, use the `browse-notes` skill or read `llms.txt` for a flattened summary.
 - Several notes contain `<iframe>` references to interactive diagrams under `/assets/diagrams/`. The iframes are part of the Markdown source.
 
 ## Related

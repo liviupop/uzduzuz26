@@ -24,7 +24,7 @@ Education of this sort is, by its nature, a civic activity. It assumes that the 
 ## read alongside
 
 - [04. Active citizenship as a transversal practice →](manifesto-active-transversal-citizenship)
-- [Manifesto](manifesto)
+- [Fundamentals](fundamentals)
 - [Projects: Korczak Lens](project-korczak-lens)
 - [Projects: Goana după meteor](project-goana-dupa-meteor)
 - [Projects: Polish Discoveries](project-polish-discoveries)

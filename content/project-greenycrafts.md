@@ -43,4 +43,4 @@ Thematically, it confirmed an intuition that we have refined in other projects: 
 ## read alongside
 
 - [Wooden Wonders](project-wooden-wonders) (2025): the second collaboration with 4 Elements.
-- [Manifesto: living heritage; sustainability through beauty](manifesto)
+- [living heritage; sustainability through beauty](fundamentals)

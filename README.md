@@ -12,7 +12,7 @@ The site is designed to be readable both by humans and by AI crawlers. The audie
 ├── app.js                  the renderer: stack state, URL sync,
 │                           markdown loader, constellation viz
 ├── notes.js                content for the structurally rich pages:
-│                           home, who-we-are, manifesto, projects index,
+│                           home, who-we-are, fundamentals, projects index,
 │                           team, partners, contact
 ├── content/                 ← drop .md files here. one per note.
 │   ├── project-*.md        17 project notes
@@ -50,7 +50,7 @@ The whole site is one HTML page (`index.html`) and the visible content is driven
 
 ```
 /                                                   → home alone
-/?n=manifesto                                       → manifesto alone
+/?n=fundamentals                                    → fundamentals alone (old /?n=manifesto still resolves here)
 /?n=home,project-ai-and-democracy                   → home + AI & Democracy on top
 /?n=projects,project-goana-dupa-meteor,partner-ccif → three columns
 ```
@@ -71,7 +71,7 @@ python3 regen.py
 # 3. refresh the browser. it appears in the relevant index page.
 ```
 
-That's it. No manifest to update, no notes.js to edit, no server to restart. The index pages (projects, team, manifesto, partners, curiosities) read from `content/_index.json`, which `regen.py` rebuilds from the front matter of every `.md` in `content/`.
+That's it. No manifest to update, no notes.js to edit, no server to restart. The index pages (projects, team, fundamentals, partners, curiosities) read from `content/_index.json`, which `regen.py` rebuilds from the front matter of every `.md` in `content/`.
 
 ### filename convention
 
@@ -80,7 +80,7 @@ Filename without `.md` is the note id used in `?n=...`. The prefix tells the ind
 - Project notes:        `content/project-<slug>.md`
 - Team profiles:        `content/team-<slug>.md`
 - Partner profiles:     `content/partner-<slug>.md`
-- Manifesto principles: `content/manifesto-<slug>.md`
+- Fundamental principles: `content/manifesto-<slug>.md` (legacy prefix kept for stable URLs)
 - Curiosities:          `content/curiosity-<slug>.md`
 - One-offs:             `content/<slug>.md` (won't appear in any index)
 
@@ -196,7 +196,7 @@ Pages that need richer layout than plain Markdown (cards grid, project list, pri
 
 `md` (rendered Markdown, the default for .md notes), `lede`, `p`, `h2`, `callout`, `callout-cta`, `shout`, `shout-quote`, `tags`, `cards`, `principle`, `numbered`, `timeline`, `project-list`, `tag-strip`, `links`, `signers`, `addresses`, `constellation`.
 
-Add a new entry to `window.NOTES` with `id`, `type`, `kicker`, `title`, `subtitle`, `accent`, and a `body` array of these blocks. See the existing entries (`home`, `manifesto`, `projects`, `partners`) for examples.
+Add a new entry to `window.NOTES` with `id`, `type`, `kicker`, `title`, `subtitle`, `accent`, and a `body` array of these blocks. See the existing entries (`home`, `fundamentals`, `projects`, `partners`) for examples.
 
 ## design tokens
 

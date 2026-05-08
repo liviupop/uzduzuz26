@@ -24,7 +24,7 @@ This first principle leads naturally into the next, since the question of what w
 ## read alongside
 
 - [02. Calm technologies →](manifesto-calm-technologies)
-- [Manifesto](manifesto)
+- [Fundamentals](fundamentals)
 - [Projects: Korczak Lens](project-korczak-lens)
 - [Projects: SibiAR](project-sibiar)
 - [Projects: Goana după meteor](project-goana-dupa-meteor)

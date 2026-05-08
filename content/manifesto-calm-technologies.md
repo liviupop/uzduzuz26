@@ -23,7 +23,7 @@ The discipline of staying quiet about technology is not the same as being indiff
 ## read alongside
 
 - [03. Education for the whole person →](manifesto-education-for-the-whole-person)
-- [Manifesto](manifesto)
+- [Fundamentals](fundamentals)
 - [Projects: Cabinet of retrofuturist curiosities](project-cabinet-retrofuturist)
 - [Projects: Polish Discoveries](project-polish-discoveries)
 - [Projects: SibiAR](project-sibiar)

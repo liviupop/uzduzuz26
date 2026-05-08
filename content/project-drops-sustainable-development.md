@@ -52,4 +52,4 @@ We will fill this section in as the project advances. For now, the most notable 
 ## read alongside
 
 - [Green Genesis Startup](project-green-genesis-startup): the first KA220 as lead.
-- [Manifesto: education for the whole person; sustainability through beauty](manifesto)
+- [education for the whole person; sustainability through beauty](fundamentals)

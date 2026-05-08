@@ -46,5 +46,5 @@ During the first civilisations, children had similar responsibilities to adults.
 ## Read alongside
 
 - [Polish Discoveries](project-polish-discoveries) (2026): the next chapter with the Polish Institute.
-- [Manifesto: education for the whole person](manifesto-education-for-the-whole-person)
-- [Manifesto: active citizenship as a transversal practice](manifesto-active-transversal-citizenship)
+- [education for the whole person](manifesto-education-for-the-whole-person)
+- [active citizenship as a transversal practice](manifesto-active-transversal-citizenship)

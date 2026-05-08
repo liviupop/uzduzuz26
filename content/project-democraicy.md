@@ -54,4 +54,4 @@ What we did keep from the exercise was a habit: speaking about technology in the
 
 - [Cabinet of retrofuturist curiosities](project-cabinet-retrofuturist): the first concrete project where AI entered the workshop as a tool.
 - [AI4NGOs](project-ai4ngos): the youth-worker training on AI in civil society, run for CCIF Cyprus in Cluj.
-- [Manifesto: critical technology](manifesto-critical-technology)
+- [critical technology](manifesto-critical-technology)

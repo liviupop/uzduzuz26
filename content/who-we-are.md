@@ -57,7 +57,8 @@ Cumulatively in 2025, the feedback report collected 40 responses across the thre
 
 ## Read alongside
 
-- [Manifesto](/manifesto)
+- [Fundamentals](/fundamentals)
+- [The 2020 Manifesto of City Dwellers Who Love the Village](/curiosities/village-manifesto)
 - [Team](/team)
 - [Projects](/projects)
 - [Partners](/partners)

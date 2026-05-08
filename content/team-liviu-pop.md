@@ -66,4 +66,4 @@ In parallel, he edits *min.work* / *The Idle Gazette*, a small publication on th
 - [Team](team)
 - [Who we are](who-we-are)
 - [Projects](projects)
-- [Manifesto](manifesto)
+- [Fundamentals](fundamentals)

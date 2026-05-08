@@ -38,4 +38,4 @@ This mobility inaugurated a cycle of four projects with [CCIF](partner-ccif) acr
 - [A Greener Future](project-a-greener-future): the next mobility.
 - [Echoes of Unity](project-echoes-of-unity): the third mobility.
 - [AI4NGOs](project-ai4ngos): the fourth mobility.
-- [Manifesto: explicitly pro-European](manifesto)
+- [explicitly pro-European](fundamentals)

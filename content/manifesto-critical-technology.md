@@ -29,7 +29,7 @@ A technology that has been examined critically can be put to use without fear. T
 ## read alongside
 
 - [09. Living heritage →](manifesto-living-heritage)
-- [Manifesto](manifesto)
+- [Fundamentals](fundamentals)
 - [Projects: democraicy](project-democraicy)
 - [Projects: Cabinet of retrofuturist curiosities](project-cabinet-retrofuturist)
 - [Projects: AI4NGOs](project-ai4ngos)

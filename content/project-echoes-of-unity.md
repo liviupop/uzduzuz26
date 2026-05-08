@@ -51,4 +51,4 @@ For the European youth-work sector, a concrete output: **A Fresh Youth Worker’
 - [Modeling the Future](project-modeling-the-future) (2023): predecessor.
 - [A Greener Future](project-a-greener-future) (2024): the other Cyprus mobility of the year.
 - [AI4NGOs](project-ai4ngos) (2025): the most recent CCIF mobility.
-- [Manifesto: explicitly pro-European](manifesto)
+- [explicitly pro-European](fundamentals)

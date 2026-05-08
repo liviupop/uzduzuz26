@@ -23,7 +23,7 @@ An international youth exchange focused on traditional wood-craft skills and cul
 
 ## why it mattered
 
-For us, *Wooden Wonders* is the model of what **living heritage** means, in the sense of the principle in our manifesto. Heritage is not a museum; it is a set of techniques and ways of doing that still produce objects. A young Dutch participant learning in three days to carve wood with a Romanian craftsperson is not studying the past; they are entering it as you enter an open workshop.
+For us, *Wooden Wonders* is the model of what **living heritage** means, in the sense of the principle in our [fundamentals](fundamentals). Heritage is not a museum; it is a set of techniques and ways of doing that still produce objects. A young Dutch participant learning in three days to carve wood with a Romanian craftsperson is not studying the past; they are entering it as you enter an open workshop.
 
 The combination of material heritage (the techniques), intangible heritage (the language, the gestures, the stories), and European values (mobility, exchange, mutual understanding) means that the project simultaneously embodies three of our founding principles.
 
@@ -74,4 +74,4 @@ Two voices that capture the essence:
 - [4 Elements (Croatia)](https://uzinaduzina.org/parteneri/4-elementa): the project lead.
 - [Goana după meteor](project-goana-dupa-meteor): the other high-satisfaction event of 2025.
 - [Greenycrafts](project-greenycrafts): the other collaboration with 4 Elements.
-- [Manifesto: living heritage; explicitly pro-European](manifesto)
+- [living heritage; explicitly pro-European](fundamentals)

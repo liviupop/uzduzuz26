@@ -15,14 +15,14 @@ Navigate the public site at `uzinaduzina.org` by constructing a URL. The site is
 https://uzinaduzina.org/?n=<slug>[,<slug>...]&a=<index>
 ```
 
-- `n` (required) — comma-separated list of note slugs. Left to right is the visual order on desktop (top to bottom on mobile). Maximum useful length: about six. Example: `n=home,manifesto,project-democraicy`.
+- `n` (required) — comma-separated list of note slugs. Left to right is the visual order on desktop (top to bottom on mobile). Maximum useful length: about six. Example: `n=home,fundamentals,project-democraicy`.
 - `a` (optional) — zero-based index of which column is the active (focused) one. Defaults to the rightmost column. Example: `a=1` makes the second column active.
 
 ## Slug conventions
 
 | Prefix | What it points at | Example |
 |---|---|---|
-| `home`, `who-we-are`, `manifesto`, `projects`, `team`, `partners`, `contact` | structurally rich pages defined in `notes.js` | `n=manifesto` |
+| `home`, `who-we-are`, `fundamentals`, `projects`, `team`, `partners`, `contact` | structurally rich pages defined in `notes.js` | `n=fundamentals` |
 | `project-<slug>` | project notes (18 currently) | `n=project-goana-dupa-meteor` |
 | `team-<slug>` | team profiles (7 currently) | `n=team-liviu-pop` |
 | `partner-<slug>` | partner profiles | `n=partner-ccif` |
@@ -36,9 +36,9 @@ The full list of available slugs is published at `https://uzinaduzina.org/conten
 ```
 ?n=home                                            home alone
 ?n=who-we-are                                      organisation note
-?n=manifesto,manifesto-living-heritage             manifesto index + one principle alongside
+?n=fundamentals,manifesto-living-heritage             fundamentals index + one principle alongside
 ?n=projects,project-democraicy                     projects index + project note
-?n=home,manifesto,project-ai4ngos                  three-column stack
+?n=home,fundamentals,project-ai4ngos                  three-column stack
 ?n=home,who-we-are&a=0                             two columns, with home focused
 ```
 

@@ -25,7 +25,7 @@ The willingness to experiment, sustained over years, leaves an organisation with
 ## read alongside
 
 - [08. Critical technology →](manifesto-critical-technology)
-- [Manifesto](manifesto)
+- [Fundamentals](fundamentals)
 - [Projects: Cabinet of retrofuturist curiosities](project-cabinet-retrofuturist)
 - [Projects: Belgica 100 Workshops](project-belgica-100-workshops)
 - [Projects: Polish Discoveries](project-polish-discoveries)

@@ -43,4 +43,4 @@ In this project, the historical theme (the expedition) provided the occasion to 
 ## read alongside
 
 - [Cabinet of retrofuturist curiosities](project-cabinet-retrofuturist): the other project focused on invention and imagination.
-- [Manifesto: curiosity and experiment; sustainability through beauty](manifesto)
+- [curiosity and experiment; sustainability through beauty](fundamentals)

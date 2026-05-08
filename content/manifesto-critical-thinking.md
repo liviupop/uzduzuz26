@@ -25,7 +25,7 @@ Critical thinking in this sense is not an end in itself. It is a precondition fo
 ## read alongside
 
 - [07. Curiosity and experiment →](manifesto-curiosity-and-experiment)
-- [Manifesto](manifesto)
+- [Fundamentals](fundamentals)
 - **All projects** are tested against this principle: see the [projects](projects) index.
 - [Projects: Drops of Sustainable Development](project-drops-sustainable-development)
 - [Projects: Green Genesis Startup](project-green-genesis-startup)

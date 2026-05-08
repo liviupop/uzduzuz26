@@ -64,4 +64,4 @@ Third: the partnership with [CCIF Cyprus](partner-ccif) proved fertile. It becam
 
 - [Drops of Sustainable Development](project-drops-sustainable-development): the second KA220 as lead, this time on adult education.
 - [CCIF Cyprus](partner-ccif): a continuous strategic partner.
-- [Manifesto: explicitly pro-European; responsibility toward the future](manifesto)
+- [explicitly pro-European; responsibility toward the future](fundamentals)

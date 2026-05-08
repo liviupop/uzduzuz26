@@ -55,5 +55,5 @@ Three lessons that we expect to apply at future trainings.
 - [democraicy](project-democraicy): the conceptual root, 2020.
 - [Cabinet of retrofuturist curiosities](project-cabinet-retrofuturist): the first workshop using AI as a tool.
 - [CCIF Cyprus](partner-ccif): the institutional partner.
-- [Manifesto: critical technology](manifesto-critical-technology)
-- [Manifesto: calm technologies](manifesto-calm-technologies)
+- [critical technology](manifesto-critical-technology)
+- [calm technologies](manifesto-calm-technologies)

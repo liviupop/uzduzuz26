@@ -27,7 +27,7 @@ A commitment of this size requires the discipline to test it constantly against 
 ## read alongside
 
 - [06. Critical thinking →](manifesto-critical-thinking)
-- [Manifesto](manifesto)
+- [Fundamentals](fundamentals)
 - [Partners](partners)
 - **All projects** apply to this principle, since being European is the funding architecture: see the [projects](projects) index.
 - [Projects: Drops of Sustainable Development](project-drops-sustainable-development)

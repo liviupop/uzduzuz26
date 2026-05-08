@@ -24,7 +24,8 @@ window.NOTES = {
       { kind: 'h2', text: 'enter through any door' },
       { kind: 'cards', items: [
         { href: 'who-we-are', label: 'who we are', sub: 'the organisation, in three lengths' },
-        { href: 'manifesto', label: 'fundamentals', sub: 'nine fundamentals, each on its own page' },
+        { href: 'fundamentals', label: 'fundamentals', sub: 'nine fundamentals, each on its own page' },
+        { href: 'curiosity-village-manifesto', label: 'the 2020 manifesto', sub: '*The Manifesto of City Dwellers Who Love the Village*, in full' },
         { href: 'projects', label: 'projects', sub: 'all 15 projects, lead and partner' },
         { href: 'team', label: 'team', sub: 'the people who do the work' },
         { href: 'partners', label: 'partners', sub: 'the network across Europe' },
@@ -44,15 +45,17 @@ window.NOTES = {
   // who-we-are now lives at content/who-we-are.md so it can carry an iframe
   // and richer markdown prose. The runtime loader resolves it.
 
-  manifesto: {
-    id: 'manifesto',
-    type: 'manifesto',
+  fundamentals: {
+    id: 'fundamentals',
+    type: 'fundamentals',
     kicker: 'fundamentals',
     title: 'fundamentals',
     subtitle: 'Nine fundamentals. Not rules we set out to obey, but tendencies our work has revealed about itself, retrospectively.',
     accent: 'ochre',
     body: [
-      { kind: 'lede', text: 'We name these so we can recognise them when they recur, and so we can refuse work that contradicts them. The principles are arranged to be read in sequence; each one ends by gesturing at the next, so the manifesto reads less like a list and more like a slow circuit through what we believe. You can also read them out of order; they will not collapse.' },
+      { kind: 'lede', text: 'We name these so we can recognise them when they recur, and so we can refuse work that contradicts them. The principles are arranged to be read in sequence; each one ends by gesturing at the next, so the list reads less like a catalogue and more like a slow circuit through what we believe. You can also read them out of order; they will not collapse.' },
+
+      { kind: 'p', text: 'These are the fundamentals of uzinaduzina. They are not the same thing as the 2020 [*Manifesto of City Dwellers Who Love the Village*](curiosity-village-manifesto), which is a separate document from an earlier moment of our work and stays available on its own.' },
 
       { kind: 'p', text: 'We try to keep the principles independent of any particular project, so they remain useful as our work evolves. Where a principle has a natural home in something we have done, we link to it. The principle does not depend on the project; the project is one way the principle has, so far, taken shape.' },
 
@@ -60,12 +63,13 @@ window.NOTES = {
 
       { kind: 'auto-list', filter: { type: 'principle' } },
 
-      { kind: 'callout', text: 'Read in order, the manifesto loops: the ninth principle hands you back to the first. Read out of order, each principle is a self-contained essay.' },
+      { kind: 'callout', text: 'Read in order, the list loops: the ninth principle hands you back to the first. Read out of order, each principle is a self-contained essay.' },
 
       { kind: 'h2', text: 'read alongside' },
       { kind: 'links', items: [
         { href: 'who-we-are', label: 'who we are' },
         { href: 'projects', label: 'projects: where the principles take concrete form' },
+        { href: 'curiosity-village-manifesto', label: 'the 2020 Manifesto of City Dwellers Who Love the Village (separate document)' },
         { href: 'project-democraicy', label: 'democraicy: an early concept document, 2020' },
       ]},
     ],

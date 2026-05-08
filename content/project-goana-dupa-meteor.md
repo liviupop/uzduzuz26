@@ -70,4 +70,4 @@ The workshops that drew the strongest interest were astronomy (telescope observa
 - [Cabinet of retrofuturist curiosities](project-cabinet-retrofuturist) (2024): another interdisciplinary project.
 - [AI4NGOs](project-ai4ngos) (2025): the other major training of the year.
 - [Wooden Wonders](project-wooden-wonders) (2025): a beautiful pair, heritage and European youth.
-- [Manifesto: living heritage; curiosity and experiment](manifesto)
+- [living heritage; curiosity and experiment](fundamentals)

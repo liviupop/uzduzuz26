@@ -41,8 +41,8 @@ The practical consequence for the organisation is that we do not grow by hiring.
 ## Read alongside
 
 - [Who we are](who-we-are)
-- [Manifesto: 03. Education for the whole person](manifesto-education-for-the-whole-person)
-- [Manifesto: 09. Living heritage](manifesto-living-heritage)
+- [03. Education for the whole person](manifesto-education-for-the-whole-person)
+- [09. Living heritage](manifesto-living-heritage)
 
 ## sources
 

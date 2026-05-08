@@ -47,5 +47,5 @@ For us, it is the second collaboration with the Polish Institute Bucharest after
 
 - [Korczak Lens](project-korczak-lens) (2021–2022): the previous Polish Institute partnership
 - [Belgica 100 Workshops](project-belgica-100-workshops) (2025): another illustrated, child-facing programme on Polish heritage
-- [Manifesto: education for the whole person](manifesto-education-for-the-whole-person)
-- [Manifesto: curiosity and experiment](manifesto-curiosity-and-experiment)
+- [education for the whole person](manifesto-education-for-the-whole-person)
+- [curiosity and experiment](manifesto-curiosity-and-experiment)

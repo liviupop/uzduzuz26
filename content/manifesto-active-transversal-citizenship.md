@@ -23,7 +23,7 @@ There is an obvious risk, which is that a sufficiently capacious idea of citizen
 ## read alongside
 
 - [05. Explicitly pro-European →](manifesto-explicitly-pro-european)
-- [Manifesto](manifesto)
+- [Fundamentals](fundamentals)
 - [Projects: Korczak Lens](project-korczak-lens)
 - [Projects: SibiAR](project-sibiar)
 - [Projects: Goana după meteor](project-goana-dupa-meteor)

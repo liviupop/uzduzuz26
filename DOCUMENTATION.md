@@ -6,7 +6,7 @@ This file is the single canonical reference for the website at `uzinaduzina.org`
 
 ## 1 · What this is
 
-uzinaduzina is a non-profit cultural association in Cluj-Napoca, Romania, founded in 2008 and rebooted in 2020. The website is a stacked-notes archive of its work: 18 projects, 9 fundamentals (the manifesto), 7 team profiles, 1 (so far) partner profile, plus organisational notes and curiosities. Thirty-eight notes in total. Primary domain: `uzinaduzina.org`. Repo: `github.com/liviupop/uzduzuz26`. Deployed on Cloudflare Workers Static Assets.
+uzinaduzina is a non-profit cultural association in Cluj-Napoca, Romania, founded in 2008 and rebooted in 2020. The website is a stacked-notes archive of its work: 18 projects, 9 fundamentals, 7 team profiles, 1 (so far) partner profile, plus the standalone 2020 *Manifesto of City Dwellers Who Love the Village* and other curiosities. Thirty-eight notes in total. Primary domain: `uzinaduzina.org`. Repo: `github.com/liviupop/uzduzuz26`. Deployed on Cloudflare Workers Static Assets.
 
 The audience priority is unusual:
 

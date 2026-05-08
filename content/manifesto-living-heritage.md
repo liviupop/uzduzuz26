@@ -25,8 +25,8 @@ To work with the past in this way is, paradoxically, to work in service of the f
 ## read alongside
 
 - [01. Sustainability through beauty →](manifesto-sustainability-through-beauty) (back to the start)
-- [Manifesto](manifesto)
-- [Archive: The 2020 *Manifesto of City Dwellers Who Love the Village*](curiosity-village-manifesto) — an earlier statement of this principle, reproduced in full
+- [Fundamentals](fundamentals)
+- [The 2020 *Manifesto of City Dwellers Who Love the Village*](curiosity-village-manifesto), a separate, standalone document that prefigured this line of work
 - [Projects: Wooden Wonders](project-wooden-wonders)
 - [Projects: Greenycrafts](project-greenycrafts)
 - [Projects: Goana după meteor](project-goana-dupa-meteor)
