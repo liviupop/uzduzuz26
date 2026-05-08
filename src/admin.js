@@ -812,30 +812,53 @@ async function handleImageUpload(request, env, session) {
   const files = form.getAll("files").filter((f) => typeof f === "object" && f && f.size > 0);
   if (!files.length) return errorPage("No files", "No files were uploaded.", 400);
 
+  // Compute the next sequential number from existing files. Anything already
+  // matching <slug>-NN.<ext> contributes its number to the "used" set; new
+  // uploads slot into the lowest unused number, padded to 2 digits.
+  let existing = [];
+  try {
+    existing = await listImages(slug, env);
+  } catch (e) {
+    return errorPage("Could not check existing images", e.message, 502);
+  }
+  const slugRe = new RegExp(`^${escapeRegExp(slug)}-(\\d+)\\.`);
+  const used = new Set();
+  for (const im of existing) {
+    const m = im.name.match(slugRe);
+    if (m) used.add(parseInt(m[1], 10));
+  }
+  let nextNum = 1;
+  while (used.has(nextNum)) nextNum++;
+
   const uploaded = [];
   for (const file of files) {
-    const safeName = sanitiseFilename(file.name || "image");
-    if (!ALLOWED_IMAGE_EXT.test(safeName)) {
-      return errorPage("Bad file type", `${file.name}: only jpg, png, webp, gif, avif are allowed.`, 415);
+    const origName = file.name || "image";
+    if (!ALLOWED_IMAGE_EXT.test(origName)) {
+      return errorPage("Bad file type", `${origName}: only jpg, png, webp, gif, avif are allowed.`, 415);
     }
     if (file.size > MAX_IMAGE_BYTES) {
-      return errorPage("File too large", `${file.name}: ${(file.size / 1024 / 1024).toFixed(1)} MB exceeds the 5 MB limit.`, 413);
+      return errorPage("File too large", `${origName}: ${(file.size / 1024 / 1024).toFixed(1)} MB exceeds the 5 MB limit.`, 413);
     }
+    const ext = (origName.match(/\.[a-z0-9]+$/i) || [".jpg"])[0].toLowerCase();
+    const newName = `${slug}-${String(nextNum).padStart(2, "0")}${ext}`;
+    used.add(nextNum);
+    nextNum++;
+    while (used.has(nextNum)) nextNum++;
+
     const buffer = await file.arrayBuffer();
     const b64 = arrayBufferToBase64(buffer);
     try {
       await writeBinaryFile({
-        path: `assets/images/${slug}/${safeName}`,
+        path: `assets/images/${slug}/${newName}`,
         base64Content: b64,
         sha: null,
-        message: `Upload ${safeName} to ${slug} via /admin`,
+        message: `Upload ${newName} via /admin`,
         username: session.username,
         env,
       });
-      uploaded.push(safeName);
+      uploaded.push(newName);
     } catch (e) {
-      // If the file already exists, GitHub returns 422; surface a helpful error.
-      return errorPage("Upload failed", `${safeName}: ${e.message}`, 502);
+      return errorPage("Upload failed", `${origName} → ${newName}: ${e.message}`, 502);
     }
   }
 
@@ -999,14 +1022,8 @@ function stripImagesFromFm(fm, eol) {
   return out.replace(/[\r\n]+$/, "");
 }
 
-function sanitiseFilename(name) {
-  // Strip any path; lowercase; replace whitespace + unsafe chars with '-'.
-  const base = name.split(/[\\/]/).pop() || "image";
-  return base
-    .toLowerCase()
-    .replace(/[^a-z0-9._-]+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-+|-+$/g, "");
+function escapeRegExp(s) {
+  return String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 function arrayBufferToBase64(buffer) {
