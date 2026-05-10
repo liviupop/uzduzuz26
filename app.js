@@ -984,7 +984,7 @@
   // 5 s; pauses on hover; prev/next arrows; dot indicators below.
   function buildSlideshow(slug, images) {
     const wrap = el('div', { class: 'note-slideshow', 'data-slug': slug });
-    const stage = el('div', { class: 'slideshow-stage' });
+    const stage = el('button', { class: 'slideshow-stage', type: 'button', 'aria-label': 'open image' });
     const imgEls = images.map((name, i) => {
       const src = `assets/images/${slug}/${name}`;
       const im = el('img', {
@@ -998,6 +998,9 @@
       return im;
     });
     wrap.appendChild(stage);
+
+    let idx = 0;
+    let timer = null;
 
     if (images.length > 1) {
       const prev = el('button', { class: 'slideshow-arrow prev', type: 'button', 'aria-label': 'previous image' }, '‹');
@@ -1018,8 +1021,6 @@
       wrap.appendChild(next);
       wrap.appendChild(dots);
 
-      let idx = 0;
-      let timer = null;
       const setActive = (i) => {
         idx = (i + images.length) % images.length;
         imgEls.forEach((e, k) => e.classList.toggle('is-active', k === idx));
@@ -1029,10 +1030,12 @@
       const start = () => { if (!timer) timer = setInterval(advance, 5000); };
       const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
 
-      prev.addEventListener('click', () => { setActive(idx - 1); stop(); start(); });
-      next.addEventListener('click', () => { setActive(idx + 1); stop(); start(); });
-      dotEls.forEach((d) => d.addEventListener('click', () => {
-        setActive(parseInt(d.dataset.i, 10)); stop(); start();
+      // Stop event from bubbling to stage (which would open the lightbox).
+      const eat = (e) => e.stopPropagation();
+      prev.addEventListener('click', (e) => { eat(e); setActive(idx - 1); stop(); start(); });
+      next.addEventListener('click', (e) => { eat(e); setActive(idx + 1); stop(); start(); });
+      dotEls.forEach((d) => d.addEventListener('click', (e) => {
+        eat(e); setActive(parseInt(d.dataset.i, 10)); stop(); start();
       }));
       wrap.addEventListener('mouseenter', stop);
       wrap.addEventListener('mouseleave', start);
@@ -1043,9 +1046,111 @@
       });
       obs.observe(document.body, { childList: true, subtree: true });
       start();
+
+      // Click on the stage opens the lightbox at the current index.
+      stage.addEventListener('click', () => openLightbox(slug, images, idx));
+    } else {
+      // Single image: still allow clicking to open the lightbox.
+      stage.addEventListener('click', () => openLightbox(slug, images, 0));
     }
 
     return wrap;
+  }
+
+  // -------------------------------- lightbox / overlay --------------------
+  // One global overlay reused across all slideshows. Opens when a slideshow
+  // image is clicked. On desktop: image is centred, max-width 1000 px, max
+  // 90 vh tall. On mobile: covers the viewport. Touch swipe + arrow keys
+  // for navigation; ESC, close ×, or click on the dim background dismiss.
+  let _lightbox = null;
+  let _lastFocused = null;
+
+  function openLightbox(slug, images, startIndex) {
+    closeLightbox();
+    const overlay = el('div', { class: 'lightbox', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'image viewer' });
+    const figure = el('div', { class: 'lightbox-figure' });
+    const closeBtn = el('button', { class: 'lightbox-close', type: 'button', 'aria-label': 'close' }, '×');
+    const img = el('img', { class: 'lightbox-img', src: '', alt: '' });
+    figure.appendChild(img);
+
+    let prev = null, next = null, dots = null, dotEls = [];
+    if (images.length > 1) {
+      prev = el('button', { class: 'lightbox-arrow prev', type: 'button', 'aria-label': 'previous image' }, '‹');
+      next = el('button', { class: 'lightbox-arrow next', type: 'button', 'aria-label': 'next image' }, '›');
+      dots = el('div', { class: 'lightbox-dots' });
+      dotEls = images.map((_, i) => {
+        const d = el('button', { class: 'lightbox-dot', type: 'button', 'aria-label': `image ${i + 1}`, 'data-i': String(i) });
+        dots.appendChild(d);
+        return d;
+      });
+      figure.appendChild(prev);
+      figure.appendChild(next);
+    }
+
+    overlay.appendChild(closeBtn);
+    overlay.appendChild(figure);
+    if (dots) overlay.appendChild(dots);
+
+    let i = startIndex || 0;
+    const setI = (k) => {
+      i = (k + images.length) % images.length;
+      img.src = `assets/images/${slug}/${images[i]}`;
+      dotEls.forEach((d, j) => d.classList.toggle('is-active', j === i));
+    };
+    setI(i);
+
+    if (prev) prev.addEventListener('click', (e) => { e.stopPropagation(); setI(i - 1); });
+    if (next) next.addEventListener('click', (e) => { e.stopPropagation(); setI(i + 1); });
+    dotEls.forEach((d) => d.addEventListener('click', (e) => { e.stopPropagation(); setI(parseInt(d.dataset.i, 10)); }));
+    closeBtn.addEventListener('click', closeLightbox);
+
+    // Click on dim background (anywhere outside the image itself) closes.
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay || e.target === figure) closeLightbox();
+    });
+
+    // Keyboard: ←/→ navigate, ESC closes.
+    const onKey = (e) => {
+      if (e.key === 'Escape') { e.preventDefault(); closeLightbox(); }
+      else if (e.key === 'ArrowLeft' && images.length > 1) { e.preventDefault(); setI(i - 1); }
+      else if (e.key === 'ArrowRight' && images.length > 1) { e.preventDefault(); setI(i + 1); }
+    };
+    document.addEventListener('keydown', onKey);
+
+    // Touch swipe: detect a dominant horizontal flick (> 50 px, > vertical).
+    let tStartX = 0, tStartY = 0, tStartT = 0;
+    overlay.addEventListener('touchstart', (e) => {
+      const t = e.changedTouches[0];
+      tStartX = t.clientX; tStartY = t.clientY; tStartT = Date.now();
+    }, { passive: true });
+    overlay.addEventListener('touchend', (e) => {
+      if (images.length < 2) return;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - tStartX, dy = t.clientY - tStartY;
+      const dt = Date.now() - tStartT;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) && dt < 600) {
+        if (dx < 0) setI(i + 1); else setI(i - 1);
+      }
+    }, { passive: true });
+
+    document.body.appendChild(overlay);
+    document.documentElement.classList.add('lightbox-open');
+    _lastFocused = document.activeElement;
+    closeBtn.focus();
+
+    _lightbox = { overlay, onKey };
+  }
+
+  function closeLightbox() {
+    if (!_lightbox) return;
+    document.removeEventListener('keydown', _lightbox.onKey);
+    _lightbox.overlay.remove();
+    document.documentElement.classList.remove('lightbox-open');
+    _lightbox = null;
+    if (_lastFocused && typeof _lastFocused.focus === 'function') {
+      try { _lastFocused.focus(); } catch (_) {}
+    }
+    _lastFocused = null;
   }
 
   function renderNote(id, depth, isActive) {
