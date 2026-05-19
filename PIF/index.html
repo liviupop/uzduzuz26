@@ -54,6 +54,27 @@ a { color: inherit; }
   background: rgba(250,246,240,.92);
   backdrop-filter: blur(10px);
 }
+.deck-hint {
+  position: fixed;
+  z-index: 30;
+  left: 18px;
+  bottom: 18px;
+  padding: 7px 9px;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: rgba(250,246,240,.92);
+  color: var(--ink-muted);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+.deck-hint kbd {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink);
+}
 .deck-nav a {
   width: 28px;
   height: 28px;
@@ -486,6 +507,9 @@ h3 {
     justify-content: space-between;
     overflow-x: auto;
   }
+  .deck-hint {
+    display: none;
+  }
   .deck-nav a {
     flex: 0 0 30px;
   }
@@ -523,7 +547,8 @@ h3 {
 @media print {
   html { scroll-snap-type: none; }
   body::before,
-  .deck-nav { display: none; }
+  .deck-nav,
+  .deck-hint { display: none; }
   .slide {
     min-height: 100vh;
     break-after: page;
@@ -537,6 +562,7 @@ h3 {
   <a href="#s5">05</a><a href="#s6">06</a><a href="#s7">07</a><a href="#s8">08</a>
   <a href="#s9">09</a><a href="#s10">10</a><a href="#s11">11</a><a href="#s12">12</a>
 </nav>
+<div class="deck-hint" aria-hidden="true"><kbd>↑</kbd>/<kbd>↓</kbd> or <kbd>←</kbd>/<kbd>→</kbd> to move slides</div>
 
 <main>
   <section class="slide split" id="s1">
@@ -553,11 +579,14 @@ h3 {
       <div class="meta-grid">
         <div class="box"><strong>PIC</strong><span>940148057</span></div>
         <div class="box"><strong>OID</strong><span>E10133132</span></div>
+        <div class="box"><strong>CIF</strong><span>24317430</span></div>
         <div class="box"><strong>Established</strong><span>18 July 2008 · rebooted 2020</span></div>
         <div class="box"><strong>Legal form</strong><span>NGO / association · non-profit · not a public body</span></div>
         <div class="box"><strong>Address</strong><span>Str. Manastur nr. 89 ap. 54, 400658, Cluj-Napoca, Romania</span></div>
         <div class="box"><strong>Website</strong><span>uzinaduzina.org</span></div>
-        <div class="box"><strong>Project role</strong><span>Project leader / Beneficiary / cultural methodology partner</span></div>
+        <div class="box"><strong>Project role</strong><span>Project leader / Beneficiary / Cultural methodology partner</span></div>
+        <div class="box"><strong>IBAN EUR</strong><span>RO37BTRLEURCRT00F9812001</span></div>
+        <div class="box"><strong>IBAN RON</strong><span>RO25BTRLRONCRT00F9812002</span></div>
       </div>
     </div>
   </section>
@@ -758,5 +787,33 @@ h3 {
     </div>
   </section>
 </main>
+<script>
+(() => {
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const indexFromHash = () => {
+    const id = location.hash.replace('#', '');
+    const idx = slides.findIndex(slide => slide.id === id);
+    return idx >= 0 ? idx : 0;
+  };
+  const go = (delta) => {
+    const next = Math.max(0, Math.min(slides.length - 1, indexFromHash() + delta));
+    slides[next].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.replaceState(null, '', `#${slides[next].id}`);
+  };
+  window.addEventListener('keydown', (event) => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    const tag = document.activeElement && document.activeElement.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
+      event.preventDefault();
+      go(1);
+    }
+    if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+      event.preventDefault();
+      go(-1);
+    }
+  });
+})();
+</script>
 </body>
 </html>
