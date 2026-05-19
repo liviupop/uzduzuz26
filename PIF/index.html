@@ -229,6 +229,8 @@ h3 {
   border: 1px solid var(--rule);
   border-radius: 2px;
   background: rgba(250,246,240,.84);
+  min-width: 0;
+  overflow: hidden;
 }
 .box { padding: 18px; }
 .box strong,
@@ -243,6 +245,9 @@ h3 {
   font-size: 20px;
   line-height: 1.12;
   color: var(--ink);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 .box span,
 .stat span,
@@ -258,6 +263,17 @@ h3 {
   font-size: 12px;
   line-height: 1.45;
   color: var(--ink-muted);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+.box .long-value {
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1.05vw, 14px);
+  line-height: 1.35;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+  word-break: break-all;
 }
 .stat {
   min-height: 166px;
@@ -329,6 +345,7 @@ h3 {
   font-size: 15px;
   line-height: 1.42;
   color: var(--ink);
+  overflow-wrap: anywhere;
 }
 .project .tag {
   display: inline-block;
@@ -434,6 +451,7 @@ h3 {
   font-size: 14px;
   line-height: 1.38;
   color: var(--ink-muted);
+  overflow-wrap: anywhere;
 }
 
 .method-step {
@@ -585,8 +603,8 @@ h3 {
         <div class="box"><strong>Address</strong><span>Str. Manastur nr. 89 ap. 54, 400658, Cluj-Napoca, Romania</span></div>
         <div class="box"><strong>Website</strong><span>uzinaduzina.org</span></div>
         <div class="box"><strong>Project role</strong><span>Project leader / Beneficiary / Cultural methodology partner</span></div>
-        <div class="box"><strong>IBAN EUR</strong><span>RO37BTRLEURCRT00F9812001</span></div>
-        <div class="box"><strong>IBAN RON</strong><span>RO25BTRLRONCRT00F9812002</span></div>
+        <div class="box"><strong>IBAN EUR</strong><span class="long-value">RO37BTRLEURCRT00F9812001</span></div>
+        <div class="box"><strong>IBAN RON</strong><span class="long-value">RO25BTRLRONCRT00F9812002</span></div>
       </div>
     </div>
   </section>
