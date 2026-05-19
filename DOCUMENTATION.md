@@ -206,6 +206,16 @@ The chrome bar stays fixed at the top. The active note fills the centre and scro
 
 **Hamburger / mobile menu.** Below 720 px the desktop chrome-nav (`who we are · fundamentals · projects · team · partners · contact`) is hidden. A square button with a Solar duotone icon takes its place in the top-right corner. Tapping it opens a fixed two-column grid of icon-and-label tiles; tapping outside, hitting Escape, or selecting any tile closes it. The menu is rendered in `index.html` as `<nav class="mobile-menu" hidden>` and populated dynamically from the same `PRIMARY_TABS` array in `app.js` that drives the desktop nav, so labels stay in sync. Each tile shows a Solar duotone icon (`people`, `document`, `folder`, `person`, `planet`, `letter`) plus its label; the active tab is highlighted in the indigo soft accent.
 
+### Home-page interaction notes
+
+The home page is intentionally an entry surface, not a full table of contents. The `enter through any door` block should stay focused on the core routes: who we are, fundamentals, projects, team, partners, and the organisational footnote `why a dozen`. The recent-work area uses the custom `recent-projects` block in `app.js` instead of inline HTML inside `addresses`; this keeps the project links clickable, visually scannable, and safe from rendering as literal markup. Cards and link rows add an `is-open` state when their target is already in the stack, so readers can see what is open without decoding the URL.
+
+Footer microcopy no longer carries `contact`; contact belongs in the primary menu on desktop and mobile. This keeps the note footer as stack-state feedback only: current note label on the left, stack instruction/depth on the right.
+
+### PIF slide deck
+
+`/PIF/index.html` is a standalone 12-slide Partner Information Form / presentation deck. It uses the shared design tokens from `assets/tokens.css`, but keeps its own presentation-specific CSS inline so it does not affect the stacked-notes application. The page is organised as full-height desktop slides with scroll snapping, and switches on mobile to a single-column vertical deck with the slide navigation fixed at the bottom. Content covers institutional identifiers, organisation profile, the nine fundamentals, methodology, target groups, beneficiaries/reach, highlighted projects, full portfolio, team, European cooperation, and contact/legal details.
+
 ### History persistence
 
 The URL is the source of truth for state. A user can paste any `?n=...&a=...` URL into a new tab and arrive at the exact stack and active column. Cloudflare's caching plays well with this since the only HTML on the wire is `index.html`; everything else is reconstructed client-side.

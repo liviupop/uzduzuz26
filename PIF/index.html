@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>uzinaduzina · Partner Information Form</title>
+<meta name="description" content="Partner Information Form and presentation deck for Asociatia uzinaduzina, Cluj-Napoca, Romania.">
+<link rel="stylesheet" href="../assets/tokens.css">
+<style>
+:root {
+  --slide-pad: clamp(22px, 4.8vw, 72px);
+  --slide-gap: clamp(16px, 2.2vw, 28px);
+  --deck-max: 1440px;
+}
+
+* { box-sizing: border-box; }
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+body {
+  margin: 0;
+  background:
+    linear-gradient(90deg, rgba(67,56,214,.08) 0 1px, transparent 1px 100%),
+    var(--bg);
+  background-size: 72px 72px;
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  border: 14px solid var(--bg);
+  z-index: 20;
+}
+a { color: inherit; }
+.slide:nth-of-type(3n + 1) { background: var(--bg); }
+.slide:nth-of-type(3n + 2) { background: var(--bg-paper); }
+.slide:nth-of-type(3n) { background: var(--bg-sunk); }
+
+.deck-nav {
+  position: fixed;
+  z-index: 30;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: rgba(250,246,240,.92);
+  backdrop-filter: blur(10px);
+}
+.deck-nav a {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 2px;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-decoration: none;
+}
+.deck-nav a:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.slide {
+  min-height: 100svh;
+  scroll-snap-align: start;
+  display: grid;
+  align-items: center;
+  padding: var(--slide-pad);
+  border-bottom: 1px solid var(--rule);
+}
+.slide-inner {
+  width: min(100%, var(--deck-max));
+  margin: 0 auto;
+  display: grid;
+  gap: var(--slide-gap);
+}
+.slide.split .slide-inner {
+  grid-template-columns: minmax(0, 1.03fr) minmax(320px, .97fr);
+  align-items: center;
+}
+.slide.top .slide-inner { align-self: start; }
+
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 4px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.kicker::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+.kicker.ochre::before { background: var(--ochre); }
+.kicker.green::before { background: var(--green); }
+
+h1, h2, h3, p { margin: 0; }
+h1 {
+  max-width: 980px;
+  font-family: var(--font-display);
+  font-size: clamp(52px, 8.5vw, 132px);
+  line-height: .92;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+h1 em, h2 em { color: var(--accent); font-style: italic; }
+h2 {
+  max-width: 980px;
+  font-family: var(--font-display);
+  font-size: clamp(38px, 6vw, 86px);
+  line-height: .98;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+h3 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2vw, 32px);
+  line-height: 1.05;
+  color: var(--ink);
+}
+.lede {
+  max-width: 900px;
+  font-family: var(--font-body);
+  font-size: clamp(22px, 2.2vw, 34px);
+  line-height: 1.28;
+  font-style: italic;
+  color: var(--ink-muted);
+}
+.body-text {
+  max-width: 840px;
+  font-size: clamp(17px, 1.35vw, 22px);
+  line-height: 1.48;
+  color: var(--ink);
+}
+.small {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+.logo-lockup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.logo-lockup img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+}
+.logo-lockup span {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.meta-grid,
+.stat-grid,
+.card-grid,
+.project-grid,
+.portfolio-grid,
+.team-grid,
+.target-grid,
+.method-grid {
+  display: grid;
+  gap: 10px;
+}
+.meta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.stat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.project-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.portfolio-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.team-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.target-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.method-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+
+.box,
+.stat,
+.principle,
+.project,
+.team,
+.target,
+.method-step,
+.table-row,
+.mini-project {
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: rgba(250,246,240,.84);
+}
+.box { padding: 18px; }
+.box strong,
+.stat strong,
+.project strong,
+.team strong,
+.target strong,
+.method-step strong,
+.principle strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1.12;
+  color: var(--ink);
+}
+.box span,
+.stat span,
+.project span,
+.mini-project span,
+.team span,
+.target span,
+.method-step span,
+.principle span {
+  display: block;
+  margin-top: 7px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+.stat {
+  min-height: 138px;
+  padding: 16px;
+  display: grid;
+  align-content: space-between;
+}
+.stat .num {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 4vw, 58px);
+  font-weight: 900;
+  line-height: .95;
+  color: var(--accent);
+}
+.stat.ochre .num { color: var(--ochre); }
+.stat.green .num { color: var(--green); }
+.stat a,
+.box a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.stat a:hover,
+.box a:hover {
+  color: var(--accent-hover);
+  text-decoration-thickness: 2px;
+}
+
+.principle {
+  min-height: 170px;
+  padding: 14px 15px;
+  background: transparent;
+}
+.principle small {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+}
+.principle p {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.36;
+  color: var(--ink-muted);
+}
+
+.project {
+  min-height: 178px;
+  padding: 15px;
+}
+.project.featured {
+  min-height: 260px;
+  padding: 22px;
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.project.featured:nth-child(2) { background: var(--accent); border-color: var(--accent); }
+.project.featured:nth-child(3) { background: var(--green); border-color: var(--green); }
+.project.featured:nth-child(4) { background: #5B4358; border-color: #5B4358; }
+.project.featured strong,
+.project.featured span,
+.project.featured p { color: var(--bg); }
+.project p {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.42;
+  color: var(--ink);
+}
+.project .tag {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 4px 8px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.portfolio {
+  display: grid;
+  gap: 6px;
+}
+.portfolio-grid {
+  display: grid;
+  gap: 8px;
+}
+.mini-project {
+  min-height: 122px;
+  padding: 12px;
+  display: grid;
+  align-content: space-between;
+  gap: 8px;
+}
+.mini-project strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 15px;
+  line-height: 1.08;
+  color: var(--ink);
+}
+.mini-project span {
+  margin-top: 0;
+  font-size: 11px;
+  line-height: 1.32;
+}
+.mini-project em {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-style: normal;
+  line-height: 1.3;
+  color: var(--accent);
+}
+.mini-project:nth-child(4n + 1) { background: var(--ink); border-color: var(--ink); }
+.mini-project:nth-child(4n + 2) { background: var(--accent); border-color: var(--accent); }
+.mini-project:nth-child(4n + 3) { background: var(--green); border-color: var(--green); }
+.mini-project:nth-child(4n) { background: #5B4358; border-color: #5B4358; }
+.mini-project:nth-child(4n + 1) strong,
+.mini-project:nth-child(4n + 1) span,
+.mini-project:nth-child(4n + 1) em,
+.mini-project:nth-child(4n + 2) strong,
+.mini-project:nth-child(4n + 2) span,
+.mini-project:nth-child(4n + 2) em,
+.mini-project:nth-child(4n + 3) strong,
+.mini-project:nth-child(4n + 3) span,
+.mini-project:nth-child(4n + 3) em,
+.mini-project:nth-child(4n) strong,
+.mini-project:nth-child(4n) span,
+.mini-project:nth-child(4n) em {
+  color: var(--bg);
+}
+.table-row {
+  display: grid;
+  grid-template-columns: 2.2fr .85fr .75fr .75fr;
+  gap: 10px;
+  padding: 10px 12px;
+  align-items: center;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 1.32;
+}
+.table-row.header {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.table-row strong {
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.1;
+}
+
+.team,
+.target {
+  min-height: 156px;
+  padding: 15px;
+}
+.team em,
+.target em {
+  display: block;
+  margin-top: 9px;
+  font-size: 14px;
+  line-height: 1.38;
+  color: var(--ink-muted);
+}
+
+.method-step {
+  min-height: 154px;
+  padding: 15px;
+}
+.method-step b {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.callout {
+  padding: clamp(20px, 3vw, 36px);
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  font-size: clamp(22px, 2.4vw, 36px);
+  line-height: 1.2;
+  font-style: italic;
+}
+
+.contact-card {
+  display: grid;
+  gap: 10px;
+  padding: 24px;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 2px;
+}
+.contact-card h3,
+.contact-card .small { color: var(--bg); }
+.contact-card a { color: var(--bg); }
+
+@media (max-width: 1100px) {
+  .slide.split .slide-inner,
+  .meta-grid,
+  .stat-grid,
+  .card-grid,
+  .project-grid,
+  .portfolio-grid,
+  .team-grid,
+  .target-grid,
+  .method-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .project.featured { min-height: 220px; }
+}
+
+@media (max-width: 720px) {
+  html { scroll-snap-type: none; }
+  body::before { border-width: 8px; }
+  .deck-nav {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    top: auto;
+    justify-content: space-between;
+    overflow-x: auto;
+  }
+  .deck-nav a {
+    flex: 0 0 30px;
+  }
+  .slide {
+    min-height: auto;
+    padding: 72px 18px 78px;
+  }
+  .slide:first-of-type { min-height: 100svh; }
+  .slide.split .slide-inner,
+  .meta-grid,
+  .stat-grid,
+  .card-grid,
+  .project-grid,
+  .portfolio-grid,
+  .team-grid,
+  .target-grid,
+  .method-grid {
+    grid-template-columns: 1fr;
+  }
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .table-row.header { display: none; }
+  .stat,
+  .principle,
+  .project,
+  .team,
+  .target,
+  .method-step {
+    min-height: auto;
+  }
+}
+
+@media print {
+  html { scroll-snap-type: none; }
+  body::before,
+  .deck-nav { display: none; }
+  .slide {
+    min-height: 100vh;
+    break-after: page;
+  }
+}
+</style>
+</head>
+<body>
+<nav class="deck-nav" aria-label="slides">
+  <a href="#s1">01</a><a href="#s2">02</a><a href="#s3">03</a><a href="#s4">04</a>
+  <a href="#s5">05</a><a href="#s6">06</a><a href="#s7">07</a><a href="#s8">08</a>
+  <a href="#s9">09</a><a href="#s10">10</a><a href="#s11">11</a><a href="#s12">12</a>
+</nav>
+
+<main>
+  <section class="slide split" id="s1">
+    <div class="slide-inner">
+      <div>
+        <div class="logo-lockup">
+          <img src="../assets/logo-uzinaduzina.png" alt="">
+          <span>Asociatia uzinaduzina · Cluj-Napoca · Romania</span>
+        </div>
+        <p class="kicker">Partner Information Form</p>
+        <h1>a quiet factory for hard questions</h1>
+        <p class="lede">Youth-focused cultural work at the intersection of digital transformation, living heritage, non-formal education, and contemporary art.</p>
+      </div>
+      <div class="meta-grid">
+        <div class="box"><strong>PIC</strong><span>940148057</span></div>
+        <div class="box"><strong>OID</strong><span>E10133132</span></div>
+        <div class="box"><strong>Established</strong><span>18 July 2008 · rebooted 2020</span></div>
+        <div class="box"><strong>Legal form</strong><span>NGO / association · non-profit · not a public body</span></div>
+        <div class="box"><strong>Address</strong><span>Str. Manastur nr. 89 ap. 54, 400658, Cluj-Napoca, Romania</span></div>
+        <div class="box"><strong>Website</strong><span>uzinaduzina.org</span></div>
+        <div class="box"><strong>Project role</strong><span>Project leader / Beneficiary / cultural methodology partner</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide split" id="s2">
+    <div class="slide-inner">
+      <div>
+        <p class="kicker ochre">Profile</p>
+        <h2>small NGO, broad cultural range</h2>
+        <p class="body-text">uzinaduzina empowers young people to become active and aware citizens, sharpen digital competences, develop green skills, and use creativity as a driver for social change. We connect cultural roots with future skills through storytelling, creative practice, intergenerational learning, and critical technology.</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><div class="num">7</div><strong>staff members</strong><span>plus a dozen volunteers</span></div>
+        <div class="stat ochre"><div class="num">€455k</div><strong>KA220 lead portfolio</strong><span><a href="https://innovationhive.eu/innohive-projects/green-genesis-startup/">Green Genesis Startup</a> + <a href="https://drops-sustainability.eu/results/">DROPS</a></span></div>
+        <div class="stat green"><div class="num">400+</div><strong>young people in 2025</strong><span>youth exchanges, workshops, camps, and training</span></div>
+        <div class="stat"><div class="num">20+</div><strong>youth workers</strong><span>trained through AI4NGOs and related programmes</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide top" id="s3">
+    <div class="slide-inner">
+      <div>
+        <p class="kicker green">Nine fundamentals</p>
+        <h2>principles as working habits</h2>
+        <p class="lede">They are not rules we set out to obey, but tendencies our work has revealed about itself: a compact framework for deciding what we do and what we refuse.</p>
+      </div>
+      <div class="card-grid">
+        <article class="principle"><small>01</small><strong>Sustainability through beauty</strong><p>We make things worth keeping: well-designed objects, careful materials, and projects that can be revisited rather than consumed once.</p></article>
+        <article class="principle"><small>02</small><strong>Calm technologies</strong><p>Technology belongs in the toolbox. It should serve the work quietly, without turning attention itself into the product.</p></article>
+        <article class="principle"><small>03</small><strong>Education for the whole person</strong><p>We design for body, memory, hand, moral sense, aesthetic faculty, and unanswered questions, not just for skills transfer.</p></article>
+        <article class="principle"><small>04</small><strong>Active citizenship</strong><p>Civic practice happens inside ordinary activities: how groups decide, listen, share space, and make things together.</p></article>
+        <article class="principle"><small>05</small><strong>Explicitly pro-European</strong><p>European cooperation is not a flavour of our work; it is the architecture: partners, budgets, methods, and public commitments.</p></article>
+        <article class="principle"><small>06</small><strong>Critical thinking</strong><p>Critical thinking is a discipline: the patience to test our own first answers, our tools, and the language we use.</p></article>
+        <article class="principle"><small>07</small><strong>Curiosity and experiment</strong><p>We protect the right to follow a question without knowing the answer in advance, and we count learning as an outcome.</p></article>
+        <article class="principle"><small>08</small><strong>Critical technology</strong><p>We ask what tools do to people, institutions, and democracy, and we use recent technology from inside practice, not at a distance.</p></article>
+        <article class="principle"><small>09</small><strong>Living heritage</strong><p>Heritage remains alive when it is used: craft, folk astronomy, cuisine, oral history, and local memory put back into circulation.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide split" id="s4">
+    <div class="slide-inner">
+      <div>
+        <p class="kicker">Methodology and framework</p>
+        <h2>heritage-led future literacy</h2>
+        <p class="body-text">Our framework combines non-formal education, ethnographic listening, STEAM, storytelling, future literacy, and critical technology. It is child-centric and participant-led, drawing from Korczak, Montessori, community mapping, nonviolent communication, TEAL learning, and iterative workshop design.</p>
+      </div>
+      <div class="method-grid">
+        <div class="method-step"><b>01</b><strong>Observe</strong><span>fieldwork, youth needs assessment, cultural and local context</span></div>
+        <div class="method-step"><b>02</b><strong>Collect</strong><span>stories, craft practices, archives, questions, images, tools</span></div>
+        <div class="method-step"><b>03</b><strong>Translate</strong><span>from archive to workshop, from idea to object, from heritage to action</span></div>
+        <div class="method-step"><b>04</b><strong>Prototype</strong><span>hands-on making, analog devices, digital tools, AI as thinking aid</span></div>
+        <div class="method-step"><b>05</b><strong>Share</strong><span>public moments, exhibitions, toolkits, peer-to-peer learning</span></div>
+        <div class="method-step"><b>06</b><strong>Reflect</strong><span>evaluation, social choreography, learning outcomes, next iteration</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide top" id="s5">
+    <div class="slide-inner">
+      <div>
+        <p class="kicker ochre">Target groups</p>
+        <h2>who we design for</h2>
+      </div>
+      <div class="target-grid">
+        <article class="target"><strong>Young people 13-30</strong><span>Primary target group</span><em>Especially rural and small-town youth in Transylvania, including those with limited cultural and educational opportunities.</em></article>
+        <article class="target"><strong>Vulnerable youth</strong><span>Low-income families, ethnic minorities, early school leaving risk, NEETs</span><em>Mobility, peer learning, and heritage-based activities help restore confidence and community connection.</em></article>
+        <article class="target"><strong>Urban capable youth</strong><span>Cluj-Napoca and nearby cities</span><em>We create spaces where young people can develop passions that often fall outside standard school environments.</em></article>
+        <article class="target"><strong>School students</strong><span>Primary school to high school</span><em>STEAM, green skills, civic competence, storytelling, and age-appropriate foresight tactics.</em></article>
+        <article class="target"><strong>Youth workers and educators</strong><span>NGO staff, teachers, facilitators</span><em>Training on digital methods, AI competences, participatory approaches, and learning design.</em></article>
+        <article class="target"><strong>Adults and communities</strong><span>Intergenerational participants</span><em>Living heritage, sustainability education, community mapping, and cultural mediation.</em></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide top" id="s6">
+    <div class="slide-inner">
+      <div>
+        <p class="kicker green">Project emphasis</p>
+        <h2>four lines that explain the organisation</h2>
+      </div>
+      <div class="project-grid">
+        <article class="project featured"><span class="tag">critical technology</span><strong>Cabinet of Retrofuturistic Curiosities</strong><span>Botnar Foundation through QUB / CCCluj · 2024-2025 · €8,000</span><p>Twelve 3D-printed objects designed with Midjourney and finished by hand. A workshop on future imagination, critical AI use, retrofuturism, solarpunk, and what a community judges worth preserving.</p></article>
+        <article class="project featured"><span class="tag">living heritage</span><strong>Goana după meteor</strong><span>AFCN · 2025 · €35,547</span><p>A cultural intervention in Mociu, built around the largest meteorite fall in Romania: astronomy camp, storytelling, folk astronomy, rural youth, and intergenerational learning.</p></article>
+        <article class="project featured"><span class="tag">AI history</span><strong>democraicy + AI4NGOs</strong><span>2020 concept line · 2025 youth-worker training</span><p>We approach AI historically and politically, including through the Golem myth: a made intelligence, animated by language, whose power depends on who commands it and why.</p></article>
+        <article class="project featured"><span class="tag">cultural mediation</span><strong>Polish Institute workshops</strong><span>Belgica 100 + Polish Discoveries · 2025-2026</span><p>STEAM and storytelling workshops for children aged 6-12, connecting polar exploration, Polish inventors, illustration, curiosity, and participation in science.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide top" id="s7">
+    <div class="slide-inner">
+      <div>
+        <p class="kicker">2025 reach</p>
+        <h2>our most active year so far</h2>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><div class="num">400+</div><strong>young people</strong><span>exchanges, camps, school workshops, cultural mediation</span></div>
+        <div class="stat ochre"><div class="num">100</div><strong>adults</strong><span>engaged through education and community-facing cultural formats</span></div>
+        <div class="stat green"><div class="num">200</div><strong>students aged 6-12</strong><span>Belgica 100 cultural mediation workshops</span></div>
+        <div class="stat"><div class="num">120</div><strong>children in 2026</strong><span>Polish Discoveries workshops at the Octavian Goga County Library</span></div>
+        <div class="stat ochre"><div class="num">22 + 100</div><strong>Chasing the meteorite</strong><span>22 astronomy camp participants, 100 young local students involved</span></div>
+        <div class="stat green"><div class="num">20</div><strong>Wooden Wonders participants</strong><span>heritage, green tourism, wooden crafts, digital tools</span></div>
+        <div class="stat"><div class="num">20+</div><strong>youth workers</strong><span>AI4NGOs training in Cluj with partners from Poland, Cyprus, Latvia, Croatia, and Romania</span></div>
+        <div class="stat ochre"><div class="num">10-12</div><strong>young volunteers</strong><span>logistics, documentation, dissemination, peer support</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide top" id="s8">
+    <div class="slide-inner">
+      <div>
+        <p class="kicker ochre">Portfolio</p>
+        <h2>funded and flagship projects</h2>
+      </div>
+      <div class="portfolio-grid">
+        <article class="mini-project"><strong>Polish Discoveries that Changed the World</strong><span>Polish Institute Bucharest · 2026 · partner</span><em>€1,000</em></article>
+        <article class="mini-project"><strong>Drops of Sustainable Development</strong><span>Erasmus+ KA220-ADU · 2024-2026 · lead</span><em>€250,000</em></article>
+        <article class="mini-project"><strong>Goana dupa meteor</strong><span>AFCN · 2025 · lead</span><em>€35,547</em></article>
+        <article class="mini-project"><strong>AI4NGOs</strong><span>CCIF Cyprus Erasmus+ KA151-YOU · 2025 · local host</span><em>€5,238</em></article>
+        <article class="mini-project"><strong>Wooden Wonders</strong><span>Erasmus+ KA152-YOU · 2025 · beneficiary</span><em>€11,742</em></article>
+        <article class="mini-project"><strong>Belgica 100</strong><span>Polish Institute Romania · 2025 · beneficiary</span><em>€1,350</em></article>
+        <article class="mini-project"><strong>Cabinet of Retrofuturistic Curiosities</strong><span>Botnar / QUB / CCC Cluj · 2024-2025 · lead</span><em>€8,000</em></article>
+        <article class="mini-project"><strong>Echoes of Unity</strong><span>Erasmus+ KA151-YOU · 2024 · beneficiary</span><em>N/A</em></article>
+        <article class="mini-project"><strong>A Greener Future</strong><span>Erasmus+ KA151-YOU · 2024 · beneficiary</span><em>N/A</em></article>
+        <article class="mini-project"><strong>Atat @ Arta.NonStop</strong><span>children's rights through art · 2024 · lead</span><em>N/A</em></article>
+        <article class="mini-project"><strong>Greenycrafts</strong><span>Erasmus+ KA152-YOU · 2023-2024 · beneficiary / partner</span><em>€17,602</em></article>
+        <article class="mini-project"><strong>Modeling the Future Together</strong><span>Erasmus+ KA151-YOU · 2023 · beneficiary</span><em>€34,660</em></article>
+        <article class="mini-project"><strong>Green Genesis Startup</strong><span>Erasmus+ KA220-YOU · 2022-2024 · lead</span><em>€205,144</em></article>
+        <article class="mini-project"><strong>SibiAR · the houses' stories</strong><span>Sibiu · 2022 · lead</span><em>€2,000</em></article>
+        <article class="mini-project"><strong>Korczak Lens</strong><span>Polish Institute Bucharest · 2021-2022 · partner</span><em>N/A</em></article>
+        <article class="mini-project"><strong>Do the Move</strong><span>Erasmus+ KA105 · 2020-2021 · beneficiary</span><em>N/A</em></article>
+        <article class="mini-project"><strong>FDSC mini-grant</strong><span>organisational development · 2020 · beneficiary</span><em>€700</em></article>
+        <article class="mini-project"><strong>democraicy</strong><span>algorithms with civic conscience · 2020 · concept</span><em>unfunded</em></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide top" id="s9">
+    <div class="slide-inner">
+      <div>
+        <p class="kicker green">Team</p>
+        <h2>flat, collaborative, project-shaped</h2>
+        <p class="body-text">uzinaduzina works with five permanent members, additional team members, and a pool of young volunteers. Each project team is assembled according to expertise, availability, interest, and knowledge of the theme.</p>
+      </div>
+      <div class="team-grid">
+        <article class="team"><strong>Liviu Ovidiu Pop</strong><span>President and legal representative</span><em>Researcher at the Romanian Academy; project design, youth mobility management, partnership building, heritage and digital humanities.</em></article>
+        <article class="team"><strong>Mihaela Bidilica-Vasilache</strong><span>Vice-president · project management</span><em>Strategic communication, project coordination, educational resources, dissemination, partner communication, civic participation.</em></article>
+        <article class="team"><strong>Cosmina Timoce-Mocanu</strong><span>Research and methodology</span><em>Ethnology, oral history, intangible heritage, educational content, workshop methodology, learning outcome evaluation.</em></article>
+        <article class="team"><strong>Diana Spirleanu</strong><span>Facilitation and wellbeing</span><em>Nonviolent communication, embodied practices, intercultural learning, creative workshops with children and teenagers.</em></article>
+        <article class="team"><strong>Radu Pop</strong><span>Visual documentation and youth media</span><em>Photography, video, youth-led creative outputs, visual storytelling and social media mentoring.</em></article>
+        <article class="team"><strong>Nectarie and Siluan Pasca</strong><span>Youth needs assessment</span><em>High-school students and members; astronomy / astrophysics and classical music perspectives for youth-led feedback.</em></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide split" id="s10">
+    <div class="slide-inner">
+      <div>
+        <p class="kicker">European cooperation</p>
+        <h2>partners, funders, and public accountability</h2>
+        <p class="body-text">We coordinate and participate in EU-funded projects and cultural programmes with partners from Cyprus, Italy, Greece, Spain, Croatia, Poland, Latvia, and Romania. We name funders, budgets, partners, and project references because specificity is part of our civic practice.</p>
+      </div>
+      <div class="callout">Partners include CCIF Cyprus, Udruga Murtila, Udruga 4 Elements, Petit Pas Aps, Innovation Hive, ACD La Hoya, CO-LABORY, Polish Institute Bucharest / Romania, Latvian and Croatian NGO partners, and Romanian cultural institutions.</div>
+    </div>
+  </section>
+
+  <section class="slide split" id="s11">
+    <div class="slide-inner">
+      <div>
+        <p class="kicker ochre">PIF contacts</p>
+        <h2>legal and contact details</h2>
+      </div>
+      <div class="meta-grid">
+        <div class="box"><strong>Legal representative</strong><span>Mr. Liviu-Ovidiu Pop · President · liviu.pop@uzinaduzina.org · +40 747 650 343</span></div>
+        <div class="box"><strong>Contact person</strong><span>Mrs. Mihaela Bidilica-Vasilache · Vice-president · mihaela.bidilica@uzinaduzina.org · +40 722 704 140</span></div>
+        <div class="box"><strong>Organisation email</strong><span>contact@uzinaduzina.org · uzinaduzina@gmail.com</span></div>
+        <div class="box"><strong>Registration identifiers</strong><span>PIC 940148057 · OID E10133132 · National ID: N/A</span></div>
+        <div class="box"><strong>Legal address</strong><span>Str. Manastur nr. 89 ap. 54, 400658, Cluj-Napoca, Cluj, Romania</span></div>
+        <div class="box"><strong>Annual turnover</strong><span>Approximately EUR 120,000 average, 2023-2024</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide split" id="s12">
+    <div class="slide-inner">
+      <div>
+        <p class="kicker green">Closing note</p>
+        <h2>what we bring to a consortium</h2>
+        <p class="lede">We translate complex cultural material into participatory formats that young people can touch, question, rebuild, and carry forward.</p>
+      </div>
+      <div class="contact-card">
+        <h3>Asociatia uzinaduzina</h3>
+        <p class="body-text">Cluj-Napoca · Romania<br>PIC 940148057 · OID E10133132</p>
+        <p class="small"><a href="https://uzinaduzina.org">uzinaduzina.org</a><br><a href="mailto:contact@uzinaduzina.org">contact@uzinaduzina.org</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
