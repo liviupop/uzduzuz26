@@ -220,6 +220,8 @@ Footer microcopy no longer carries `contact`; contact belongs in the primary men
 
 The URL is the source of truth for state. A user can paste any `?n=...&a=...` URL into a new tab and arrive at the exact stack and active column. Cloudflare's caching plays well with this since the only HTML on the wire is `index.html`; everything else is reconstructed client-side.
 
+**Unknown routes.** Browser navigations to paths that do not exist are intercepted by the Worker and answered with the branded `404.html` page and a real HTTP `404` status. The explicit HTML response also prevents Cloudflare's generic assets response from being treated as a download. Missing assets and API-like requests keep their original non-HTML error responses. The page uses self-hosted Bitter, respects reduced-motion preferences, and links back to the site root.
+
 ---
 
 ## 8 · Adding content
@@ -531,7 +533,8 @@ Tally as of last regen:
                   a transversal practice, explicitly pro-European,
                   critical thinking, curiosity and experiment,
                   critical technology, living heritage
-18  projects      Drops of Sustainable Development (lead, KA220-ADU, €250k, 2024-2026 ongoing)
+21  projects      Three Tables / Trei mese / Три трапези (lead, ZMINA:Resilience, 2026 ongoing)
+                  Drops of Sustainable Development (lead, KA220-ADU, €250k, 2024-2026 ongoing)
                   Green Genesis Startup (lead, KA220-YOU, €205k, 2022-2024)
                   Goana după meteor (lead, AFCN, €36k, 2025)
                   Cabinet of retrofuturist curiosities (lead, Botnar, €8k, 2024-2025)
@@ -548,7 +551,9 @@ Tally as of last regen:
                   Do the Move (beneficiary, KA105, 2020-2021, Croatia)
                   Korczak Lens (partner, Polish Institute, 2021-2022)
                   SibiAR (lead, in development, Sibiu)
-                  Polish Discoveries that Changed the World (partner, Polish Institute, March 2026)
+                  Polish Discoveries that Changed the World (partner, Polish Institute, Romania and Moldova, 2026)
+                  Level Up: Innovate, Inspire & Empower Youth Work (beneficiary, CCIF, March 2026)
+                  Stronger Together (beneficiary, CCIF and Udruga Murtila, April 2026)
 7   team          Liviu Pop (president), Mihaela Bidilică-Vasilache,
                   Cosmina Timoce-Mocanu, Diana Spirleanu, Radu Pop,
                   Nectarie Pașca (youth needs · astronomy & astrophysics),
@@ -580,11 +585,11 @@ The line is not flagged on the home page as a flagship; it's just there in the c
 
 ### Living heritage
 
-Folk astronomy at Mociu (the meteorite village, *Goana după meteor* 2025), traditional crafts in Croatia (*Wooden Wonders* 2025, *Greenycrafts* 2023-2024), the Sibiu multi-ethnic stories (*SibiAR*, in development), and the 2020 *Manifesto of City Dwellers Who Love the Village* archived as a curiosity. Heritage as material to work with, not a relic in a display case.
+Folk astronomy at Mociu (the meteorite village, *Goana după meteor* 2025), everyday food and oral history across Romania and Ukraine (*Three Tables* 2026), traditional crafts in Croatia (*Wooden Wonders* 2025, *Greenycrafts* 2023-2024), the Sibiu multi-ethnic stories (*SibiAR*, in development), and the 2020 *Manifesto of City Dwellers Who Love the Village* archived as a curiosity. Heritage as material to work with, not a relic in a display case.
 
 ### Pro-European structurally
 
-Eight Erasmus+ projects, two coordinated as lead (Green Genesis €205k, Drops €250k). Partners across Cyprus (CCIF, our strongest tie at six projects), Italy (CO-LABORY, Petit Pas), Greece (Innovation Hive), Spain (ACD La Hoya), Croatia (Udruga Murtila, 4 Elements), Poland (Polish Institute, DIP). Being European is funding architecture, not flavour.
+Ten Erasmus+ projects, two coordinated as lead (Green Genesis €205k, Drops €250k), alongside the EU co-funded ZMINA:Resilience framework. Partners across Cyprus (CCIF, our strongest tie at seven projects), Italy (CO-LABORY, Petit Pas), Greece (Innovation Hive), Spain (ACD La Hoya), Croatia (Udruga Murtila, 4 Elements), Poland (Polish Institute, DIP), Ukraine, Slovakia, and Sweden. Being European is funding architecture, not flavour.
 
 ---
 

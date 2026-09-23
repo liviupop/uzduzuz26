@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>404 · nota nu este aici · uzinaduzina</title>
+<style>
+@font-face {
+  font-family: "Bitter";
+  src: url("/fonts/Bitter-VariableFont_wght.ttf") format("truetype-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Bitter";
+  src: url("/fonts/Bitter-Italic-VariableFont_wght.ttf") format("truetype-variations");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --bg: #faf6f0;
+  --paper: #f5efe5;
+  --ink: #1a1f2e;
+  --muted: #5b6178;
+  --rule: #d9d0be;
+  --accent: #4338d6;
+  --ochre: #c99745;
+  --green: #5a7a4e;
+}
+
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--bg);
+  font-family: "Bitter", Georgia, serif;
+}
+
+.page {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(20px, 4vw, 54px);
+}
+
+.masthead,
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: inherit;
+  text-decoration: none;
+}
+.brand img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+.brand span,
+.route,
+.foot {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.route {
+  max-width: min(48vw, 520px);
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.main {
+  width: min(1180px, 100%);
+  margin: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr);
+  align-items: center;
+  gap: clamp(40px, 8vw, 120px);
+  padding: clamp(48px, 8vh, 90px) 0;
+}
+
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.kicker::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+h1 {
+  max-width: 720px;
+  margin: 0;
+  font-size: clamp(58px, 9vw, 126px);
+  font-weight: 900;
+  line-height: .9;
+  letter-spacing: 0;
+}
+h1 em {
+  color: var(--accent);
+  font-style: italic;
+}
+.lede {
+  max-width: 610px;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: clamp(20px, 2.3vw, 31px);
+  font-style: italic;
+  line-height: 1.3;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 34px;
+}
+.button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 18px;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+.button:hover,
+.button:focus-visible {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.lost-stack {
+  position: relative;
+  min-height: clamp(330px, 50vw, 520px);
+  isolation: isolate;
+}
+.sheet {
+  position: absolute;
+  inset: 8% 10% 10% 8%;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  transform-origin: 50% 100%;
+}
+.sheet::before {
+  content: "";
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.sheet::after {
+  content: "";
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  bottom: 32px;
+  height: 1px;
+  background: currentColor;
+  opacity: .35;
+}
+.sheet-one {
+  color: var(--green);
+  background: #dce5d2;
+  animation: shuffle-one 7s ease-in-out infinite;
+}
+.sheet-two {
+  color: var(--ochre);
+  background: #efe0c0;
+  animation: shuffle-two 7s ease-in-out infinite;
+}
+.sheet-three {
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  background: #e5e2f8;
+  animation: shuffle-three 7s ease-in-out infinite;
+}
+.sheet-three strong {
+  color: var(--ink);
+  font-size: clamp(72px, 12vw, 142px);
+  font-weight: 900;
+  line-height: 1;
+}
+.sheet-three span {
+  position: absolute;
+  left: 30px;
+  top: 28px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.foot {
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+}
+.foot a { color: inherit; }
+
+@keyframes shuffle-one {
+  0%, 100% { transform: translate(-22px, 15px) rotate(-6deg); }
+  45%, 55% { transform: translate(22px, -3px) rotate(4deg); }
+}
+@keyframes shuffle-two {
+  0%, 100% { transform: translate(22px, 6px) rotate(5deg); }
+  45%, 55% { transform: translate(-18px, 12px) rotate(-4deg); }
+}
+@keyframes shuffle-three {
+  0%, 100% { transform: translate(0, -6px) rotate(.5deg); }
+  45%, 55% { transform: translate(0, 8px) rotate(-.5deg); }
+}
+
+@media (max-width: 760px) {
+  .page { padding: 18px; }
+  .route { display: none; }
+  .main {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 56px 0 42px;
+  }
+  .lost-stack {
+    width: min(100%, 430px);
+    min-height: 330px;
+    margin: 0 auto;
+  }
+  .foot {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <a class="brand" href="/" aria-label="uzinaduzina, pagina principală">
+      <img src="/assets/logo-uzinaduzina.png" alt="">
+      <span>uzinaduzina</span>
+    </a>
+    <span class="route" id="missing-route">404</span>
+  </header>
+
+  <main class="main">
+    <section>
+      <p class="kicker">nota nu este aici</p>
+      <h1>Ai intrat pe o ușă care nu <em>există.</em></h1>
+      <p class="lede">Adresa nu duce la nicio pagină, dar restul atelierului este deschis.</p>
+      <div class="actions">
+        <a class="button" href="/">înapoi la pagina principală&nbsp; →</a>
+      </div>
+    </section>
+
+    <div class="lost-stack" aria-hidden="true">
+      <div class="sheet sheet-one"></div>
+      <div class="sheet sheet-two"></div>
+      <div class="sheet sheet-three"><span>missing note</span><strong>404</strong></div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <span>uzinaduzina · Cluj-Napoca</span>
+    <a href="mailto:contact@uzinaduzina.org">contact@uzinaduzina.org</a>
+  </footer>
+</div>
+<script>
+  const route = document.querySelector('#missing-route');
+  if (route) route.textContent = `404 · ${location.pathname}`;
+</script>
+</body>
+</html>

@@ -2,46 +2,49 @@
 title: "Polish Discoveries that Changed the World"
 slug: polish-discoveries
 type: project
-kicker: "project · 2026 · partner"
+kicker: "project · 2026 · partner · Romania and Moldova"
 accent: ochre
 pills:
-  - March 2026
+  - March–May 2026
   - Polish Institute Bucharest
-  - Cluj-Napoca
-  - 4 workshops · ~120 children
+  - Romania · Moldova
+  - at least 195 children
 role: "partner"
 order: 18
-summary: "Four workshops for around 120 children, built around the Polish Institute exhibition *Polish Inventions That Changed the World* at the Octavian Goga County Library in Cluj."
+summary: "A two-country workshop series on Polish inventions, reaching at least 195 children in Romania and Moldova."
 ---
 
-March 2026. Four workshops for around 120 children, designed and delivered by uzinaduzina around the exhibition *Polish Inventions That Changed the World* (*Invenții poloneze care au schimbat lumea*), organised by the Polish Institute Bucharest at the Octavian Goga County Library in Cluj-Napoca, 2 to 15 March 2026. Partnership contract IP/3/2026.
+March to May 2026. A workshop series designed and delivered by uzinaduzina around *Polish Inventions That Changed the World* (*Invenții poloneze care au schimbat lumea*), at the invitation of the Polish Institute Bucharest. The first phase accompanied the exhibition at the Octavian Goga County Library in Cluj-Napoca. Follow-up workshops took the same questions to schools near Cluj and, in May, to Căușeni, Nisporeni, and Chișinău in the Republic of Moldova.
 
 ## what it is
 
-The Polish Institute brings to Cluj an exhibition of Polish inventions from the late 19th and 20th centuries — devices and techniques the world depends on but rarely traces back to their origin. uzinaduzina builds the educational layer around it: four workshops for children, each anchored on one or two inventions, each combining a simple hands-on activity with the historical context that makes the invention recognisable.
+The Polish Institute built an exhibition around Polish inventions from the late 19th and 20th centuries: devices and techniques the world depends on but rarely traces back to their origin. uzinaduzina built the educational layer around it, combining hands-on experiments, historical context, discussion, and small prototypes.
+
+The workshop begins with distinctions children can test: discovering, creating, and inventing are related, but not identical. From there, the group looks for the needs behind inventions, asks what qualities an inventor needs, and imagines which parts of the world should remain as they are and which should change.
 
 ## why it matters
 
-Polish inventiveness is rarely a category in itself. The story usually gets absorbed into "Western science" or "European industry", losing the specific texture of why so many of these devices were invented in *exile*: the Partitions period when Poland did not exist on the map, the two world wars, the long communist parenthesis. Children meeting a kerosene lamp, a dust-extraction system, or a walkie-talkie — and being told who built them and why — pick up something about how invention emerges from constraint, not abundance.
+Polish inventiveness is rarely a category in itself. The story usually gets absorbed into "Western science" or "European industry", losing the specific texture of why so many of these devices were invented in *exile*: the Partitions period when Poland did not exist on the map, the two world wars, and the long communist parenthesis. Children meeting a kerosene lamp, a mine detector, a dust-extraction system, a walkie-talkie, or a familiar household device, and being told who built it and why, pick up something about how invention emerges from constraint, not abundance.
 
-For us, it is the second collaboration with the Polish Institute Bucharest after [Korczak Lens](project-korczak-lens) (2021–2022), and a continuation of our long-running line of working with illustrators on educational materials.
+For us, it extends a long collaboration with the Polish Institute Bucharest after [Korczak Lens](project-korczak-lens) (2021–2022) and [Belgica 100 Workshops](project-belgica-100-workshops) (2025). It also showed that the workshop could travel: from an exhibition setting in Cluj to ordinary classrooms and youth centres in two countries.
 
 ## what we are doing
 
-- Concept and design of four workshop sessions, each ~90 minutes, for children aged 6–12.
-- Recruitment of participants in coordination with Cluj schools and the library.
-- Production of the workshop materials (handouts, simple prototypes, illustrated activity sheets).
-- Delivery of the four sessions during the exhibition's run, 2–15 March 2026.
-- Documentation and feedback collection.
+- Designed and delivered the initial Cluj workshop series for children aged 6–12.
+- Produced hands-on materials, simple prototypes, and illustrated activity sheets.
+- Continued the programme with school groups in Luna de Sus and Gilău.
+- Adapted the workshop for young people at Căușeni Hub and the Nisporeni Youth Centre.
+- Worked with 75 children from School no. 226 and Gymnasium no. 42 at the Adam Mickiewicz Library in Chișinău.
+- Documented the process and collected feedback across the two-country programme.
 
 ## numbers
 
-- **Frame budget:** RON 5,000 (~€1,000)
-- **Duration:** 2–15 March 2026
-- **Sessions:** 4
-- **Children reached:** ~120
-- **Location:** Octavian Goga County Library, Cluj-Napoca
-- **Lead:** Polish Institute Bucharest; uzinaduzina as workshop partner
+- **Initial Cluj frame budget:** RON 5,000 (approximately €1,000)
+- **Period covered:** March–May 2026
+- **Children reached:** at least 195 documented participants, plus groups in Căușeni and Nisporeni whose numbers were not included in the source posts
+- **Romania:** Cluj-Napoca, Luna de Sus, and Gilău
+- **Republic of Moldova:** Căușeni, Nisporeni, and Chișinău
+- **Lead partner:** Polish Institute Bucharest; uzinaduzina as workshop designer and delivery partner
 
 ## read alongside
 

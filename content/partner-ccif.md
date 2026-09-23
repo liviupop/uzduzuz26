@@ -6,14 +6,14 @@ kicker: "partner · Cyprus"
 accent: ochre
 pills:
   - strategic partner|on
-  - 6 projects together
+  - 7 projects together
   - Paphos
   - 2022 → 2026
 order: 1
-summary: "Strategic partner. Five projects together since 2022."
+summary: "Strategic partner. Seven projects together since 2022."
 ---
 
-Our strategic Cypriot partner. Six projects together since 2022. A firmly established Cluj–Paphos bridge.
+Our strategic Cypriot partner. Seven projects together since 2022. A firmly established Cluj–Paphos bridge.
 
 ## who they are
 
@@ -32,6 +32,8 @@ The first meeting: through the [Green Genesis Startup](project-green-genesis-sta
 | 2024 March | [A Greener Future](project-a-greener-future) | Host, us as beneficiaries |
 | 2024 November | [Echoes of Unity](project-echoes-of-unity) | Host, us as beneficiaries |
 | 2025 August | [AI4NGOs](project-ai4ngos) | Local lead in Cluj for CCIF |
+| 2026 March | [Level Up](project-level-up-youth-work) | Host, us as beneficiaries and workshop contributors |
+| 2026 April | [Stronger Together](project-stronger-together) | Co-organiser with Udruga Murtila, us as beneficiaries |
 
 ## why the relationship matters
 
@@ -39,10 +41,12 @@ Two dimensions:
 
 First, **operational**: we have known working procedures. New applications come together quickly because we know the rhythms, the vocabulary, what to avoid, what to amplify.
 
-Second, **human**: five projects mean dozens of hours of meetings, meals together, airport drives, drafts exchanged at night. Relationships of this kind are not built through email.
+Second, **human**: seven projects mean dozens of hours of meetings, meals together, airport drives, and drafts exchanged at night. Relationships of this kind are not built through email.
 
 ## read alongside
 
 - [Green Genesis Startup](project-green-genesis-startup): the founding project of the relationship.
-- [AI4NGOs](project-ai4ngos): the most recent project together, hosted by us in Cluj for CCIF.
+- [Level Up](project-level-up-youth-work): the 2026 professional-development programme in Paphos.
+- [Stronger Together](project-stronger-together): the 2026 study visit in Trogir.
+- [AI4NGOs](project-ai4ngos): the 2025 training hosted by us in Cluj for CCIF.
 - [Modeling the Future](project-modeling-the-future): the inaugurating mobility we did with them.

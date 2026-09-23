@@ -31,23 +31,34 @@ Second: it consolidates our profile as an organisation that does not only partic
 
 ## what we are doing
 
-In progress. Main activities:
+The project entered its final phase in 2026. Main activities:
 
 - Building methodologies for adult education centred on sustainability.
 - Co-creating learning materials with European partners.
+- Developing the e-learning platform and its interactive exercises.
+- Testing the platform with partners and adult learners.
 - Pilot workshops and activities in partner communities.
 - Transnational meetings.
 - Dissemination through traditional and digital channels.
 
+## 2026 update
+
+At the end of March, the partnership met in Zaragoza to test the new platform and decide the final implementation steps. By May, the e-learning environment and interactive exercises were in place, moving the project from development into its final testing, refinement, and publication phase.
+
+The current partnership includes CCIF Cyprus, Udruga Četiri Elementa, ACTA Center, Petit Pas APS, STP Consulting, and uzinaduzina as coordinator. The public results are available through the [DROPS platform](https://drops-sustainability.eu/results/).
+
 ## what we are learning along the way
 
-We will fill this section in as the project advances. For now, the most notable observation from the early months is that the administrative infrastructure built for Green Genesis dramatically reduced our setup time. Reporting flows, templates, bank accounts, financial procedures: all reused. A grant leaves behind more than the project itself; it leaves an organisational capacity you can use on the next one.
+The administrative infrastructure built for Green Genesis dramatically reduced our setup time. Reporting flows, templates, bank accounts, and financial procedures could be reused. A grant leaves behind more than the project itself; it leaves an organisational capacity available to the next one.
+
+The Zaragoza testing also made a second lesson visible: an e-learning platform becomes useful only when partners test the exercises as learners, not merely review them as authors. The final phase is therefore less about adding volume and more about improving sequence, clarity, and the relationship between reflection and action.
 
 ## numbers (interim)
 
 - **Budget:** €250,000
 - **Duration:** 24 months
 - **Status:** ongoing (launched October 2024)
+- **2026 milestone:** e-learning platform and interactive exercises developed; final testing and publication underway
 
 ## read alongside
 

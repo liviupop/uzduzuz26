@@ -15,7 +15,7 @@ The site is designed to be readable both by humans and by AI crawlers. The audie
 │                           home, who-we-are, fundamentals, projects index,
 │                           team, partners, contact
 ├── content/                 ← drop .md files here. one per note.
-│   ├── project-*.md        17 project notes
+│   ├── project-*.md        21 project notes
 │   ├── team-*.md           team profiles
 │   └── partner-*.md        partner profiles
 ├── assets/

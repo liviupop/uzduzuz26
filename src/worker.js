@@ -120,6 +120,17 @@ export default {
 
     const response = await env.ASSETS.fetch(request);
 
+    // Browsers navigating to an unknown path should receive a real HTML 404,
+    // not the assets layer's generic/octet-stream response (which can trigger
+    // an unwanted download). Keep non-navigation asset/API misses untouched.
+    if (
+      response.status === 404 &&
+      (request.method === "GET" || request.method === "HEAD") &&
+      accept.includes("text/html")
+    ) {
+      return customNotFound(request, env);
+    }
+
     // Only post-process successful or 304 responses; pass others through
     // unchanged so error pages from the assets layer keep their semantics.
     if (response.status >= 400) {
@@ -188,6 +199,28 @@ export default {
     });
   },
 };
+
+async function customNotFound(request, env) {
+  const page = await env.ASSETS.fetch(
+    new Request(new URL("/404.html", request.url), { method: "GET" })
+  );
+  const headers = new Headers({
+    "Content-Type": "text/html; charset=utf-8",
+    "Cache-Control": "no-cache",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "X-Content-Type-Options": "nosniff",
+    "X-Robots-Tag": "noindex, nofollow",
+    "Content-Language": "ro",
+    "Vary": "Accept",
+  });
+  for (const link of LINK_HEADERS) headers.append("Link", link);
+
+  return new Response(request.method === "HEAD" ? null : page.body, {
+    status: 404,
+    statusText: "Not Found",
+    headers,
+  });
+}
 
 // Resolve a markdown response for a request to the SPA shell. Picks the
 // "active" slug from ?n= and ?a=, fetches /content/<slug>.md from the

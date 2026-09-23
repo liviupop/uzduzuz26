@@ -24,9 +24,8 @@ window.NOTES = {
       { kind: 'h2', text: 'enter through any door' },
       { kind: 'cards', items: [
         { href: 'who-we-are', label: 'who we are', sub: 'the organisation, in three lengths' },
-        { href: 'fundamentals', label: 'fundamentals', sub: 'nine fundamentals, each on its own page' },
-        { href: 'curiosity-village-manifesto', label: 'the 2020 manifesto', sub: '*The Manifesto of City Dwellers Who Love the Village*, in full' },
-        { href: 'projects', label: 'projects', sub: 'all 15 projects, lead and partner' },
+        { href: 'fundamentals', label: 'fundamentals', sub: 'nine ideas that keep recurring' },
+        { href: 'projects', label: 'projects', sub: 'the work, sorted for scanning' },
         { href: 'team', label: 'team', sub: 'the people who do the work' },
         { href: 'partners', label: 'partners', sub: 'the network across Europe' },
         { href: 'curiosity-dunbar-alexander-and-the-dozen', label: 'why a dozen', sub: 'how we are organised, with a long footnote' },
@@ -35,9 +34,14 @@ window.NOTES = {
       { kind: 'h2', text: 'European network' },
       { kind: 'md', html: '<p>Working alongside CCIF Cyprus, 4 Elements Croatia, CO-LABORY Italy, Innovation Hive Greece, ACD La Hoya Spain, Udruga Murtila Croatia, and the Polish Institute Romania. The full constellation: see the <a href="?n=partners" data-note="partners">partners</a> note.</p>' },
 
+      { kind: 'recent-projects', label: 'most recent', items: [
+        { href: 'project-three-tables', label: 'Three Tables / Trei mese', place: 'Romania · Ukraine', date: '2026', sub: 'everyday recipes, oral history, and an archive made across borders' },
+        { href: 'project-polish-discoveries', label: 'Polish Discoveries', place: 'Romania · Moldova', date: 'March–May 2026', sub: 'invention workshops reaching at least 195 children' },
+        { href: 'project-drops-sustainable-development', label: 'DROPS', place: 'Zaragoza · online', date: '2026', sub: 'the e-learning platform enters its final testing phase' },
+      ]},
+
       { kind: 'addresses', items: [
-        { label: 'most recent', value: '<a href="?n=project-ai4ngos" data-note="project-ai4ngos">AI4NGOs</a> (Cluj, August 2025) · <a href="?n=project-goana-dupa-meteor" data-note="project-goana-dupa-meteor">Goana după meteor</a> (Mociu, August 2025)' },
-        { label: 'last update', value: '2026-05' },
+        { label: 'last update', value: '2026-09' },
       ]},
     ],
   },
@@ -87,10 +91,10 @@ window.NOTES = {
 
       { kind: 'h2', text: 'highlights' },
       { kind: 'cards', items: [
+        { href: 'project-three-tables', label: 'Three Tables / Trei mese', sub: 'ZMINA:Resilience · Romania and Ukraine · 2026 · ongoing' },
         { href: 'project-drops-sustainable-development', label: 'Drops of Sustainable Development', sub: 'KA220-ADU · €250,000 · 2024–2026 · ongoing' },
-        { href: 'project-green-genesis-startup', label: 'Green Genesis Startup', sub: 'KA220-YOU · €205,144 · 2022–2024' },
+        { href: 'project-polish-discoveries', label: 'Polish Discoveries', sub: 'Romania and Moldova · at least 195 children · 2026' },
         { href: 'project-goana-dupa-meteor', label: 'Goana după meteor', sub: 'AFCN · 2025 · astronomy at Mociu' },
-        { href: 'project-ai4ngos', label: 'AI4NGOs', sub: 'AI in civil society · Cluj for CCIF · August 2025' },
       ]},
 
       { kind: 'h2', text: 'coordinated as lead' },
@@ -141,7 +145,7 @@ window.NOTES = {
     type: 'org',
     kicker: 'partners',
     title: 'partners',
-    subtitle: 'A constellation. Partners across seven countries, fifteen projects since 2020. The strongest tie is CCIF Cyprus, with five projects together.',
+    subtitle: 'A constellation. Partners across ten countries, twenty-one projects since 2020. The strongest tie is CCIF Cyprus, with seven projects together.',
     accent: 'indigo',
     body: [
       { kind: 'lede', text: 'uzinaduzina sits at the centre. Partners orbit on the outer ring, sized by the number of projects together. Projects sit between centre and partners, pulled toward the people they were made with. Hover any node for details; double-click to open its note alongside.' },
@@ -159,7 +163,7 @@ window.NOTES = {
       { kind: 'links', items: [
         { href: 'partner-ccif', label: 'CCIF Cyprus: the strategic partner, full note' },
         { href: 'projects', label: 'all projects' },
-        { href: 'project-ai4ngos', label: 'AI4NGOs: the most recent project with CCIF Cyprus' },
+        { href: 'project-level-up-youth-work', label: 'Level Up: the most recent professional-development project with CCIF Cyprus' },
       ]},
     ],
   },

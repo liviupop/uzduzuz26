@@ -63,14 +63,14 @@
     "kicker": "partner · Cyprus",
     "accent": "ochre",
     "subtitle": "",
-    "summary": "Strategic partner. Five projects together since 2022.",
+    "summary": "Strategic partner. Seven projects together since 2022.",
     "excerpt": "Our strategic Cypriot partner.",
     "year": "",
     "role": "",
     "order": 1,
     "pills": [
       "strategic partner|on",
-      "6 projects together",
+      "7 projects together",
       "Paphos",
       "2022 → 2026"
     ],
@@ -416,7 +416,11 @@
       "€205,144",
       "lead"
     ],
-    "images": []
+    "images": [
+      "project-green-genesis-startup-01.jpg",
+      "project-green-genesis-startup-02.jpg",
+      "project-green-genesis-startup-03.jpg"
+    ]
   },
   {
     "slug": "project-goana-dupa-meteor",
@@ -733,19 +737,82 @@
     "slug": "project-polish-discoveries",
     "type": "project",
     "title": "Polish Discoveries that Changed the World",
-    "kicker": "project · 2026 · partner",
+    "kicker": "project · 2026 · partner · Romania and Moldova",
     "accent": "ochre",
     "subtitle": "",
-    "summary": "Four workshops for around 120 children, built around the Polish Institute exhibition *Polish Inventions That Changed the World* at the Octavian Goga County Library in Cluj.",
-    "excerpt": "March 2026.",
+    "summary": "A two-country workshop series on Polish inventions, reaching at least 195 children in Romania and Moldova.",
+    "excerpt": "March to May 2026.",
     "year": "",
     "role": "partner",
     "order": 18,
     "pills": [
-      "March 2026",
+      "March–May 2026",
       "Polish Institute Bucharest",
-      "Cluj-Napoca",
-      "4 workshops · ~120 children"
+      "Romania · Moldova",
+      "at least 195 children"
+    ],
+    "images": []
+  },
+  {
+    "slug": "project-three-tables",
+    "type": "project",
+    "title": "Three Tables / Trei mese / Три трапези",
+    "kicker": "project · 2026 · lead · ongoing",
+    "accent": "green",
+    "subtitle": "",
+    "summary": "An oral-history and food archive built from everyday recipes, displacement, and fieldwork between Romania and Ukraine.",
+    "excerpt": "An oral-history and food archive built around everyday recipes: what people cooked yesterday, what can be cooked without gas or electricity, what travels with them when they leave, and what must be replaced.",
+    "year": "",
+    "role": "lead",
+    "order": 19,
+    "pills": [
+      "ongoing|on",
+      "2026",
+      "ZMINA:Resilience",
+      "Romania · Ukraine",
+      "lead"
+    ],
+    "images": []
+  },
+  {
+    "slug": "project-level-up-youth-work",
+    "type": "project",
+    "title": "Level Up: Innovate, Inspire & Empower Youth Work",
+    "kicker": "project · 2026 · beneficiary",
+    "accent": "ochre",
+    "subtitle": "",
+    "summary": "Professional development in Paphos on youth work, non-formal education, and accessible visual documentation.",
+    "excerpt": "March 2026.",
+    "year": "",
+    "role": "beneficiary",
+    "order": 20,
+    "pills": [
+      "closed",
+      "March 2026",
+      "Erasmus+",
+      "Paphos · Cyprus",
+      "beneficiary"
+    ],
+    "images": []
+  },
+  {
+    "slug": "project-stronger-together",
+    "type": "project",
+    "title": "Stronger Together",
+    "kicker": "project · 2026 · beneficiary",
+    "accent": "indigo",
+    "subtitle": "",
+    "summary": "A study visit in Trogir connecting local youth work with European opportunities and future cooperation.",
+    "excerpt": "April 2026.",
+    "year": "",
+    "role": "beneficiary",
+    "order": 21,
+    "pills": [
+      "closed",
+      "April 2026",
+      "Erasmus+",
+      "Trogir · Croatia",
+      "beneficiary"
     ],
     "images": []
   }

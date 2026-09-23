@@ -580,13 +580,19 @@
           'stroke-width': 2,
           opacity: dim ? 0.18 : 1,
         }));
-        if (hl || isFocus) {
+        // A selected partner can highlight several connected projects at once.
+        // Label only the project that itself has focus; the detail panel lists
+        // every connected title without stacking text on top of the graph.
+        if (isFocus) {
           const lbl = svgEl('text', {
             x: proj.x, y: proj.y - r - 6, 'text-anchor': 'middle',
             fill: 'var(--ink)', 'font-family': 'var(--font-ui)',
             'font-size': 10, 'font-weight': 500,
           });
-          lbl.textContent = proj.title;
+          const graphLabel = proj.shortTitle || proj.title;
+          lbl.textContent = graphLabel.length > 30
+            ? `${graphLabel.slice(0, 29).trimEnd()}…`
+            : graphLabel;
           g.appendChild(lbl);
         }
         g.addEventListener('mouseenter', () => { hovered = proj.slug; paint(); });
@@ -832,7 +838,8 @@
       case 'cards': {
         const wrap = el('div', { class: 'b-cards' });
         for (const it of b.items) {
-          const klass = 'card-tile' + (it.href ? '' : ' is-static');
+          const isOpen = it.href && ctx.stack && ctx.stack.includes(resolveSlug(it.href));
+          const klass = 'card-tile' + (it.href ? '' : ' is-static') + (isOpen ? ' is-open' : '');
           const tile = el(it.href ? 'a' : 'div', { class: klass });
           if (it.href) {
             tile.addEventListener('click', (e) => { e.preventDefault(); ctx.openNote(it.href, ctx.depth); });
@@ -841,6 +848,29 @@
           if (it.sub) tile.appendChild(el('span', { class: 'sub' }, it.sub));
           wrap.appendChild(tile);
         }
+        return wrap;
+      }
+      case 'recent-projects': {
+        const wrap = el('div', { class: 'b-recent-projects' });
+        if (b.label) wrap.appendChild(el('div', { class: 'recent-label' }, b.label));
+        const grid = el('div', { class: 'recent-grid' });
+        for (const it of b.items || []) {
+          const isOpen = it.href && ctx.stack && ctx.stack.includes(resolveSlug(it.href));
+          const card = el('a', {
+            class: 'recent-card' + (isOpen ? ' is-open' : ''),
+            href: `?n=${it.href}`,
+          }, [
+            el('span', { class: 'recent-title' }, it.label),
+            el('span', { class: 'recent-meta' }, [it.place, it.date].filter(Boolean).join(' · ')),
+            it.sub ? el('span', { class: 'recent-sub' }, it.sub) : null,
+          ].filter(Boolean));
+          card.addEventListener('click', (e) => {
+            e.preventDefault();
+            ctx.openNote(it.href, ctx.depth);
+          });
+          grid.appendChild(card);
+        }
+        wrap.appendChild(grid);
         return wrap;
       }
       case 'principle': {
@@ -899,7 +929,8 @@
       case 'links': {
         const wrap = el('div', { class: 'b-links' });
         for (const it of b.items) {
-          const row = el('a', { class: 'link-row' }, it.label);
+          const isOpen = it.href && ctx.stack && ctx.stack.includes(resolveSlug(it.href));
+          const row = el('a', { class: 'link-row' + (isOpen ? ' is-open' : '') }, it.label);
           if (it.href && it.href !== '#') {
             row.addEventListener('click', (e) => { e.preventDefault(); ctx.openNote(it.href, ctx.depth); });
           }
@@ -1253,7 +1284,11 @@
 
     // ---- body ----
     const body = el('div', { class: 'note-body' });
-    const ctx = { depth, openNote: (target, fromDepth) => app.openNoteAt(target, fromDepth) };
+    const ctx = {
+      depth,
+      stack: app.stack.slice(),
+      openNote: (target, fromDepth) => app.openNoteAt(target, fromDepth),
+    };
 
     for (const block of data.body || []) {
       const node = renderBlock(block, ctx);
@@ -1265,15 +1300,8 @@
     // ---- footer micro ----
     const foot = el('div', { class: 'note-foot' }, [
       el('span', {}, `note · ${data.kicker || id}`),
-      el('a', { href: '?n=contact', 'data-note': 'contact', class: 'note-foot-contact' }, 'contact'),
       el('span', {}, depth === 0 ? 'click any link to stack →' : `depth ${depth + 1}`),
     ]);
-    foot.querySelectorAll('a[data-note]').forEach(a => {
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-        app.openNoteAt(a.dataset.note, depth);
-      });
-    });
     inner.appendChild(foot);
 
     // The slideshow lives OUTSIDE the .note-inner max-width box so the body
