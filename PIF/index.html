@@ -509,15 +509,41 @@ h3 {
 #s8 h2 { font-size: clamp(36px, 4.8vw, 68px); }
 
 @media (min-width: 721px) and (max-height: 820px) {
+  #s3,
   #s6,
   #s7 {
     padding-top: 42px;
     padding-bottom: 42px;
   }
+  #s3 .slide-inner,
   #s6 .slide-inner,
   #s7 .slide-inner { gap: 12px; }
+  #s3 h2,
   #s6 h2,
   #s7 h2 { font-size: 48px; }
+  #s3 .lede {
+    max-width: 1000px;
+    font-size: 16px;
+    line-height: 1.28;
+  }
+  #s3 .card-grid { gap: 8px; }
+  #s3 .principle {
+    min-height: 142px;
+    padding: 11px 12px;
+  }
+  #s3 .principle small {
+    margin-bottom: 5px;
+    font-size: 9px;
+  }
+  #s3 .principle strong {
+    font-size: 16px;
+    line-height: 1.08;
+  }
+  #s3 .principle p {
+    margin-top: 6px;
+    font-size: 11px;
+    line-height: 1.28;
+  }
   #s6 .project.featured {
     min-height: 182px;
     padding: 16px;
@@ -575,6 +601,9 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .project.featured { min-height: 220px; }
+  #s3 .card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
   #s7 .stat-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -617,6 +646,7 @@ h3 {
   .method-grid {
     grid-template-columns: 1fr;
   }
+  #s3 .card-grid { grid-template-columns: 1fr; }
   .table-row {
     grid-template-columns: 1fr;
     gap: 4px;
