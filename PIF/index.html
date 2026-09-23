@@ -368,31 +368,33 @@ h3 {
   gap: 8px;
 }
 .mini-project {
-  min-height: 122px;
-  padding: 12px;
+  min-height: 96px;
+  padding: 10px;
   display: grid;
   align-content: space-between;
-  gap: 8px;
+  gap: 5px;
 }
 .mini-project strong {
   display: block;
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.08;
   color: var(--ink);
+  overflow-wrap: anywhere;
 }
 .mini-project span {
   margin-top: 0;
-  font-size: 11px;
-  line-height: 1.32;
+  font-size: 10px;
+  line-height: 1.25;
 }
 .mini-project em {
   display: block;
   font-family: var(--font-ui);
-  font-size: 11px;
+  font-size: 10px;
   font-style: normal;
-  line-height: 1.3;
+  line-height: 1.2;
   color: var(--accent);
+  overflow-wrap: anywhere;
 }
 .mini-project:nth-child(4n + 1) { background: var(--ink); border-color: var(--ink); }
 .mini-project:nth-child(4n + 2) { background: var(--accent); border-color: var(--accent); }
@@ -489,8 +491,69 @@ h3 {
   border-radius: 2px;
 }
 .contact-card h3,
-.contact-card .small { color: var(--bg); }
+.contact-card .small,
+.contact-card .body-text { color: var(--bg); }
 .contact-card a { color: var(--bg); }
+
+#s8 {
+  padding-top: clamp(52px, 4vw, 64px);
+  padding-bottom: clamp(52px, 4vw, 64px);
+}
+#s7 .stat-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+#s7 .stat .num {
+  font-size: clamp(34px, 4.2vw, 58px);
+}
+#s8 .slide-inner { gap: 14px; }
+#s8 h2 { font-size: clamp(36px, 4.8vw, 68px); }
+
+@media (min-width: 721px) and (max-height: 820px) {
+  #s6,
+  #s7 {
+    padding-top: 42px;
+    padding-bottom: 42px;
+  }
+  #s6 .slide-inner,
+  #s7 .slide-inner { gap: 12px; }
+  #s6 h2,
+  #s7 h2 { font-size: 48px; }
+  #s6 .project.featured {
+    min-height: 182px;
+    padding: 16px;
+  }
+  #s6 .project.featured strong { font-size: 18px; }
+  #s6 .project.featured span { font-size: 10px; }
+  #s6 .project.featured p {
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+  #s6 .project .tag {
+    margin-bottom: 8px;
+    font-size: 9px;
+  }
+  #s7 .stat {
+    min-height: 136px;
+    padding: 14px;
+  }
+  #s7 .stat strong { font-size: 17px; }
+  #s7 .stat span { font-size: 10px; }
+  #s8 {
+    padding-top: 42px;
+    padding-bottom: 42px;
+  }
+  #s8 .slide-inner { gap: 10px; }
+  #s8 h2 { font-size: 42px; }
+  #s8 .portfolio-grid { gap: 6px; }
+  #s8 .mini-project {
+    min-height: 82px;
+    padding: 8px;
+  }
+  #s8 .mini-project strong { font-size: 12px; }
+  #s8 .mini-project span,
+  #s8 .mini-project em { font-size: 9px; }
+}
 
 @media (min-width: 1101px) {
   .slide.split .stat-grid,
@@ -512,6 +575,13 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .project.featured { min-height: 220px; }
+  #s7 .stat-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  #s8 { padding-top: 72px; }
+  #s8 .portfolio-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 720px) {
@@ -563,13 +633,180 @@ h3 {
 }
 
 @media print {
-  html { scroll-snap-type: none; }
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+  html {
+    width: 297mm;
+    scroll-snap-type: none;
+    background: var(--bg);
+  }
+  body {
+    width: 297mm;
+    background: var(--bg);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
   body::before,
   .deck-nav,
   .deck-hint { display: none; }
   .slide {
-    min-height: 100vh;
+    width: 297mm;
+    height: 210mm;
+    min-height: 0;
+    padding: 12mm 14mm;
+    overflow: hidden;
+    align-items: center;
+    page-break-after: always;
     break-after: page;
+  }
+  .slide:last-of-type {
+    page-break-after: auto;
+    break-after: auto;
+  }
+  .slide-inner {
+    width: 100%;
+    max-width: none;
+    gap: 5mm;
+  }
+  .slide.split .slide-inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .logo-lockup img {
+    width: 12mm;
+    height: 12mm;
+  }
+  .logo-lockup span,
+  .kicker,
+  .small {
+    font-size: 7.5pt;
+  }
+  h1 {
+    font-size: 54pt;
+    line-height: .94;
+  }
+  h2 {
+    font-size: 35pt;
+    line-height: 1;
+  }
+  h3 {
+    font-size: 17pt;
+  }
+  .lede {
+    font-size: 15pt;
+    line-height: 1.25;
+  }
+  .body-text {
+    font-size: 10.5pt;
+    line-height: 1.34;
+  }
+  .meta-grid,
+  .stat-grid,
+  .project-grid,
+  .target-grid,
+  .method-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5mm;
+  }
+  .card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5mm;
+  }
+  .portfolio-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2mm;
+  }
+  .team-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5mm;
+  }
+  .box,
+  .stat,
+  .principle,
+  .project,
+  .team,
+  .target,
+  .method-step,
+  .mini-project,
+  .contact-card {
+    padding: 3.3mm;
+  }
+  .box strong,
+  .stat strong,
+  .project strong,
+  .team strong,
+  .target strong,
+  .method-step strong,
+  .principle strong {
+    font-size: 12pt;
+    line-height: 1.08;
+  }
+  .box span,
+  .stat span,
+  .project span,
+  .mini-project span,
+  .team span,
+  .target span,
+  .method-step span,
+  .principle span {
+    font-size: 7.4pt;
+    line-height: 1.28;
+  }
+  .box .long-value {
+    font-size: 6.6pt;
+  }
+  .stat {
+    min-height: 31mm;
+  }
+  .stat .num {
+    font-size: 31pt;
+    line-height: .9;
+  }
+  .principle {
+    min-height: 31mm;
+  }
+  .principle p,
+  .project p,
+  .team em,
+  .target em {
+    font-size: 8.2pt;
+    line-height: 1.25;
+  }
+  .project.featured {
+    min-height: 43mm;
+  }
+  .target {
+    min-height: 36mm;
+  }
+  .method-step {
+    min-height: 32mm;
+  }
+  .method-step b {
+    width: 8mm;
+    height: 8mm;
+    margin-bottom: 2.2mm;
+    font-size: 7pt;
+  }
+  .mini-project {
+    min-height: 19mm;
+    gap: 1mm;
+  }
+  .mini-project strong {
+    font-size: 8.6pt;
+    line-height: 1.08;
+  }
+  .mini-project span,
+  .mini-project em {
+    font-size: 6.4pt;
+    line-height: 1.22;
+  }
+  .callout {
+    font-size: 20pt;
+    line-height: 1.18;
+  }
+  .contact-card .body-text {
+    font-size: 11pt;
   }
 }
 </style>
@@ -620,7 +857,7 @@ h3 {
         <div class="stat"><div class="num">7</div><strong>staff members</strong><span>plus a dozen volunteers</span></div>
         <div class="stat ochre"><div class="num">€455k</div><strong>KA220 lead portfolio</strong><span><a href="https://innovationhive.eu/innohive-projects/green-genesis-startup/">Green Genesis Startup</a> + <a href="https://drops-sustainability.eu/results/">DROPS</a></span></div>
         <div class="stat green"><div class="num">400+</div><strong>young people in 2025</strong><span>youth exchanges, workshops, camps, and training</span></div>
-        <div class="stat"><div class="num">20+</div><strong>youth workers</strong><span>trained through AI4NGOs and related programmes</span></div>
+        <div class="stat"><div class="num">21</div><strong>documented projects</strong><span>lead, partner, beneficiary, and independent cultural work</span></div>
       </div>
     </div>
   </section>
@@ -689,9 +926,9 @@ h3 {
       </div>
       <div class="project-grid">
         <article class="project featured"><span class="tag">critical technology</span><strong>Cabinet of Retrofuturistic Curiosities</strong><span>Botnar Foundation through QUB / CCCluj · 2024-2025 · €8,000</span><p>Twelve 3D-printed objects designed with Midjourney and finished by hand. A workshop on future imagination, critical AI use, retrofuturism, solarpunk, and what a community judges worth preserving.</p></article>
-        <article class="project featured"><span class="tag">living heritage</span><strong>Goana după meteor</strong><span>AFCN · 2025 · €35,547</span><p>A cultural intervention in Mociu, built around the largest meteorite fall in Romania: astronomy camp, storytelling, folk astronomy, rural youth, and intergenerational learning.</p></article>
+        <article class="project featured"><span class="tag">living archives</span><strong>Three Tables / Trei mese / Три трапези</strong><span>ZMINA:Resilience · 2026 · ongoing</span><p>Field research in Budjak, Frumushika-Nova, and Odesa follows everyday recipes, displacement, and oral history, then brings the archive into a residency in Tulcea.</p></article>
         <article class="project featured"><span class="tag">AI history</span><strong>democraicy + AI4NGOs</strong><span>2020 concept line · 2025 youth-worker training</span><p>We approach AI historically and politically, including through the Golem myth: a made intelligence, animated by language, whose power depends on who commands it and why.</p></article>
-        <article class="project featured"><span class="tag">cultural mediation</span><strong>Polish Institute workshops</strong><span>Belgica 100 + Polish Discoveries · 2025-2026</span><p>STEAM and storytelling workshops for children aged 6-12, connecting polar exploration, Polish inventors, illustration, curiosity, and participation in science.</p></article>
+        <article class="project featured"><span class="tag">cultural mediation</span><strong>Polish Institute workshops</strong><span>Belgica 100 + Polish Discoveries · 2025-2026</span><p>STEAM and storytelling workshops for children aged 6-12 in Romania and Moldova, connecting exploration, Polish inventors, illustration, curiosity, and participation in science.</p></article>
       </div>
     </div>
   </section>
@@ -699,18 +936,18 @@ h3 {
   <section class="slide top" id="s7">
     <div class="slide-inner">
       <div>
-        <p class="kicker">2025 reach</p>
-        <h2>our most active year so far</h2>
+        <p class="kicker">2025-2026 reach</p>
+        <h2>participation and current scale</h2>
       </div>
       <div class="stat-grid">
         <div class="stat"><div class="num">400+</div><strong>young people</strong><span>exchanges, camps, school workshops, cultural mediation</span></div>
         <div class="stat ochre"><div class="num">100</div><strong>adults</strong><span>engaged through education and community-facing cultural formats</span></div>
         <div class="stat green"><div class="num">200</div><strong>students aged 6-12</strong><span>Belgica 100 cultural mediation workshops</span></div>
-        <div class="stat"><div class="num">120</div><strong>children in 2026</strong><span>Polish Discoveries workshops at the Octavian Goga County Library</span></div>
+        <div class="stat"><div class="num">195+</div><strong>children in 2026</strong><span>Polish Discoveries workshops in Romania and Moldova, with additional groups not yet counted</span></div>
         <div class="stat ochre"><div class="num">22 + 100</div><strong>Chasing the meteorite</strong><span>22 astronomy camp participants, 100 young local students involved</span></div>
         <div class="stat green"><div class="num">20</div><strong>Wooden Wonders participants</strong><span>heritage, green tourism, wooden crafts, digital tools</span></div>
         <div class="stat"><div class="num">20+</div><strong>youth workers</strong><span>AI4NGOs training in Cluj with partners from Poland, Cyprus, Latvia, Croatia, and Romania</span></div>
-        <div class="stat ochre"><div class="num">10-12</div><strong>young volunteers</strong><span>logistics, documentation, dissemination, peer support</span></div>
+        <div class="stat ochre"><div class="num">21</div><strong>documented projects</strong><span>European cooperation, cultural mediation, heritage, critical technology, and youth work</span></div>
       </div>
     </div>
   </section>
@@ -722,8 +959,11 @@ h3 {
         <h2>funded and flagship projects</h2>
       </div>
       <div class="portfolio-grid">
-        <article class="mini-project"><strong>Polish Discoveries that Changed the World</strong><span>Polish Institute Bucharest · 2026 · partner</span><em>€1,000</em></article>
-        <article class="mini-project"><strong>Drops of Sustainable Development</strong><span>Erasmus+ KA220-ADU · 2024-2026 · lead</span><em>€250,000</em></article>
+        <article class="mini-project"><strong>Three Tables / Trei mese / Три трапези</strong><span>ZMINA:Resilience · 2026 · lead · ongoing</span><em>N/A</em></article>
+        <article class="mini-project"><strong>Polish Discoveries that Changed the World</strong><span>Polish Institute · Romania + Moldova · 2026 · partner</span><em>€1,000 initial Cluj frame</em></article>
+        <article class="mini-project"><strong>Drops of Sustainable Development</strong><span>KA220-ADU · 2024-2026 · lead · platform testing in Zaragoza</span><em>€250,000</em></article>
+        <article class="mini-project"><strong>Stronger Together</strong><span>Erasmus+ · Trogir, Croatia · April 2026 · beneficiary</span><em>N/A</em></article>
+        <article class="mini-project"><strong>Level Up: Innovate, Inspire &amp; Empower Youth Work</strong><span>Erasmus+ · Paphos, Cyprus · March 2026 · beneficiary</span><em>N/A</em></article>
         <article class="mini-project"><strong>Goana dupa meteor</strong><span>AFCN · 2025 · lead</span><em>€35,547</em></article>
         <article class="mini-project"><strong>AI4NGOs</strong><span>CCIF Cyprus Erasmus+ KA151-YOU · 2025 · local host</span><em>€5,238</em></article>
         <article class="mini-project"><strong>Wooden Wonders</strong><span>Erasmus+ KA152-YOU · 2025 · beneficiary</span><em>€11,742</em></article>
@@ -767,9 +1007,9 @@ h3 {
       <div>
         <p class="kicker">European cooperation</p>
         <h2>partners, funders, and public accountability</h2>
-        <p class="body-text">We coordinate and participate in EU-funded projects and cultural programmes with partners from Cyprus, Italy, Greece, Spain, Croatia, Poland, Latvia, and Romania. We name funders, budgets, partners, and project references because specificity is part of our civic practice.</p>
+        <p class="body-text">We coordinate and participate in EU-funded projects and cultural programmes across ten European countries. Our current cross-border work connects Romania and Ukraine through field research, oral history, food heritage, and ethical cultural documentation. We name funders, budgets, partners, and project references because specificity is part of our civic practice.</p>
       </div>
-      <div class="callout">Partners include CCIF Cyprus, Udruga Murtila, Udruga 4 Elements, Petit Pas Aps, Innovation Hive, ACD La Hoya, CO-LABORY, Polish Institute Bucharest / Romania, Latvian and Croatian NGO partners, and Romanian cultural institutions.</div>
+      <div class="callout">Partners include CCIF Cyprus, Udruga Murtila, Udruga 4 Elements, Petit Pas APS, Innovation Hive, ACD La Hoya, CO-LABORY, Polish Institute Romania, DOBRO, Odesa WOW, IZOLYATSIA, Malý Berlín, Trans Europe Halles, and Romanian cultural institutions.</div>
     </div>
   </section>
 
@@ -799,8 +1039,9 @@ h3 {
       </div>
       <div class="contact-card">
         <h3>Asociatia uzinaduzina</h3>
-        <p class="body-text">Cluj-Napoca · Romania<br>PIC 940148057 · OID E10133132<br>NGOs registry number: 95/25.07.2008</p>
+        <p class="body-text">Cluj-Napoca · Romania<br>PIC 940148057 · OID E10133132<br>NGOs registry number: 95/25.07.2008<br>21 documented projects · partners across 10 countries</p>
         <p class="small"><a href="https://uzinaduzina.org">uzinaduzina.org</a><br><a href="mailto:contact@uzinaduzina.org">contact@uzinaduzina.org</a></p>
+        <p class="small">Updated September 2026</p>
       </div>
     </div>
   </section>
