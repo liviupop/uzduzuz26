@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 118" role="img" aria-labelledby="title">
+  <title id="title">Silicon Seed — eight lamps</title>
+  <path d="M27 18h146v55H27z" fill="none" stroke="#e8e6df" stroke-width="2"/>
+  <path d="M36 64h128" stroke="#656a62" stroke-width="2"/>
+  <g fill="#ffb000"><circle cx="44" cy="45" r="8"/><circle cx="76" cy="45" r="8"/><circle cx="124" cy="45" r="8"/><circle cx="140" cy="45" r="8"/></g>
+  <g fill="#262a25"><circle cx="60" cy="45" r="8"/><circle cx="92" cy="45" r="8"/><circle cx="108" cy="45" r="8"/><circle cx="156" cy="45" r="8"/></g>
+  <text x="100" y="105" fill="#e8e6df" text-anchor="middle" style="font-family:Archivo,'Arial Narrow',sans-serif;font-variant:small-caps;font-stretch:condensed;font-size:23px;font-weight:800;letter-spacing:.045em">Silicon Seed</text>
+</svg>

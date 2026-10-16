@@ -10,7 +10,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;600;800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
 /* Layout: one reading column for the argument, widening to grids only where the content is a set (layers, bodies, stages). */
 :root {
@@ -107,8 +107,9 @@ tr.now td { background: var(--panel); }
 footer { border-top: 1px solid var(--edge); padding-block: 28px 48px; font-size: 14.5px; color: var(--soft); display: grid; gap: 6px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
+<link rel="stylesheet" href="panel.css">
 </head>
-<body>
+<body class="site-home">
 <div class="wrap">
 
 <nav aria-label="Main">
@@ -116,18 +117,18 @@ footer { border-top: 1px solid var(--edge); padding-block: 28px 48px; font-size:
   <div class="links">
     <a href="#manifest"><span lang="ro">Manifest</span><span lang="en">Manifesto</span></a>
     <a href="#samanta"><span lang="ro">Sămânța</span><span lang="en">The seed</span></a>
+    <a href="seed8/"><span lang="ro">Mașina Seed-8</span><span lang="en">The Seed-8 machine</span></a>
     <a href="#ritual"><span lang="ro">Ritualul</span><span lang="en">The ritual</span></a>
     <a href="#drum"><span lang="ro">Drumul</span><span lang="en">Roadmap</span></a>
-    <a href="seed8/"><span lang="ro">Mașina Seed-8</span><span lang="en">The Seed-8 machine</span></a>
     <a href="#documente"><span lang="ro">Documente</span><span lang="en">Documents</span></a>
   </div>
 </nav>
 
 <!-- hero -->
 <header class="hero">
-  <div>
-    <span class="label"><span lang="ro">uzinaduzina · Cluj-Napoca · din 2009</span><span lang="en">uzinaduzina · Cluj-Napoca · since 2009</span></span>
-    <h1>Silicon Seed</h1>
+  <div class="hero-main">
+  <div class="hero-title"><h1>Silicon Seed</h1></div>
+  <div class="hero-copy">
     <p class="claim" lang="ro">Un calculator care poate fi refăcut oricând în următorii o mie de ani. Și care e refăcut, ca probă, în fiecare an.</p>
     <p class="claim" lang="en">A computer that can be rebuilt at any time in the next thousand years. And is rebuilt, as a test, every year.</p>
     <p class="sub" lang="ro">Nu construim un obiect care rezistă o mie de ani. Construim o sămânță: instrucțiuni pe care le poate urma oricine, o mașină mică pe care o poate reface oricine și un obicei care le ține în viață.</p>
@@ -136,6 +137,7 @@ footer { border-top: 1px solid var(--edge); padding-block: 28px 48px; font-size:
       <a class="btn" href="seed8/"><span lang="ro">Pornește mașina</span><span lang="en">Start the machine</span></a>
       <a class="btn ghost" href="#manifest"><span lang="ro">Citește manifestul</span><span lang="en">Read the manifesto</span></a>
     </div>
+  </div>
   </div>
   <figure class="yearbox" style="margin:0">
     <span class="label"><span lang="ro">Numărul anului 2027</span><span lang="en">The number of the year 2027</span></span>
@@ -148,6 +150,13 @@ footer { border-top: 1px solid var(--edge); padding-block: 28px 48px; font-size:
       <span lang="en">This is what the lamps of any honestly rebuilt Seed-8 must show in 2027, whether it is made of wood, relays, transistors or chips. A lit lamp is worth the number written under it.</span>
     </figcaption>
   </figure>
+  <div class="logo-band" aria-label="Five Silicon Seed logo variations">
+    <img src="logos/01-crystal.svg" alt="Silicon Seed logo with crystal seed" width="200" height="118">
+    <img src="logos/02-lamps.svg" alt="Silicon Seed logo with eight lamps" width="200" height="118">
+    <img src="logos/03-sprout.svg" alt="Silicon Seed logo with circuit sprout" width="200" height="118">
+    <img src="logos/04-rings.svg" alt="Silicon Seed logo with annual rings" width="200" height="118">
+    <img src="logos/05-equinox.svg" alt="Silicon Seed logo with equinox" width="200" height="118">
+  </div>
 </header>
 
 <!-- manifesto -->

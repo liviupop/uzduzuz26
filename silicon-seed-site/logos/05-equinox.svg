@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 118" role="img" aria-labelledby="title">
+  <title id="title">Silicon Seed — equinox</title>
+  <path d="M100 11a32 32 0 0 0-32 32h64a32 32 0 0 0-32-32Z" fill="#ffb000"/>
+  <path d="M68 43a32 32 0 0 0 64 0" fill="none" stroke="#e8e6df" stroke-width="2.5"/>
+  <path d="M53 43h94M100 5v6M100 75v7" stroke="#e8e6df" stroke-width="2.5"/>
+  <path d="M79 56h42M87 64h26" stroke="#656a62" stroke-width="2"/>
+  <text x="100" y="105" fill="#e8e6df" text-anchor="middle" style="font-family:Archivo,'Arial Narrow',sans-serif;font-variant:small-caps;font-stretch:condensed;font-size:23px;font-weight:800;letter-spacing:.045em">Silicon Seed</text>
+</svg>

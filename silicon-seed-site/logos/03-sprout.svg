@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 118" role="img" aria-labelledby="title">
+  <title id="title">Silicon Seed — circuit sprout</title>
+  <g fill="none" stroke="#e8e6df" stroke-width="2.5" stroke-linejoin="miter">
+    <path d="M76 71h48V52H76zM86 71v8m14-8v8m14-8v8M76 59H65m11 9H65m59-9h11m-11 9h11"/>
+    <path d="M100 52V29M100 39c-11-1-18-7-21-18 11 1 18 7 21 18Zm0-4c11-1 18-7 21-18-11 1-18 7-21 18Z"/>
+  </g>
+  <circle cx="100" cy="61.5" r="5" fill="#ffb000"/>
+  <circle cx="65" cy="59" r="2.5" fill="#ffb000"/><circle cx="135" cy="68" r="2.5" fill="#ffb000"/>
+  <text x="100" y="105" fill="#e8e6df" text-anchor="middle" style="font-family:Archivo,'Arial Narrow',sans-serif;font-variant:small-caps;font-stretch:condensed;font-size:23px;font-weight:800;letter-spacing:.045em">Silicon Seed</text>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 118" role="img" aria-labelledby="title">
+  <title id="title">Silicon Seed — crystal</title>
+  <g fill="none" stroke="#e8e6df" stroke-width="2">
+    <path d="M100 10 123 28 116 62 100 75 84 62 77 28Z"/>
+    <path d="M77 28h46M84 62l16-34 16 34M100 75V28"/>
+  </g>
+  <path d="M100 16 115 29 100 57 85 29Z" fill="#ffb000"/>
+  <text x="100" y="105" fill="#e8e6df" text-anchor="middle" style="font-family:Archivo,'Arial Narrow',sans-serif;font-variant:small-caps;font-stretch:condensed;font-size:23px;font-weight:800;letter-spacing:.045em">Silicon Seed</text>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 118" role="img" aria-labelledby="title">
+  <title id="title">Silicon Seed — annual rings</title>
+  <g fill="none" stroke="#e8e6df" stroke-width="2.5">
+    <circle cx="100" cy="44" r="31" stroke-dasharray="160 35" transform="rotate(-41 100 44)"/>
+    <circle cx="100" cy="44" r="23" stroke-dasharray="115 30" transform="rotate(118 100 44)"/>
+    <circle cx="100" cy="44" r="15" stroke-dasharray="74 20" transform="rotate(-86 100 44)"/>
+  </g>
+  <circle cx="100" cy="44" r="6" fill="#ffb000"/>
+  <path d="M100 6v7m0 62v7" stroke="#ffb000" stroke-width="2"/>
+  <text x="100" y="105" fill="#e8e6df" text-anchor="middle" style="font-family:Archivo,'Arial Narrow',sans-serif;font-variant:small-caps;font-stretch:condensed;font-size:23px;font-weight:800;letter-spacing:.045em">Silicon Seed</text>
+</svg>
