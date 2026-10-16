@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Seed-8: the Silicon Seed reference computer, 609 NAND gates simulated gate by gate.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<title>Seed-8 · Silicon Seed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;600;800&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
+<style>
+/* Layout: a lesson on reading lamps, then the instrument (inside parts over switches over controls), then the 256 boxes beside the program in plain words. */
+:root {
+  --bg: #e7ece6;
+  --panel: #d6ded5;
+  --panel-edge: #b7c3b6;
+  --ink: #1d2a24;
+  --ink-soft: #4d5e55;
+  --lamp-off: #b9bfae;
+  --lamp-on: #f0a12a;
+  --lamp-glow: rgba(240, 161, 42, .55);
+  --switch: #2d4a3e;
+  --switch-up: #f4f1e8;
+  --good: #2f7d4f;
+  --bad: #b23a2e;
+  --cell: #eef2ed;
+  --cell-job: #cfe0d3;
+  --cell-box: #e3eadf;
+  --cell-num: #f1e6cf;
+  --cell-hot: #f6c66f;
+  --bar: #2d4a3e;
+  --display: "Martian Mono", "IBM Plex Mono", ui-monospace, monospace;
+  --body: "Literata", Georgia, "Times New Roman", serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141b18; --panel: #1f2a25; --panel-edge: #33433b; --ink: #e3ebe5; --ink-soft: #9fb0a6;
+  --lamp-off: #3a4740; --lamp-on: #ffb23e; --lamp-glow: rgba(255, 178, 62, .5);
+  --switch: #9cc3ae; --switch-up: #1a231f; --good: #6ccf93; --bad: #ff7d6e;
+  --cell: #18211d; --cell-job: #23382d; --cell-box: #1d2b24; --cell-num: #3a3020; --cell-hot: #7a5615; --bar: #9cc3ae;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #141b18; --panel: #1f2a25; --panel-edge: #33433b; --ink: #e3ebe5; --ink-soft: #9fb0a6;
+  --lamp-off: #3a4740; --lamp-on: #ffb23e; --lamp-glow: rgba(255, 178, 62, .5);
+  --switch: #9cc3ae; --switch-up: #1a231f; --good: #6ccf93; --bad: #ff7d6e;
+  --cell: #18211d; --cell-job: #23382d; --cell-box: #1d2b24; --cell-num: #3a3020; --cell-hot: #7a5615; --bar: #9cc3ae;
+  color-scheme: dark; }
+
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 1000px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 56px; display: grid; gap: 30px; }
+header { display: grid; gap: 10px; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(28px, 6vw, 44px); letter-spacing: -.02em; margin: 0; line-height: 1.05; }
+h2 { font-family: var(--display); font-weight: 600; font-size: 18px; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+p { margin: 0; }
+.lede { max-width: 66ch; color: var(--ink-soft); }
+.lede b, .note b { color: var(--ink); font-weight: 600; }
+.label { font-family: var(--display); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+.note { max-width: 66ch; color: var(--ink-soft); font-size: 15px; }
+section { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+section > *, .part, .lower > *, .lesson > *, .brow > * { min-width: 0; }
+[hidden] { display: none !important; }
+
+.lang { display: flex; gap: 4px; }
+.lang button { font-family: var(--display); font-size: 12px; padding: 6px 10px; border-radius: 4px; border: 1px solid var(--panel-edge); background: transparent; color: var(--ink); cursor: pointer; }
+.lang button[aria-pressed="true"] { background: var(--switch); color: var(--switch-up); border-color: var(--switch); }
+
+.panel { background: var(--panel); border: 1px solid var(--panel-edge); border-radius: 6px; padding: 20px 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+.bits { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px; max-width: 560px; }
+.bitcol { display: grid; justify-items: center; gap: 5px; }
+.bitcol small { font-family: var(--display); font-size: 11px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.lamp { width: clamp(26px, 6vw, 40px); aspect-ratio: 1; max-width: 100%; border-radius: 50%; background: var(--lamp-off); box-shadow: inset 0 -3px 0 rgba(0,0,0,.12); transition: background .06s, box-shadow .06s; border: 0; padding: 0; }
+button.lamp { cursor: pointer; }
+.lamp.on { background: var(--lamp-on); box-shadow: 0 0 18px 4px var(--lamp-glow), inset 0 -3px 0 rgba(0,0,0,.1); }
+.lamp.sm { width: 16px; }
+.lamp.sm.on { box-shadow: 0 0 8px 1px var(--lamp-glow); }
+.readout { font-family: var(--display); font-size: 13px; font-variant-numeric: tabular-nums; }
+.readout strong { font-size: 22px; font-weight: 600; }
+.sum { font-family: var(--display); font-size: 15px; font-variant-numeric: tabular-nums; min-height: 1.6em; }
+.sum strong { font-size: 24px; }
+
+.lesson { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+@media (max-width: 760px) { .lesson { grid-template-columns: minmax(0, 1fr); } }
+.levels { display: grid; gap: 12px; }
+.level { display: grid; grid-template-columns: 2.2em minmax(0, 1fr); gap: 4px 10px; }
+.level .n { font-family: var(--display); font-size: 13px; color: var(--ink-soft); padding-top: 2px; }
+.level b { font-weight: 600; }
+.game { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.ok { color: var(--good); font-weight: 600; }
+.no { color: var(--bad); font-weight: 600; }
+
+.parts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); gap: 14px 18px; }
+.part { display: grid; gap: 5px; align-content: start; }
+.part .lamps { display: flex; gap: 4px; flex-wrap: wrap; }
+.part .val { font-family: var(--display); font-size: 13px; font-variant-numeric: tabular-nums; }
+.part .val b { font-size: 17px; font-weight: 600; }
+.part p { font-size: 13.5px; line-height: 1.4; color: var(--ink-soft); }
+.flags { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.flag { display: flex; gap: 8px; align-items: center; font-size: 13.5px; color: var(--ink-soft); }
+.flag b { font-family: var(--display); font-size: 12px; color: var(--ink); font-weight: 600; letter-spacing: .04em; }
+.steps { display: flex; flex-wrap: wrap; gap: 6px; }
+.steps span { font-family: var(--display); font-size: 12px; padding: 5px 9px; border-radius: 3px; border: 1px solid var(--panel-edge); color: var(--ink-soft); }
+.steps span.on { background: var(--lamp-on); border-color: var(--lamp-on); color: #1d2a24; }
+.jobs { display: flex; flex-wrap: wrap; gap: 4px; }
+.jobs span { font-family: var(--display); font-size: 11px; padding: 3px 6px; border-radius: 3px; color: var(--ink-soft); border: 1px solid transparent; }
+.jobs span.on { border-color: var(--lamp-on); color: var(--ink); background: var(--bg); font-weight: 600; }
+
+.switch { appearance: none; border: 0; cursor: pointer; width: clamp(26px, 6vw, 40px); height: 54px; border-radius: 6px; background: var(--switch); position: relative; padding: 0; }
+.switch::after { content: ""; position: absolute; left: 18%; right: 18%; height: 40%; border-radius: 4px; background: var(--switch-up); top: 52%; transition: top .08s; }
+.switch[aria-pressed="true"]::after { top: 8%; }
+:focus-visible { outline: 3px solid var(--lamp-on); outline-offset: 2px; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 10px 12px; align-items: end; }
+.field { display: grid; gap: 4px; }
+select, input[type=number], input[type=text] { font-family: var(--display); font-size: 14px; padding: 8px 10px; border-radius: 4px; border: 1px solid var(--panel-edge); background: var(--bg); color: var(--ink); }
+input[type=number] { width: 7.5em; }
+select { max-width: calc(100vw - 72px); }
+.controls .field { min-width: 0; max-width: 100%; }
+input[type=range] { accent-color: var(--switch); width: 130px; }
+button.act { font-family: var(--display); font-size: 13px; font-weight: 600; padding: 9px 13px; border-radius: 4px; border: 1px solid var(--switch); background: var(--switch); color: var(--switch-up); cursor: pointer; }
+button.act.ghost { background: transparent; color: var(--ink); border-color: var(--panel-edge); }
+
+.story { font-size: 15.5px; padding: 12px 14px; border-radius: 4px; border: 1px solid var(--panel-edge); background: var(--bg); min-height: 3.2em; }
+.story .verdict { display: block; margin-top: 6px; font-family: var(--display); font-size: 13.5px; }
+.stats { display: flex; flex-wrap: wrap; gap: 6px 22px; font-family: var(--display); font-size: 12px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.stats b { color: var(--ink); font-weight: 600; }
+
+.lower { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 860px) { .lower { grid-template-columns: minmax(0, 1fr); } }
+.memwrap { overflow-x: auto; }
+.mem { display: grid; grid-template-columns: 2.8em repeat(16, 2.15em); gap: 2px; font-family: var(--display); font-size: 10.5px; font-variant-numeric: tabular-nums; width: max-content; }
+.mem div { text-align: center; padding: 3px 0; border-radius: 2px; }
+.mem .h { color: var(--ink-soft); text-align: right; padding-right: 4px; }
+.mem .hc { color: var(--ink-soft); }
+.mem .c { background: var(--cell); cursor: pointer; }
+.mem .c.job { background: var(--cell-job); }
+.mem .c.box { background: var(--cell-box); }
+.mem .c.num { background: var(--cell-num); }
+.mem .c.special { outline: 1px dashed var(--ink-soft); outline-offset: -1px; }
+.mem .c.here { background: var(--cell-hot); color: #1d2a24; }
+.mem .c.ed { outline: 2px solid var(--lamp-on); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--ink-soft); }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 5px; }
+.listing { display: grid; gap: 1px; font-size: 13.5px; max-height: 520px; overflow-y: auto; border: 1px solid var(--panel-edge); border-radius: 4px; background: var(--bg); }
+.listing div { display: grid; grid-template-columns: 4.4em 5.4em minmax(0, 1fr); gap: 8px; padding: 4px 8px; align-items: baseline; }
+.listing div.here { background: var(--cell-hot); color: #1d2a24; }
+.listing div.here .muted { color: #1d2a24; }
+.listing .addr, .listing .op { font-family: var(--display); font-size: 12px; font-variant-numeric: tabular-nums; }
+.listing .op { font-weight: 600; }
+.listing .muted { color: var(--ink-soft); }
+.listing .tag { font-family: var(--display); font-size: 11px; color: var(--ink-soft); }
+.tape { font-family: var(--display); font-size: 13px; font-variant-numeric: tabular-nums; display: flex; flex-wrap: wrap; gap: 6px; min-height: 2.2em; align-content: start; }
+.tape span { background: var(--cell); padding: 3px 7px; border-radius: 3px; }
+details summary { cursor: pointer; font-family: var(--display); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+pre.src { font-family: var(--display); font-size: 12px; line-height: 1.5; background: var(--cell); padding: 12px; border-radius: 4px; overflow-x: auto; margin: 10px 0 0; }
+
+.budget { display: grid; gap: 6px; max-width: 720px; }
+.brow { display: grid; grid-template-columns: minmax(0, 15em) 3.2em minmax(0, 1fr); gap: 10px; align-items: center; font-size: 13.5px; }
+.brow .num { font-family: var(--display); font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; }
+.brow .track { height: 10px; background: var(--cell); border-radius: 2px; overflow: hidden; }
+.brow .fill { height: 100%; background: var(--bar); }
+@media (max-width: 520px) { .brow { grid-template-columns: minmax(0, 1fr) 3em; } .brow .track { grid-column: 1 / -1; } }
+
+/* boxes lesson */
+.boxlesson { display: grid; gap: 18px; }
+.mini { display: grid; gap: 16px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 112px), 1fr)); gap: 8px; }
+.card { background: var(--bg); border: 1px solid var(--panel-edge); border-radius: 5px; padding: 8px 8px 9px; display: grid; gap: 5px; position: relative; transition: background .12s, border-color .12s; }
+.card .no { font-family: var(--display); font-size: 10.5px; letter-spacing: .08em; color: var(--ink-soft); text-transform: uppercase; }
+.card input { width: 100%; font-family: var(--display); font-size: 22px; font-weight: 600; padding: 2px 4px; border: 1px solid transparent; border-radius: 3px; background: transparent; color: var(--ink); font-variant-numeric: tabular-nums; }
+.card input:hover { border-color: var(--panel-edge); }
+.card .mlamps { display: flex; gap: 3px; }
+.card .mlamps i { width: 9px; height: 9px; border-radius: 50%; background: var(--lamp-off); display: block; }
+.card .mlamps i.on { background: var(--lamp-on); box-shadow: 0 0 5px 1px var(--lamp-glow); }
+.card .means { font-size: 12.5px; line-height: 1.3; color: var(--ink-soft); min-height: 2.6em; }
+.card .means b { color: var(--ink); font-weight: 600; }
+.card.kind-job { background: var(--cell-job); }
+.card.kind-box { background: var(--cell-box); }
+.card.kind-num { background: var(--cell-num); }
+.card.mark { outline: 3px solid var(--switch); outline-offset: 1px; }
+.card.read { border-color: var(--lamp-on); box-shadow: 0 0 0 3px var(--lamp-glow); }
+.card.wrote { border-color: var(--good); box-shadow: 0 0 0 3px var(--good); }
+.card .flagtag { position: absolute; top: 6px; right: 6px; font-family: var(--display); font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; padding: 1px 5px; border-radius: 3px; background: var(--switch); color: var(--switch-up); }
+.ministate { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; }
+.ministate .st { display: grid; gap: 2px; }
+.ministate .st b { font-family: var(--display); font-size: 20px; font-variant-numeric: tabular-nums; }
+.ministory { font-size: 16px; padding: 14px 16px; border-radius: 4px; border: 1px solid var(--panel-edge); background: var(--bg); min-height: 4.6em; }
+.ministory .turnno { display: block; font-family: var(--display); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px; }
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 14px 22px; }
+.rule { display: grid; gap: 4px; align-content: start; }
+.rule h3 { font-family: var(--display); font-size: 13px; font-weight: 600; margin: 0; }
+.rule p { font-size: 14.5px; color: var(--ink-soft); }
+.listing .pair { font-family: var(--display); font-size: 12px; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+@media (prefers-reduced-motion: reduce) { .lamp, .switch::after, .card { transition: none; } }
+</style>
+
+<style>*{box-sizing:border-box} body{margin:0;font-size:14px} img{max-width:100%}</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="top">
+      <span class="label" data-t="eyebrow"></span>
+    </div>
+    <p style="margin:0"><a href="../" style="font-family:var(--display);font-size:13px;color:var(--ink);text-decoration-color:var(--lamp-on);text-underline-offset:3px">&larr; Silicon Seed</a></p>
+    <h1>Seed-8</h1>
+    <p class="lede" data-t="lede"></p>
+  </header>
+
+  <!-- 1. How to read a number -->
+  <section aria-labelledby="h-binary">
+    <h2 id="h-binary" data-t="binTitle"></h2>
+    <div class="lesson">
+      <div class="panel">
+        <span class="label" data-t="binTry"></span>
+        <div class="bits" id="binlamps"></div>
+        <div class="sum" id="binsum" aria-live="polite"></div>
+        <div class="game">
+          <span id="bintarget"></span>
+          <button class="act ghost" id="binnew" type="button" data-t="binNew"></button>
+        </div>
+        <div id="binverdict" aria-live="polite"></div>
+      </div>
+      <div class="levels">
+        <div class="level"><span class="n">1</span><p data-t="lv1"></p></div>
+        <div class="level"><span class="n">2</span><p data-t="lv2"></p></div>
+        <div class="level"><span class="n">3</span><p data-t="lv3"></p></div>
+        <div class="level"><span class="n">4</span><p data-t="lv4"></p></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 2. Boxes and a program -->
+  <section aria-labelledby="h-boxes" class="boxlesson">
+    <h2 id="h-boxes" data-t="bxTitle"></h2>
+    <div class="rules">
+      <div class="rule"><h3 data-t="r1h"></h3><p data-t="r1"></p></div>
+      <div class="rule"><h3 data-t="r2h"></h3><p data-t="r2"></p></div>
+      <div class="rule"><h3 data-t="r3h"></h3><p data-t="r3"></p></div>
+      <div class="rule"><h3 data-t="r4h"></h3><p data-t="r4"></p></div>
+    </div>
+    <div class="panel mini">
+      <span class="label" data-t="mxLabel"></span>
+      <div class="cards" id="cards"></div>
+      <div class="ministate" id="ministate"></div>
+      <div class="ministory" id="ministory" aria-live="polite"></div>
+      <div class="controls">
+        <button class="act" id="mxnext" type="button" data-t="mxNext"></button>
+        <button class="act ghost" id="mxjob" type="button" data-t="mxJob"></button>
+        <button class="act ghost" id="mxreset" type="button" data-t="mxReset"></button>
+      </div>
+      <p class="note" data-t="mxTry"></p>
+    </div>
+  </section>
+
+  <!-- 3. The machine -->
+  <section aria-labelledby="h-machine">
+    <h2 id="h-machine" data-t="machTitle"></h2>
+    <div class="panel">
+      <div class="part">
+        <span class="label" data-t="lampsLabel"></span>
+        <div class="bits" id="lamps"></div>
+        <div class="readout" id="lampread"></div>
+      </div>
+
+      <div class="parts" id="parts"></div>
+
+      <div class="part">
+        <span class="label" data-t="stepsLabel"></span>
+        <div class="steps" id="steps"></div>
+      </div>
+
+      <div class="flags" id="flags"></div>
+
+      <div class="part">
+        <span class="label" data-t="switchLabel"></span>
+        <div class="bits" id="switches"></div>
+        <div class="readout" id="swread"></div>
+      </div>
+
+      <div class="controls">
+        <div class="field">
+          <label class="label" for="prog" data-t="progLabel"></label>
+          <select id="prog"></select>
+        </div>
+        <div class="field" id="yearfield">
+          <label class="label" for="year" data-t="yearLabel"></label>
+          <input id="year" type="number" min="1" max="65535" value="1">
+        </div>
+        <div class="field">
+          <label class="label" for="speed" data-t="speedLabel"></label>
+          <input id="speed" type="range" min="0" max="6" value="4">
+        </div>
+        <button class="act" id="run" type="button"></button>
+        <button class="act ghost" id="onejob" type="button" data-t="oneJob"></button>
+        <button class="act ghost" id="oneturn" type="button" data-t="oneTurn"></button>
+        <button class="act ghost" id="reset" type="button" data-t="reload"></button>
+      </div>
+
+      <div class="story" id="story" aria-live="polite"></div>
+      <div class="stats" id="stats"></div>
+    </div>
+  </section>
+
+  <!-- 3. Memory and program -->
+  <section class="lower">
+    <div class="part">
+      <h2 data-t="memTitle"></h2>
+      <p class="note" data-t="memNote"></p>
+      <div class="legend" id="legend"></div>
+      <div class="memwrap"><div class="mem" id="mem"></div></div>
+      <div class="field" id="editbox" hidden>
+        <label class="label" for="editval" id="editlabel"></label>
+        <div class="controls"><input id="editval" type="text" style="width:7em"><button class="act" id="editok" type="button" data-t="weave"></button></div>
+      </div>
+    </div>
+    <div class="part">
+      <h2 data-t="listTitle"></h2>
+      <p class="note" data-t="listNote"></p>
+      <div class="listing" id="listing"></div>
+      <span class="label" data-t="tapeLabel" style="margin-top:8px"></span>
+      <div class="tape" id="tape"></div>
+      <details><summary data-t="srcLabel"></summary><pre class="src" id="src"></pre></details>
+    </div>
+  </section>
+
+  <!-- 4. What it is made of -->
+  <section aria-labelledby="h-gates">
+    <h2 id="h-gates" data-t="gatesTitle"></h2>
+    <p class="note" data-t="gatesNote"></p>
+    <div class="budget" id="budget"></div>
+  </section>
+</div>
+
+<script>
+const DATA = {"gates":[[4,4,13],[2,619,15],[15,15,16],[422,16,27],[27,16,28],[27,29,25],[28,25,29],[25,3,30],[30,3,31],[30,32,26],[31,26,32],[429,16,35],[35,16,36],[35,37,33],[36,33,37],[33,3,38],[38,3,39],[38,40,34],[39,34,40],[436,16,43],[43,16,44],[43,45,41],[44,41,45],[41,3,46],[46,3,47],[46,48,42],[47,42,48],[443,16,51],[51,16,52],[51,53,49],[52,49,53],[49,3,54],[54,3,55],[54,56,50],[55,50,56],[450,16,59],[59,16,60],[59,61,57],[60,57,61],[57,3,62],[62,3,63],[62,64,58],[63,58,64],[457,16,67],[67,16,68],[67,69,65],[68,65,69],[65,3,70],[70,3,71],[70,72,66],[71,66,72],[464,16,75],[75,16,76],[75,77,73],[76,73,77],[73,3,78],[78,3,79],[78,80,74],[79,74,80],[471,16,83],[83,16,84],[83,85,81],[84,81,85],[81,3,86],[86,3,87],[86,88,82],[87,82,88],[2,613,90],[90,90,91],[596,91,102],[102,91,103],[102,104,100],[103,100,104],[100,3,105],[105,3,106],[105,107,101],[106,101,107],[598,91,110],[110,91,111],[110,112,108],[111,108,112],[108,3,113],[113,3,114],[113,115,109],[114,109,115],[600,91,118],[118,91,119],[118,120,116],[119,116,120],[116,3,121],[121,3,122],[121,123,117],[122,117,123],[602,91,126],[126,91,127],[126,128,124],[127,124,128],[124,3,129],[129,3,130],[129,131,125],[130,125,131],[604,91,134],[134,91,135],[134,136,132],[135,132,136],[132,3,137],[137,3,138],[137,139,133],[138,133,139],[606,91,142],[142,91,143],[142,144,140],[143,140,144],[140,3,145],[145,3,146],[145,147,141],[146,141,147],[608,91,150],[150,91,151],[150,152,148],[151,148,152],[148,3,153],[153,3,154],[153,155,149],[154,149,155],[610,91,158],[158,91,159],[158,160,156],[159,156,160],[156,3,161],[161,3,162],[161,163,157],[162,157,163],[2,615,165],[165,165,166],[5,166,172],[172,166,173],[172,174,170],[173,170,174],[170,3,175],[175,3,176],[175,177,171],[176,171,177],[6,166,180],[180,166,181],[180,182,178],[181,178,182],[178,3,183],[183,3,184],[183,185,179],[184,179,185],[7,166,188],[188,166,189],[188,190,186],[189,186,190],[186,3,191],[191,3,192],[191,193,187],[192,187,193],[2,617,195],[195,195,196],[5,196,207],[207,196,208],[207,209,205],[208,205,209],[205,3,210],[210,3,211],[210,212,206],[211,206,212],[6,196,215],[215,196,216],[215,217,213],[216,213,217],[213,3,218],[218,3,219],[218,220,214],[219,214,220],[7,196,223],[223,196,224],[223,225,221],[224,221,225],[221,3,226],[226,3,227],[226,228,222],[227,222,228],[8,196,231],[231,196,232],[231,233,229],[232,229,233],[229,3,234],[234,3,235],[234,236,230],[235,230,236],[9,196,239],[239,196,240],[239,241,237],[240,237,241],[237,3,242],[242,3,243],[242,244,238],[243,238,244],[10,196,247],[247,196,248],[247,249,245],[248,245,249],[245,3,250],[250,3,251],[250,252,246],[251,246,252],[11,196,255],[255,196,256],[255,257,253],[256,253,257],[253,3,258],[258,3,259],[258,260,254],[259,254,260],[12,196,263],[263,196,264],[263,265,261],[264,261,265],[261,3,266],[266,3,267],[266,268,262],[267,262,268],[2,626,270],[270,270,271],[623,271,275],[275,271,276],[275,277,273],[276,273,277],[273,3,278],[278,3,279],[278,280,274],[279,274,280],[2,633,282],[282,282,283],[630,283,287],[287,283,288],[287,289,285],[288,285,289],[285,3,290],[290,3,291],[290,292,286],[291,286,292],[2,586,294],[294,294,295],[581,295,300],[300,295,301],[300,302,298],[301,298,302],[298,3,303],[303,3,304],[303,305,299],[304,299,305],[583,295,308],[308,295,309],[308,310,306],[309,306,310],[306,3,311],[311,3,312],[311,313,307],[312,307,313],[299,299,314],[307,307,315],[315,314,316],[316,316,317],[315,299,318],[318,318,319],[286,286,320],[171,171,321],[179,179,322],[187,187,323],[322,321,324],[324,324,325],[322,171,326],[326,326,327],[179,321,328],[328,328,329],[179,171,330],[330,330,331],[325,323,332],[332,332,333],[327,323,334],[334,334,335],[329,323,336],[336,336,337],[331,323,338],[338,338,339],[325,187,340],[340,340,341],[327,187,342],[342,342,343],[329,187,344],[344,344,345],[331,187,346],[346,346,347],[26,5,348],[26,348,349],[5,348,350],[349,350,351],[348,348,352],[34,6,353],[34,353,354],[6,353,355],[354,355,356],[356,352,357],[356,357,358],[352,357,359],[358,359,360],[353,357,361],[42,7,362],[42,362,363],[7,362,364],[363,364,365],[365,361,366],[365,366,367],[361,366,368],[367,368,369],[362,366,370],[50,8,371],[50,371,372],[8,371,373],[372,373,374],[374,370,375],[374,375,376],[370,375,377],[376,377,378],[371,375,379],[58,9,380],[58,380,381],[9,380,382],[381,382,383],[383,379,384],[383,384,385],[379,384,386],[385,386,387],[380,384,388],[66,10,389],[66,389,390],[10,389,391],[390,391,392],[392,388,393],[392,393,394],[388,393,395],[394,395,396],[389,393,397],[74,11,398],[74,398,399],[11,398,400],[399,400,401],[401,397,402],[401,402,403],[397,402,404],[403,404,405],[398,402,406],[82,12,407],[82,407,408],[12,407,409],[408,409,410],[410,406,411],[410,411,412],[406,411,413],[412,413,414],[407,411,415],[335,5,416],[339,351,417],[26,5,418],[341,418,419],[416,417,420],[420,420,421],[421,419,422],[335,6,423],[339,360,424],[34,6,425],[341,425,426],[423,424,427],[427,427,428],[428,426,429],[335,7,430],[339,369,431],[42,7,432],[341,432,433],[430,431,434],[434,434,435],[435,433,436],[335,8,437],[339,378,438],[50,8,439],[341,439,440],[437,438,441],[441,441,442],[442,440,443],[335,9,444],[339,387,445],[58,9,446],[341,446,447],[444,445,448],[448,448,449],[449,447,450],[335,10,451],[339,396,452],[66,10,453],[341,453,454],[451,452,455],[455,455,456],[456,454,457],[335,11,458],[339,405,459],[74,11,460],[341,460,461],[458,459,462],[462,462,463],[463,461,464],[335,12,465],[339,414,466],[82,12,467],[341,467,468],[465,466,469],[469,469,470],[470,468,471],[335,335,472],[339,339,473],[472,473,474],[474,474,475],[341,341,476],[475,476,477],[26,26,478],[34,34,479],[42,42,480],[50,50,481],[58,58,482],[66,66,483],[74,74,484],[82,82,485],[478,479,486],[486,486,487],[487,480,488],[488,488,489],[489,481,490],[490,490,491],[491,482,492],[492,492,493],[493,483,494],[494,494,495],[495,484,496],[496,496,497],[497,485,498],[498,498,499],[320,307,500],[500,500,501],[345,499,502],[502,502,503],[347,274,504],[504,504,505],[343,343,506],[503,503,507],[506,507,508],[508,508,509],[505,505,510],[509,510,511],[307,511,512],[512,512,513],[513,513,514],[101,101,515],[109,101,516],[109,516,517],[101,516,518],[517,518,519],[109,101,520],[520,520,521],[117,521,522],[117,522,523],[521,522,524],[523,524,525],[117,521,526],[526,526,527],[125,527,528],[125,528,529],[527,528,530],[529,530,531],[125,527,532],[532,532,533],[133,533,534],[133,534,535],[533,534,536],[535,536,537],[133,533,538],[538,538,539],[141,539,540],[141,540,541],[539,540,542],[541,542,543],[141,539,544],[544,544,545],[149,545,546],[149,546,547],[545,546,548],[547,548,549],[149,545,550],[550,550,551],[157,551,552],[157,552,553],[551,552,554],[553,554,555],[206,513,556],[515,514,557],[556,557,558],[214,513,559],[519,514,560],[559,560,561],[222,513,562],[525,514,563],[562,563,564],[230,513,565],[531,514,566],[565,566,567],[238,513,568],[537,514,569],[568,569,570],[246,513,571],[543,514,572],[571,572,573],[254,513,574],[549,514,575],[574,575,576],[262,513,577],[555,514,578],[577,578,579],[317,13,580],[580,580,581],[319,13,582],[582,582,583],[320,320,584],[4,4,585],[584,585,586],[317,317,587],[319,319,588],[587,588,589],[589,589,590],[513,513,591],[590,591,592],[320,592,593],[593,593,594],[558,13,595],[595,595,596],[561,13,597],[597,597,598],[564,13,599],[599,599,600],[567,13,601],[601,601,602],[570,13,603],[603,603,604],[573,13,605],[605,605,606],[576,13,607],[607,607,608],[579,13,609],[609,609,610],[594,594,611],[4,4,612],[611,612,613],[320,317,614],[614,614,615],[320,319,616],[616,616,617],[501,477,618],[618,618,619],[501,339,620],[620,620,621],[415,13,622],[622,622,623],[621,621,624],[4,4,625],[624,625,626],[501,333,627],[627,627,628],[1,13,629],[629,629,630],[628,628,631],[4,4,632],[631,632,633],[206,307,634],[101,315,635],[634,635,636],[214,307,637],[109,315,638],[637,638,639],[222,307,640],[117,315,641],[640,641,642],[230,307,643],[125,315,644],[643,644,645],[238,307,646],[133,315,647],[646,647,648],[246,307,649],[141,315,650],[649,650,651],[254,307,652],[149,315,653],[652,653,654],[262,307,655],[157,315,656],[655,656,657],[501,337,658],[658,658,659]],"wires":660,"const1":1,"ports":{"phi1":[2],"phi2":[3],"reset":[4],"mem_in":[5,6,7,8,9,10,11,12],"addr":[636,639,642,645,648,651,654,657],"write":[659],"A":[26,34,42,50,58,66,74,82],"PC":[101,109,117,125,133,141,149,157],"JOB":[171,179,187],"BOX":[206,214,222,230,238,246,254,262],"S":[299,307],"C":[274],"H":[286],"EMPTY":[499]},"programs":{"boot":{"mem":[1,66,2,255,1,67,2,255,1,68,2,255,1,67,2,70,1,67,2,71,1,71,4,71,3,66,2,72,3,70,6,48,1,70,3,72,6,52,7,34,1,71,3,66,2,71,5,20,1,70,2,255,1,70,3,66,2,70,3,69,6,64,5,16,0,0,1,2,3,224,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"src":"; BOOT: the first sign of life.\n; The lamps count 1, 2, 3. Then the machine looks for the prime numbers up to 31\n; on its own and shows each one: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31.\n; A number is prime if no smaller number from 2 up fits into it exactly.\n; To test \"does d fit into n\", the machine takes d away from n again and again.\n        LOAD one\n        STORE lamps\n        LOAD two\n        STORE lamps\n        LOAD three\n        STORE lamps\n        LOAD two\n        STORE n          ; start with n = 2\nnloop:  LOAD two\n        STORE d          ; try dividing by d = 2 first\ndloop:  LOAD d           ; make \"minus d\": flip every bit of d, add one\n        NAND d\n        ADD one\n        STORE negd\n        ADD n            ; n - d\n        JZ isprime       ; d has reached n: nothing fitted, n is prime\n        LOAD n           ; r = n\nmodl:   ADD negd         ; r = r - d\n        JZ notprime      ; nothing left over: d fits exactly\n        JC modl          ; something left, more than d: take d away again\n        LOAD d           ; went below zero: d does not fit, try d + 1\n        ADD one\n        STORE d\n        JUMP dloop\nisprime: LOAD n\n        STORE lamps      ; show the prime\nnotprime: LOAD n\n        ADD one\n        STORE n\n        ADD minus32      ; n + 1 = 32 ?\n        JZ end\n        JUMP nloop\nend:    STOP\none:    .byte 1\ntwo:    .byte 2\nthree:  .byte 3\nminus32: .byte 224       ; 224 + 32 = 256, which wraps round to 0\nn:      .byte 0\nd:      .byte 0\nnegd:   .byte 0\n","labels":{"16":"nloop","20":"dloop","34":"modl","48":"isprime","52":"notprime","64":"end","66":"one","67":"two","68":"three","69":"minus32","70":"n","71":"d","72":"negd"},"codeEnd":66},"mirror":{"mem":[1,254,2,255,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"src":"; MIRROR: the lamps copy the switches, forever.\nloop:   LOAD switches\n        STORE lamps\n        JUMP loop\n","labels":{"0":"loop"},"codeEnd":6},"adder":{"mem":[1,254,4,40,2,43,4,43,2,44,4,44,3,41,3,254,2,45,1,45,6,34,3,42,2,45,1,44,3,41,2,44,5,18,1,44,2,255,5,0,15,1,240,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"src":"; ADDER: the right four switches are one number (0-15), the left four another.\n; The lamps show their sum.\nstart:  LOAD switches\n        NAND k15         ; keep only the right four bits: (sw NAND 15), then NOT\n        STORE t\n        NAND t\n        STORE sum        ; sum = right number\n        NAND sum         ; rest = switches - right number = left number x 16\n        ADD one\n        ADD switches\n        STORE rest\ncount:  LOAD rest        ; count the sixteens in rest, adding one to sum each time\n        JZ show\n        ADD minus16\n        STORE rest\n        LOAD sum\n        ADD one\n        STORE sum\n        JUMP count\nshow:   LOAD sum\n        STORE lamps\n        JUMP start\nk15:    .byte 15\none:    .byte 1\nminus16: .byte 240\nt:      .byte 0\nsum:    .byte 0\nrest:   .byte 0\n","labels":{"0":"start","18":"count","34":"show","40":"k15","41":"one","42":"minus16","43":"t","44":"sum","45":"rest"},"codeEnd":40},"conformance":{"mem":[1,253,3,68,2,71,1,254,3,70,2,72,1,66,2,73,1,72,3,72,7,24,5,26,3,64,4,69,3,73,3,71,2,71,1,71,4,71,3,67,3,72,2,72,1,73,3,65,2,73,6,54,5,16,1,71,2,255,1,72,2,255,0,0,1,255,24,55,90,147,165,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"src":"; CONFORMANCE: the number of the year.\n; Put the year index on the switches (year 1 = 2027). For years above 255,\n; the high part goes in box 253.\n; The machine stirs the year through 24 rounds that use all eight jobs, then\n; shows two numbers on the lamps: the high part, then the low part.\n; Every round can be undone, so two different years never give the same number.\n; Every honest Seed-8, in wood, relays, transistors or chips, must show the same two.\n        LOAD cycle\n        ADD k90          ; h = high part + 90\n        STORE h\n        LOAD switches\n        ADD k165         ; l = low part + 165\n        STORE l\n        LOAD k24\n        STORE i          ; 24 rounds\nround:  LOAD l           ; f = l turned one step left (double it; what falls off comes back)\n        ADD l\n        JC wrap\n        JUMP nowrap\nwrap:   ADD one\nnowrap: NAND k147        ; f = NOT(f AND 147)\n        ADD i\n        ADD h\n        STORE h          ; h = h + f(l, i)\n        LOAD h\n        NAND h           ; g = NOT h\n        ADD k55\n        ADD l\n        STORE l          ; l = l + g(h)\n        LOAD i\n        ADD minus1\n        STORE i\n        JZ done\n        JUMP round\ndone:   LOAD h\n        STORE lamps\n        LOAD l\n        STORE lamps\n        STOP\none:    .byte 1\nminus1: .byte 255\nk24:    .byte 24\nk55:    .byte 55\nk90:    .byte 90\nk147:   .byte 147\nk165:   .byte 165\nh:      .byte 0\nl:      .byte 0\ni:      .byte 0\n","labels":{"16":"round","24":"wrap","26":"nowrap","54":"done","64":"one","65":"minus1","66":"k24","67":"k55","68":"k90","69":"k147","70":"k165","71":"h","72":"l","73":"i"},"codeEnd":64}},"budget":[["telling each part when to load, and reset",55],["remembered bits: hand, bookmark, job, box, carry, stop, step (31 bits)",262],["step counter: read job, read box, do it",7],["job decoder: which of the 8 jobs",27],["adder: 8 columns of school addition",68],["choosing what goes in the hand: LOAD, ADD or NAND",62],["EMPTY lamp: is the hand 0?",22],["bookmark: move on by one, or jump",80],["which box to look at",26]],"years":{"1":42722,"2":52273,"3":59376,"4":23177,"5":38054,"6":20042,"7":52316,"8":14651,"9":2765,"10":9555}};
+const G = DATA.gates, P = DATA.ports, NG = G.length;
+const SW_BOX = 254, LAMP_BOX = 255, CYCLE_BOX = 253;
+
+/* ---------------- words, in two languages ---------------- */
+const T = {
+ ro: {
+  eyebrow: "Silicon Seed · mașina de referință",
+  lede: "Un calculator întreg făcut din <b>{g}</b> porți NAND și nimic altceva, care rulează aici poartă cu poartă. Are o mână care ține un număr, un pion care stă pe cutia ce urmează, și 256 de cutii numerotate. Știe să facă doar opt lucruri.",
+  binTitle: "Cum citești un număr din becuri",
+  binTry: "Apasă pe becuri",
+  binNew: "Alt număr",
+  binSum0: "Niciun bec aprins: <strong>0</strong>",
+  binMake: "Aprinde becurile ca să faci <strong>{n}</strong>.",
+  binYes: "Da. {s} = {n}.",
+  binNot: "Acum ai {v}. Mai încearcă.",
+  lv1: "<b>Cu mâna.</b> Ai opt pahare în rând. Primul, din dreapta, primește o pietricică. Al doilea, două. Al treilea, patru. Fiecare pahar ține de două ori cât cel dinaintea lui: 1, 2, 4, 8, 16, 32, 64, 128. Un pahar e ori plin, ori gol. Ca să arăți un număr, umpli paharele care, adunate, îl fac.",
+  lv2: "<b>Cu ochii.</b> Paharele sunt becurile. Un bec aprins înseamnă pahar plin. Sub fiecare bec e scris cât valorează. Aduni ce e aprins: 64 + 4 + 1 = 69.",
+  lv3: "<b>Cu semne.</b> Scriem 1 pentru aprins și 0 pentru stins, de la stânga la dreapta: 69 se scrie 01000101. Fiecare 0 sau 1 se numește bit; opt biți fac un octet. Cu opt becuri poți scrie orice număr de la 0 (toate stinse) la 255 (toate aprinse).",
+  lv4: "<b>Ideea.</b> E aceeași socoteală ca la cifrele obișnuite, doar că fiecare loc valorează de două ori mai mult decât vecinul, nu de zece ori. Merge pentru că fiecare pahar e cu unu mai mare decât toate cele mici la un loc (1 + 2 + 4 = 7, următorul e 8), așa că fiecare număr se poate scrie într-un singur fel. În mașină totul e scris așa: numerele, sarcinile, chiar și numerele cutiilor. Ce înseamnă un număr depinde doar de locul în care stă.",
+
+  bxTitle: "Cutiile și programul",
+  r1h: "O cutie ține un număr",
+  r1: "Memoria e un rând de 256 de cutii, numerotate de la 0 la 255. Fiecare cutie are înăuntru opt pahare, ca cele de mai sus, deci ține un singur număr de la 0 la 255. Atât: nu cuvinte, nu desene, doar un număr.",
+  r2h: "Citirea nu schimbă nimic",
+  r2: "Când mașina citește o cutie, ia o copie a numărului. Cutia rămâne cum era. O cutie se schimbă doar când mașina face PUNE: numărul vechi dispare și în locul lui intră numărul din mână.",
+  r3h: "Programul e tot numere",
+  r3: "Un program e un șir de perechi de cutii. Prima cutie din pereche spune ce să facă (1 înseamnă IA, 3 ADUNĂ, 2 PUNE, 0 STOP). A doua spune cu ce cutie. Un pion, ca la jocurile pe tablă, stă pe perechea la care a ajuns.",
+  r4h: "Trei învârtiri pe sarcină",
+  r4: "1: citește cutia pe care stă pionul și află ce are de făcut. 2: citește cutia următoare și află cu ce cutie. 3: face lucrul. La fiecare citire pionul pășește pe cutia următoare, așa că după o sarcină a ajuns la perechea următoare. Asta face orice calculator, doar că de miliarde de ori pe secundă.",
+  mxLabel: "Un program de patru sarcini, în cutiile 0–7: adună numerele din cutiile 10 și 11 și arată suma pe becuri",
+  mxNext: "O învârtire", mxJob: "O sarcină întreagă", mxReset: "De la capăt",
+  mxTry: "Poți schimba orice cutie: scrie alte numere în cutiile 10 și 11 ca să aduni altceva, sau scrie 4 în cutia 2 în loc de 3 și ADUNĂ devine NAND. Programul nu e altceva decât aceste numere.",
+  mHand: "Mâna", mMark: "Pionul stă pe cutia", mStep: "Urmează", mLamps: "Becurile · cutia 255",
+  mSteps: ["1 · citește ce să facă", "2 · citește cu ce cutie", "3 · fă", "oprită"],
+  cJob: "sarcina: <b>{j}</b>", cBox: "cu cutia <b>{n}</b>", cNum: "un număr de adunat", cFree: "nefolosită", cLamps: "becurile", tagMark: "pion",
+  mStart: "Pionul stă pe cutia 0. Mâna e goală. Apasă „O învârtire”.",
+  mReadJob: "Mașina citește cutia {a}: în ea scrie {v}. {v} înseamnă <b>{j}</b>. Pionul pășește pe cutia {a1}.",
+  mReadBox: "Mașina citește cutia {a}: în ea scrie {v}. Acesta e numărul cutiei cu care va lucra: cutia {v}. Pionul pășește pe cutia {a1}.",
+  mDo: [
+   "<b>STOP</b>. Mașina s-a oprit. Pe becuri a rămas {lamps}.",
+   "<b>IA</b>. Mașina se uită în cutia {x}, unde scrie {v}, și pune o copie în mână. Mâna ține acum {h}. Cutia {x} a rămas tot {v}.",
+   "<b>PUNE</b>. Mașina scrie {h} din mână în cutia {x}. Ce era înainte acolo ({old}) a dispărut.{lampsNote}",
+   "<b>ADUNĂ</b>. În mână era {h0}, în cutia {x} scrie {v}. {h0} + {v} = {sum}.{wrap} Mâna ține acum {h}.",
+   "<b>NAND</b>. Mașina compară {h0} cu {v} (cutia {x}) bec cu bec: un bec rămâne stins doar unde amândouă sunt aprinse. Mâna ține acum {h}.",
+   "<b>SARI</b>. Pionul nu mai pășește pe cutia următoare, ci sare direct pe cutia {x}.",
+   "<b>SARI-DACĂ-GOALĂ</b>. Mâna ține {h0}, {jz}",
+   "<b>SARI-DACĂ-ȚINE-1</b>. ȚINE 1 {jc}"],
+  mLampsNote: " Cutia 255 sunt becurile, deci becurile arată acum {h}.",
+  mWrap: " Trece de 255, așa că rămâne {low}, ca la ceas, unde după 12 vine iar 1; se aprinde ȚINE 1.",
+  mReadBoxStop: "Mașina citește cutia {a}: în ea scrie {v}. STOP nu are nevoie de nicio cutie, dar fiecare sarcină ocupă două cutii, așa că și asta e citită și lăsată deoparte. Pionul pășește pe cutia {a1}.",
+  mTurn: "Învârtirea {k} din 3",
+  mStopped: "Mașina s-a oprit. Apasă „De la capăt” ca s-o pornești iar.",
+  machTitle: "Mașina",
+  lampsLabel: "Becurile · cutia 255",
+  switchLabel: "Comutatoarele · cutia 254 · apasă ca să le schimbi",
+  stepsLabel: "Fiecare sarcină are trei pași, câte o învârtire de manivelă",
+  step1: "1 citește sarcina", step2: "2 citește numărul cutiei", step3: "3 fă-o",
+  hand: "Mâna", handP: "Numărul pe care îl ține mașina acum. Toate socotelile se fac aici.",
+  bookmark: "Pionul", bookmarkP: "Cutia pe care stă și pe care o citește data viitoare. După fiecare citire pășește pe următoarea, ca un pion pe tablă; la SARI sare direct pe altă cutie.",
+  job: "Sarcina", jobP: "Ce i s-a cerut să facă acum: unul dintre cele opt lucruri pe care le știe.",
+  box: "Cutia", boxP: "Numărul cutiei despre care e vorba în sarcină.",
+  carry: "ȚINE 1", carryP: "s-a aprins: ultima adunare a trecut de 255, ca la „scriem 0 și ținem 1”",
+  empty: "GOALĂ", emptyP: "mâna ține 0",
+  stop: "STOP", stopP: "mașina s-a oprit",
+  progLabel: "Program", yearLabel: "Anul (1 = 2027)", speedLabel: "Viteza manivelei",
+  crank: "Învârte", stopBtn: "Oprește", oneJob: "O sarcină", oneTurn: "O învârtire", reload: "Ia de la capăt",
+  p_boot: "1 · Pornirea: numără, apoi numere prime", p_mirror: "2 · Oglinda", p_adder: "3 · Adunarea", p_conformance: "4 · Numărul anului",
+  i_boot: "Becurile vor număra 1, 2, 3, apoi vor arăta fiecare număr prim până la 31, găsit de mașină singură.",
+  i_mirror: "Becurile copiază comutatoarele. Schimbă un comutator cât timp merge.",
+  i_adder: "Cele patru comutatoare din dreapta sunt un număr (0–15), cele din stânga altul. Becurile arată suma. Schimbă-le cât timp merge.",
+  i_conformance: "Anul e pus pe comutatoare. Învârte până se aprinde STOP. Becurile vor arăta două numere: numărul anului.",
+  i_cycle: " Partea mare a anului e în cutia 253.",
+  turns: "Învârtiri", jobsDone: "Sarcini făcute", gatesWord: "Porți NAND",
+  verdictYes: "Același răspuns.", verdictNo: "Alt răspuns: ceva din porți e stricat.",
+  verdict: "Anul {y} ({yy}). Porțile au arătat <b>{a}</b>, apoi <b>{b}</b>: numărul anului este <b>{n}</b>. Descrierea sarcină cu sarcină dă {m}. ",
+  bootDone: "S-a oprit. Pe bandă sunt 1, 2, 3 și apoi numerele prime. <span class='ok'>Mașina trăiește.</span>",
+  memTitle: "Cele 256 de cutii",
+  memNote: "Memoria. Fiecare cutie ține un număr de la 0 la 255. Programul stă tot aici: o cutie spune sarcina, următoarea spune cutia. Apasă pe o cutie ca să-i schimbi numărul.",
+  lgJob: "sarcină", lgBox: "numărul cutiei", lgNum: "număr folosit de program", lgHere: "aici citește acum", lgSpecial: "cutii speciale",
+  listTitle: "Programul, în cuvinte",
+  listNote: "Aceleași cutii, citite de un om. Fiecare rând e o pereche de cutii; numerele scrise mic sunt cele care stau de fapt în ele. Rândul colorat e sarcina la care a ajuns mașina.",
+  tapeLabel: "Banda · tot ce a apărut pe becuri",
+  tapeEmpty: "Încă nimic.",
+  srcLabel: "Textul programului",
+  weave: "Țese", editLabel: "Număr nou pentru cutia {b} (0–255)",
+  gatesTitle: "Din ce e făcută",
+  gatesNote: "Toate cele {g} porți sunt NAND: un bec care se stinge doar când ambele intrări sunt aprinse. Așa se împart:",
+  numberRow: "număr: {v}", special254: "comutatoarele", special255: "becurile", special253: "partea mare a anului",
+  b: {"telling each part when to load, and reset": "cine primește ce și când, plus pornirea", "remembered bits: hand, bookmark, job, box, carry, stop, step (31 bits)": "cei 31 de biți ținuți minte: mâna, pionul, sarcina, cutia, becurile mici, pasul", "step counter: read job, read box, do it": "numărătoarea pașilor", "job decoder: which of the 8 jobs": "care dintre cele 8 sarcini", "adder: 8 columns of school addition": "adunarea: 8 coloane, ca la școală", "choosing what goes in the hand: LOAD, ADD or NAND": "ce intră în mână: IA, ADUNĂ sau NAND", "EMPTY lamp: is the hand 0?": "becul GOALĂ: mâna e 0?", "bookmark: move on by one, or jump": "pionul: un pas înainte sau un salt", "which box to look at": "la ce cutie se uită"},
+  jobs: ["STOP", "IA", "PUNE", "ADUNĂ", "NAND", "SARI", "SARI-DACĂ-GOALĂ", "SARI-DACĂ-ȚINE-1"],
+  jobsLong: ["Oprește-te.", "Ia în mână numărul din cutia {x}.", "Pune numărul din mână în cutia {x}.", "Adună la mână numărul din cutia {x}.", "Compară mâna cu cutia {x} bec cu bec: rămâne stins doar unde amândouă sunt aprinse.", "Continuă de la cutia {x}.", "Dacă mâna e goală, continuă de la cutia {x}.", "Dacă ȚINE 1 e aprins, continuă de la cutia {x}."],
+  sayStart: "Mașina e gata. Apasă „O sarcină” ca s-o vezi pas cu pas, sau „Învârte”.",
+  say: [
+   "STOP: mașina s-a oprit.",
+   "IA: în mână era {h0}; a luat din cutia {x} numărul {v}. Acum mâna ține {h1}.",
+   "PUNE: a pus {h0} din mână în cutia {x}.{lamps}",
+   "ADUNĂ: {h0} + {v} (din cutia {x}) = {raw}{wrap}. Acum mâna ține {h1}.",
+   "NAND: a comparat {h0} cu {v} (cutia {x}) bec cu bec. Acum mâna ține {h1}.",
+   "SARI: pionul sare pe cutia {x}.",
+   "SARI-DACĂ-GOALĂ: mâna ține {h0}, {jz}",
+   "SARI-DACĂ-ȚINE-1: ȚINE 1 {jc}"],
+  sayLamps: " Asta aprinde becurile.",
+  sayWrap: ", mai mult de 255, deci rămâne {low} și se aprinde ȚINE 1",
+  jzYes: "e goală, deci pionul sare pe cutia {x}.", jzNo: "nu e goală, deci merge mai departe.",
+  jcYes: "e aprins, deci pionul sare pe cutia {x}.", jcNo: "e stins, deci merge mai departe.",
+ },
+ en: {
+  eyebrow: "Silicon Seed · reference machine",
+  lede: "A whole computer made of <b>{g}</b> NAND gates and nothing else, running here gate by gate. It has a hand that holds one number, a pawn that stands on the box that comes next, and 256 numbered boxes. It knows how to do only eight things.",
+  binTitle: "How to read a number from lamps",
+  binTry: "Press the lamps",
+  binNew: "Another number",
+  binSum0: "No lamp on: <strong>0</strong>",
+  binMake: "Light the lamps to make <strong>{n}</strong>.",
+  binYes: "Yes. {s} = {n}.",
+  binNot: "You have {v} now. Try again.",
+  lv1: "<b>With your hands.</b> Eight cups stand in a row. The first, on the right, takes one pebble. The second, two. The third, four. Each cup holds twice as much as the one before: 1, 2, 4, 8, 16, 32, 64, 128. A cup is either full or empty. To show a number, fill the cups that add up to it.",
+  lv2: "<b>With your eyes.</b> The cups are the lamps. A lit lamp is a full cup. Under each lamp is written what it is worth. Add up what is lit: 64 + 4 + 1 = 69.",
+  lv3: "<b>With signs.</b> Write 1 for lit and 0 for dark, left to right: 69 is written 01000101. Each 0 or 1 is called a bit; eight bits make a byte. Eight lamps can write any number from 0 (all dark) to 255 (all lit).",
+  lv4: "<b>The idea.</b> It is the same reckoning as ordinary digits, except each place is worth twice its neighbour instead of ten times. It works because each cup is one more than all the smaller cups together (1 + 2 + 4 = 7, the next is 8), so every number can be written in exactly one way. Everything in the machine is written like this: numbers, jobs, even box numbers. What a number means depends only on where it sits.",
+
+  bxTitle: "The boxes and the program",
+  r1h: "A box holds a number",
+  r1: "The memory is a row of 256 boxes, numbered 0 to 255. Each box has eight cups inside, like the ones above, so it holds one number from 0 to 255. Nothing else: no words, no pictures, just a number.",
+  r2h: "Reading changes nothing",
+  r2: "When the machine reads a box, it takes a copy of the number. The box stays as it was. A box changes only when the machine does STORE: the old number disappears and the number from the hand takes its place.",
+  r3h: "The program is numbers too",
+  r3: "A program is a row of pairs of boxes. The first box of a pair says what to do (1 means LOAD, 3 ADD, 2 STORE, 0 STOP). The second says which box to do it with. A pawn, as in a board game, stands on the pair it has reached.",
+  r4h: "Three turns per job",
+  r4: "1: read the box the pawn stands on, to learn what to do. 2: read the next box, to learn which box. 3: do it. At each reading the pawn steps on to the next box, so after a job it has reached the next pair. This is what every computer does, only billions of times a second.",
+  mxLabel: "A program of four jobs, in boxes 0–7: add the numbers in boxes 10 and 11 and show the sum on the lamps",
+  mxNext: "One turn", mxJob: "One whole job", mxReset: "Start again",
+  mxTry: "You can change any box: write other numbers in boxes 10 and 11 to add something else, or write 4 in box 2 instead of 3 and ADD becomes NAND. The program is nothing but these numbers.",
+  mHand: "The hand", mMark: "The pawn stands on box", mStep: "Next", mLamps: "The lamps · box 255",
+  mSteps: ["1 · read what to do", "2 · read which box", "3 · do it", "stopped"],
+  cJob: "job: <b>{j}</b>", cBox: "with box <b>{n}</b>", cNum: "a number to add", cFree: "not used", cLamps: "the lamps", tagMark: "pawn",
+  mStart: "The pawn stands on box 0. The hand is empty. Press \"One turn\".",
+  mReadJob: "The machine reads box {a}: it says {v}. {v} means <b>{j}</b>. The pawn steps on to box {a1}.",
+  mReadBox: "The machine reads box {a}: it says {v}. That is the number of the box it will work with: box {v}. The pawn steps on to box {a1}.",
+  mDo: [
+   "<b>STOP</b>. The machine has stopped. The lamps still show {lamps}.",
+   "<b>LOAD</b>. The machine looks in box {x}, which says {v}, and puts a copy in the hand. The hand now holds {h}. Box {x} still says {v}.",
+   "<b>STORE</b>. The machine writes {h} from the hand into box {x}. What was there before ({old}) is gone.{lampsNote}",
+   "<b>ADD</b>. The hand held {h0}, box {x} says {v}. {h0} + {v} = {sum}.{wrap} The hand now holds {h}.",
+   "<b>NAND</b>. The machine compares {h0} with {v} (box {x}) lamp by lamp: a lamp stays dark only where both are lit. The hand now holds {h}.",
+   "<b>JUMP</b>. The pawn does not step to the next box; it jumps straight to box {x}.",
+   "<b>JUMP-IF-EMPTY</b>. The hand holds {h0}, {jz}",
+   "<b>JUMP-IF-CARRY</b>. CARRY {jc}"],
+  mLampsNote: " Box 255 is the lamps, so the lamps now show {h}.",
+  mWrap: " That is past 255, so {low} stays, like a clock where 1 comes again after 12; CARRY lights.",
+  mReadBoxStop: "The machine reads box {a}: it says {v}. STOP needs no box, but every job takes two boxes, so this one is read and set aside. The pawn steps on to box {a1}.",
+  mTurn: "Turn {k} of 3",
+  mStopped: "The machine has stopped. Press \"Start again\" to run it again.",
+  machTitle: "The machine",
+  lampsLabel: "The lamps · box 255",
+  switchLabel: "The switches · box 254 · press to flip",
+  stepsLabel: "Each job takes three steps, one turn of the crank each",
+  step1: "1 read the job", step2: "2 read the box number", step3: "3 do it",
+  hand: "The hand", handP: "The number the machine is holding now. All reckoning happens here.",
+  bookmark: "The pawn", bookmarkP: "The box it stands on and reads next. After each reading it steps on to the next box, like a pawn on a board; on JUMP it leaps straight to another box.",
+  job: "The job", jobP: "What it has been told to do now: one of the eight things it knows.",
+  box: "The box", boxP: "The number of the box the job is about.",
+  carry: "CARRY", carryP: "lit: the last addition went past 255, like \"write 0, carry 1\" at school",
+  empty: "EMPTY", emptyP: "the hand holds 0",
+  stop: "STOP", stopP: "the machine has stopped",
+  progLabel: "Program", yearLabel: "Year (1 = 2027)", speedLabel: "Crank speed",
+  crank: "Crank", stopBtn: "Stop", oneJob: "One job", oneTurn: "One turn", reload: "Start again",
+  p_boot: "1 · Start-up: count, then primes", p_mirror: "2 · Mirror", p_adder: "3 · Adder", p_conformance: "4 · Number of the year",
+  i_boot: "The lamps will count 1, 2, 3, then show every prime number up to 31, found by the machine itself.",
+  i_mirror: "The lamps copy the switches. Flip a switch while it runs.",
+  i_adder: "The right four switches are one number (0–15), the left four another. The lamps show their sum. Change them while it runs.",
+  i_conformance: "The year is on the switches. Crank until STOP lights. The lamps will show two numbers: the number of the year.",
+  i_cycle: " The year's high part is in box 253.",
+  turns: "Crank turns", jobsDone: "Jobs done", gatesWord: "NAND gates",
+  verdictYes: "Same answer.", verdictNo: "Different answer: something in the gates is broken.",
+  verdict: "Year {y} ({yy}). The gates showed <b>{a}</b>, then <b>{b}</b>: the number of the year is <b>{n}</b>. The job-by-job description gives {m}. ",
+  bootDone: "Stopped. The tape shows 1, 2, 3 and then the primes. <span class='ok'>The machine is alive.</span>",
+  memTitle: "The 256 boxes",
+  memNote: "The memory. Each box holds one number from 0 to 255. The program lives here too: one box says the job, the next says the box. Press a box to change its number.",
+  lgJob: "job", lgBox: "box number", lgNum: "number the program uses", lgHere: "being read now", lgSpecial: "special boxes",
+  listTitle: "The program, in words",
+  listNote: "The same boxes, read by a person. Each line is a pair of boxes; the small numbers are what actually sits in them. The coloured line is the job the machine has reached.",
+  tapeLabel: "The tape · everything shown on the lamps",
+  tapeEmpty: "Nothing yet.",
+  srcLabel: "Program text",
+  weave: "Weave", editLabel: "New number for box {b} (0–255)",
+  gatesTitle: "What it is made of",
+  gatesNote: "All {g} gates are NAND: a lamp that goes dark only when both its inputs are lit. This is where they go:",
+  numberRow: "number: {v}", special254: "the switches", special255: "the lamps", special253: "the year's high part",
+  b: {"telling each part when to load, and reset": "who takes what and when, and start-up", "remembered bits: hand, bookmark, job, box, carry, stop, step (31 bits)": "the 31 remembered bits: hand, pawn, job, box, small lamps, step", "step counter: read job, read box, do it": "counting the steps", "job decoder: which of the 8 jobs": "which of the 8 jobs", "adder: 8 columns of school addition": "addition: 8 columns, as at school", "choosing what goes in the hand: LOAD, ADD or NAND": "what goes in the hand: LOAD, ADD or NAND", "EMPTY lamp: is the hand 0?": "the EMPTY lamp: is the hand 0?", "bookmark: move on by one, or jump": "the pawn: one step forward, or a jump", "which box to look at": "which box to look at"},
+  jobs: ["STOP", "LOAD", "STORE", "ADD", "NAND", "JUMP", "JUMP-IF-EMPTY", "JUMP-IF-CARRY"],
+  jobsLong: ["Stop.", "Take the number from box {x} into the hand.", "Put the hand's number into box {x}.", "Add the number from box {x} to the hand.", "Compare the hand with box {x} lamp by lamp: dark only where both are lit.", "Go on from box {x}.", "If the hand is empty, go on from box {x}.", "If CARRY is lit, go on from box {x}."],
+  sayStart: "The machine is ready. Press \"One job\" to watch it step by step, or \"Crank\".",
+  say: [
+   "STOP: the machine has stopped.",
+   "LOAD: the hand held {h0}; it took the number {v} from box {x}. Now the hand holds {h1}.",
+   "STORE: it put {h0} from the hand into box {x}.{lamps}",
+   "ADD: {h0} + {v} (from box {x}) = {raw}{wrap}. Now the hand holds {h1}.",
+   "NAND: it compared {h0} with {v} (box {x}) lamp by lamp. Now the hand holds {h1}.",
+   "JUMP: the pawn jumps to box {x}.",
+   "JUMP-IF-EMPTY: the hand holds {h0}, {jz}",
+   "JUMP-IF-CARRY: CARRY {jc}"],
+  sayLamps: " That lights the lamps.",
+  sayWrap: ", more than 255, so {low} stays and CARRY lights",
+  jzYes: "it is empty, so the pawn jumps to box {x}.", jzNo: "it is not empty, so it goes on.",
+  jcYes: "is lit, so the pawn jumps to box {x}.", jcNo: "is dark, so it goes on.",
+ }
+};
+let lang = "en";
+const t = (k, vars) => { let s = T[lang][k]; if (vars) for (const [a, b] of Object.entries(vars)) s = s.split("{" + a + "}").join(b); return s; };
+
+/* ---------------- the gates ---------------- */
+class Sim {
+  constructor() {
+    this.v = new Uint8Array(DATA.wires); this.v[DATA.const1] = 1;
+    this.fan = Array.from({length: DATA.wires}, () => []);
+    G.forEach(([a, b, o], i) => { this.fan[a].push(i); if (b !== a) this.fan[b].push(i); });
+    this.mem = new Array(256).fill(0); this.tape = []; this.cycles = 0; this.jobs = 0; this.switches = 0;
+    this.queue = G.map((_, i) => i); this.settle();
+  }
+  set(port, val) { P[port].forEach((w, i) => { const bit = (val >> i) & 1; if (this.v[w] !== bit) { this.v[w] = bit; for (const g of this.fan[w]) this.queue.push(g); } }); }
+  get(port) { let r = 0; P[port].forEach((w, i) => { r |= this.v[w] << i; }); return r; }
+  readBox(b) { return b === SW_BOX ? this.switches & 255 : this.mem[b]; }
+  settle() {
+    const v = this.v, fan = this.fan;
+    for (let pass = 0; pass < 100; pass++) {
+      let q = this.queue; this.queue = []; let budget = 50 * NG;
+      while (q.length) {
+        const g = G[q.pop()];
+        if (--budget < 0) throw new Error("oscillation");
+        const nv = (v[g[0]] && v[g[1]]) ? 0 : 1;
+        if (v[g[2]] !== nv) { v[g[2]] = nv; const f = fan[g[2]]; for (let k = 0; k < f.length; k++) q.push(f[k]); }
+      }
+      this.set("mem_in", this.readBox(this.get("addr")));
+      if (!this.queue.length) return;
+    }
+    throw new Error("did not settle");
+  }
+  clock() {
+    const doing = this.get("S") === 2 && !this.get("H");
+    const pre = doing ? {job: this.get("JOB"), box: this.get("BOX"), hand: this.get("A"), c: this.get("C")} : null;
+    if (pre) pre.v = this.readBox(pre.box);
+    this.set("phi1", 1); this.settle();
+    const write = this.get("write"), box = this.get("addr"), hand = this.get("A");
+    this.set("phi1", 0); this.settle();
+    if (write) { this.mem[box] = hand; if (box === LAMP_BOX) this.tape.push(hand); this.set("mem_in", this.readBox(this.get("addr"))); this.settle(); }
+    this.set("phi2", 1); this.settle();
+    this.set("phi2", 0); this.settle();
+    this.cycles++;
+    if (pre) { this.jobs++; pre.hand1 = this.get("A"); pre.c1 = this.get("C"); pre.pc1 = this.get("PC"); return pre; }
+    return null;
+  }
+  reset() { this.set("reset", 1); this.clock(); this.clock(); this.set("reset", 0); this.settle(); this.tape = []; this.cycles = 0; this.jobs = 0; }
+}
+
+/* the same machine described job by job, to check the gates */
+function reference(mem0, sw) {
+  const m = mem0.slice(); let a = 0, pc = 0, c = 0, tape = [], steps = 0;
+  const rd = b => b === SW_BOX ? sw & 255 : m[b];
+  while (steps++ < 200000) {
+    const job = m[pc] & 7, x = m[(pc + 1) & 255]; pc = (pc + 2) & 255;
+    if (job === 0) break;
+    else if (job === 1) a = rd(x);
+    else if (job === 2) { m[x] = a; if (x === LAMP_BOX) tape.push(a); }
+    else if (job === 3) { const s = a + rd(x); a = s & 255; c = s >> 8; }
+    else if (job === 4) a = (~(a & rd(x))) & 255;
+    else if (job === 5) pc = x;
+    else if (job === 6) { if (a === 0) pc = x; }
+    else if (job === 7) { if (c) pc = x; }
+  }
+  return tape;
+}
+
+/* ---------------- building the page ---------------- */
+const $ = id => document.getElementById(id);
+const bin8 = n => n.toString(2).padStart(8, "0");
+const hex4 = n => "0x" + n.toString(16).toUpperCase().padStart(4, "0");
+
+function bitRow(container, kind, onPress) {
+  const els = [];
+  for (let i = 7; i >= 0; i--) {
+    const col = document.createElement("div"); col.className = "bitcol";
+    let el;
+    if (kind === "lamp") { el = document.createElement("div"); el.className = "lamp"; el.setAttribute("aria-hidden", "true"); }
+    else if (kind === "lampbtn") { el = document.createElement("button"); el.type = "button"; el.className = "lamp"; el.setAttribute("aria-pressed", "false"); el.addEventListener("click", () => onPress(i)); }
+    else { el = document.createElement("button"); el.type = "button"; el.className = "switch"; el.setAttribute("aria-pressed", "false"); el.addEventListener("click", () => onPress(i)); }
+    el.dataset.worth = 1 << i;
+    const lbl = document.createElement("small"); lbl.textContent = 1 << i;
+    col.append(el, lbl); container.append(col); els[i] = el;
+  }
+  return els;
+}
+
+/* binary lesson */
+let binVal = 69, binTarget = 13;
+const binEls = bitRow($("binlamps"), "lampbtn", i => { binVal ^= 1 << i; paintBin(); });
+function sumWords(v) { const parts = []; for (let i = 7; i >= 0; i--) if ((v >> i) & 1) parts.push(1 << i); return parts.join(" + "); }
+function paintBin() {
+  binEls.forEach((el, i) => { const on = !!((binVal >> i) & 1); el.classList.toggle("on", on); el.setAttribute("aria-pressed", on); el.setAttribute("aria-label", (1 << i) + (on ? " ✓" : "")); });
+  $("binsum").innerHTML = binVal ? `${sumWords(binVal)} = <strong>${binVal}</strong> &nbsp;·&nbsp; ${bin8(binVal)}` : t("binSum0");
+  $("bintarget").innerHTML = t("binMake", {n: binTarget});
+  $("binverdict").innerHTML = binVal === binTarget ? `<span class="ok">${t("binYes", {s: sumWords(binVal), n: binTarget})}</span>` : `<span class="note">${t("binNot", {v: binVal})}</span>`;
+}
+$("binnew").addEventListener("click", () => { let n; do { n = 1 + Math.floor(Math.random() * 254); } while (n === binTarget); binTarget = n; binVal = 0; paintBin(); });
+
+
+/* ---------------- the little program in big boxes ---------------- */
+const MINI_START = [1, 10, 3, 11, 2, 255, 0, 0, 0, 0, 5, 7];
+const SHOWN = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 255];
+let mx;
+function miniReset() { mx = {mem: new Array(256).fill(0), hand: 0, pc: 0, step: 0, job: 0, box: 0, carry: 0, halted: false, read: -1, wrote: -1, story: null}; MINI_START.forEach((v, i) => mx.mem[i] = v); }
+miniReset();
+const cardEls = {};
+for (const a of SHOWN) {
+  const c = document.createElement("div"); c.className = "card";
+  const no = document.createElement("span"); no.className = "no";
+  const inp = document.createElement("input"); inp.type = "number"; inp.min = 0; inp.max = 255; inp.id = "box" + a;
+  inp.addEventListener("change", () => { let v = parseInt(inp.value, 10); if (!(v >= 0 && v <= 255)) v = mx.mem[a]; mx.mem[a] = v; paintMini(); });
+  const ml = document.createElement("div"); ml.className = "mlamps"; const ls = [];
+  for (let i = 7; i >= 0; i--) { const d = document.createElement("i"); ml.append(d); ls[i] = d; }
+  const means = document.createElement("div"); means.className = "means";
+  const tag = document.createElement("span"); tag.className = "flagtag"; tag.hidden = true;
+  c.append(no, inp, ml, means, tag); $("cards").append(c);
+  cardEls[a] = {c, no, inp, ls, means, tag};
+  no.setAttribute("aria-hidden", "true");
+}
+function miniTurn() {
+  if (mx.halted) { mx.story = {kind: "stopped"}; return; }
+  mx.read = mx.wrote = -1;
+  const k = mx.step + 1;
+  if (mx.step === 0) { const a = mx.pc; mx.job = mx.mem[a] & 7; mx.read = a; mx.pc = (a + 1) & 255; mx.step = 1; mx.story = {kind: "job", k, a, v: mx.mem[a], j: mx.job, a1: mx.pc}; return; }
+  if (mx.step === 1) { const a = mx.pc; mx.box = mx.mem[a]; mx.read = a; mx.pc = (a + 1) & 255; mx.step = 2; mx.story = {kind: "box", k, a, v: mx.box, a1: mx.pc}; return; }
+  const x = mx.box, v = mx.mem[x], h0 = mx.hand, st = {kind: "do", k, j: mx.job, x, v, h0, old: v, carry: mx.carry};
+  switch (mx.job) {
+    case 0: mx.halted = true; break;
+    case 1: mx.hand = v; mx.read = x; break;
+    case 2: mx.mem[x] = mx.hand; mx.wrote = x; break;
+    case 3: { const s = h0 + v; st.sum = s; mx.hand = s & 255; mx.carry = s >> 8; mx.read = x; break; }
+    case 4: mx.hand = (~(h0 & v)) & 255; mx.read = x; break;
+    case 5: mx.pc = x; break;
+    case 6: if (h0 === 0) mx.pc = x; break;
+    case 7: if (mx.carry) mx.pc = x; break;
+  }
+  st.h = mx.hand; mx.step = 0; mx.story = st;
+}
+function miniStoryHTML() {
+  const s = mx.story, L = T[lang];
+  if (!s) return t("mStart");
+  if (s.kind === "stopped") return t("mStopped");
+  const head = `<span class="turnno">${t("mTurn", {k: s.k})}</span>`;
+  if (s.kind === "job") return head + t("mReadJob", {a: s.a, v: s.v, j: L.jobs[s.j], a1: s.a1});
+  if (s.kind === "box") return head + t(mx.job === 0 ? "mReadBoxStop" : "mReadBox", {a: s.a, v: s.v, a1: s.a1});
+  let txt = L.mDo[s.j];
+  const vars = {x: s.x, v: s.v, h: s.h, h0: s.h0, old: s.old, sum: s.sum, lamps: mx.mem[255],
+    lampsNote: s.j === 2 && s.x === 255 ? t("mLampsNote", {h: s.h}) : "",
+    wrap: s.j === 3 && s.sum > 255 ? t("mWrap", {low: s.sum & 255}) : "",
+    jz: s.h0 === 0 ? L.jzYes.split("{x}").join(s.x) : L.jzNo,
+    jc: s.carry ? L.jcYes.split("{x}").join(s.x) : L.jcNo};
+  for (const [a, b] of Object.entries(vars)) txt = txt.split("{" + a + "}").join(b);
+  return head + txt;
+}
+function paintMini() {
+  const L = T[lang];
+  for (const a of SHOWN) {
+    const e = cardEls[a], v = mx.mem[a];
+    e.no.textContent = (lang === "ro" ? "cutia " : "box ") + a;
+    e.inp.setAttribute("aria-label", (lang === "ro" ? "cutia " : "box ") + a);
+    if (document.activeElement !== e.inp) e.inp.value = v;
+    e.ls.forEach((d, i) => d.classList.toggle("on", !!((v >> i) & 1)));
+    let kind = "", means;
+    if (a === 255) { means = t("cLamps"); kind = "num"; }
+    else if (a <= 7) { kind = a % 2 === 0 ? "job" : "box"; means = a % 2 === 0 ? t("cJob", {j: L.jobs[v & 7]}) : t("cBox", {n: v}); }
+    else if (a === 10 || a === 11) { kind = "num"; means = t("cNum"); }
+    else means = t("cFree");
+    e.means.innerHTML = means;
+    e.c.className = "card" + (kind ? " kind-" + kind : "") + (a === mx.pc && !mx.halted ? " mark" : "") + (a === mx.read ? " read" : "") + (a === mx.wrote ? " wrote" : "");
+    e.tag.hidden = !(a === mx.pc && !mx.halted); e.tag.textContent = t("tagMark");
+  }
+  const handLamps = [...Array(8)].map((_, i) => `<i class="${(mx.hand >> (7 - i)) & 1 ? "on" : ""}"></i>`).join("");
+  $("ministate").innerHTML =
+    `<div class="st"><span class="label">${t("mHand")}</span><b>${mx.hand}</b><span class="card" style="padding:0;border:0;background:none"><span class="mlamps">${handLamps}</span></span></div>` +
+    `<div class="st"><span class="label">${t("mMark")}</span><b>${mx.pc}</b></div>` +
+    `<div class="st"><span class="label">${t("mStep")}</span><b style="font-size:14px">${L.mSteps[mx.halted ? 3 : mx.step]}</b></div>`;
+  $("ministory").innerHTML = miniStoryHTML();
+}
+$("mxnext").addEventListener("click", () => { miniTurn(); paintMini(); });
+$("mxjob").addEventListener("click", () => { let k = 0; do { miniTurn(); k++; } while (mx.step !== 0 && !mx.halted && k < 3); paintMini(); });
+$("mxreset").addEventListener("click", () => { miniReset(); paintMini(); });
+
+/* machine parts */
+const lampEls = bitRow($("lamps"), "lamp");
+let switches = 0;
+const swEls = bitRow($("switches"), "switch", i => { switches ^= 1 << i; if (sim) sim.switches = switches; paint(); });
+
+const PARTS = [["A", "hand", 8], ["PC", "bookmark", 8], ["JOB", "job", 3], ["BOX", "box", 8]];
+const partEls = {};
+for (const [port, key, w] of PARTS) {
+  const box = document.createElement("div"); box.className = "part";
+  const l = document.createElement("span"); l.className = "label"; l.dataset.t = key;
+  const lamps = document.createElement("div"); lamps.className = "lamps";
+  const els = [];
+  for (let i = w - 1; i >= 0; i--) { const d = document.createElement("div"); d.className = "lamp sm"; lamps.append(d); els[i] = d; }
+  const val = document.createElement("div"); val.className = "val";
+  const p = document.createElement("p"); p.dataset.t = key + "P";
+  box.append(l, lamps, val);
+  if (port === "JOB") { const j = document.createElement("div"); j.className = "jobs"; j.id = "joblist"; box.append(j); }
+  box.append(p);
+  $("parts").append(box); partEls[port] = {els, val};
+}
+const FLAGS = [["C", "carry"], ["EMPTY", "empty"], ["H", "stop"]];
+const flagEls = {};
+for (const [port, key] of FLAGS) {
+  const f = document.createElement("div"); f.className = "flag";
+  const d = document.createElement("div"); d.className = "lamp sm";
+  const b = document.createElement("b"); b.dataset.t = key;
+  const s = document.createElement("span"); s.dataset.t = key + "P";
+  f.append(d, b, s); $("flags").append(f); flagEls[port] = d;
+}
+const stepEls = ["step1", "step2", "step3"].map(k => { const s = document.createElement("span"); s.dataset.t = k; $("steps").append(s); return s; });
+
+/* memory grid */
+const memEl = $("mem"); const cells = [];
+memEl.append(Object.assign(document.createElement("div"), {className: "h"}));
+for (let c = 0; c < 16; c++) memEl.append(Object.assign(document.createElement("div"), {className: "hc", textContent: "+" + c}));
+for (let r = 0; r < 16; r++) {
+  memEl.append(Object.assign(document.createElement("div"), {className: "h", textContent: r * 16}));
+  for (let c = 0; c < 16; c++) {
+    const d = document.createElement("div"); d.className = "c"; const addr = r * 16 + c;
+    d.addEventListener("click", () => openEdit(addr)); memEl.append(d); cells.push(d);
+  }
+}
+
+/* ---------------- running ---------------- */
+let sim, running = false, prog = "conformance", editing = -1, lastStory = null, lastStoryVars = null;
+const SPEEDS = [1, 3, 10, 40, 150, 600, 3000];
+const yearValue = () => { let y = parseInt($("year").value, 10); return y >= 1 && y <= 65535 ? y : 1; };
+
+function loadProgram() {
+  prog = $("prog").value;
+  $("yearfield").hidden = prog !== "conformance";
+  sim = new Sim();
+  sim.mem = DATA.programs[prog].mem.slice();
+  if (prog === "conformance") { const y = yearValue(); switches = y & 255; sim.mem[CYCLE_BOX] = y >> 8; }
+  else if (prog === "adder") switches = 0x35;
+  else if (prog === "mirror") switches = 0xA5;
+  else switches = 0;
+  sim.switches = switches; sim.reset();
+  $("src").textContent = DATA.programs[prog].src;
+  lastStory = null; running = false;
+  paint();
+}
+
+function boxName(x) {
+  const name = DATA.programs[prog].labels[x];
+  if (x === SW_BOX) return `${x} (${t("special254")})`;
+  if (x === LAMP_BOX) return `${x} (${t("special255")})`;
+  if (x === CYCLE_BOX) return `${x} (${t("special253")})`;
+  return name ? `${x} (${name})` : `${x}`;
+}
+
+function tell(e) {
+  if (!e) return;
+  const x = boxName(e.box);
+  const raw = e.hand + e.v;
+  const vars = {x, v: e.v, h0: e.hand, h1: e.hand1, raw,
+    wrap: e.job === 3 && raw > 255 ? t("sayWrap", {low: raw & 255}) : "",
+    lamps: e.job === 2 && e.box === LAMP_BOX ? t("sayLamps") : "",
+    jz: e.hand === 0 ? t("jzYes", {x}) : t("jzNo"),
+    jc: e.c ? t("jcYes", {x}) : t("jcNo")};
+  lastStory = e; lastStoryVars = vars;
+}
+function storyHTML() {
+  let s = lastStory ? T[lang].say[lastStory.job] : t("sayStart");
+  if (lastStory) for (const [a, b] of Object.entries(lastStoryVars)) s = s.split("{" + a + "}").join(b);
+  let html = s;
+  if (!lastStory) html = t("i_" + prog) + (prog === "conformance" && yearValue() > 255 ? t("i_cycle") : "") + " " + s;
+  if (sim.get("H")) {
+    if (prog === "conformance" && sim.tape.length >= 2) {
+      const y = yearValue(); const mem0 = DATA.programs.conformance.mem.slice(); mem0[CYCLE_BOX] = y >> 8;
+      const ref = reference(mem0, y & 255);
+      const a = sim.tape[sim.tape.length - 2], b = sim.tape[sim.tape.length - 1];
+      const got = (a << 8) | b, want = (ref[0] << 8) | ref[1];
+      html += `<span class="verdict">${t("verdict", {y, yy: 2026 + y, a, b, n: hex4(got) + " = " + got, m: hex4(want)})}${got === want ? `<span class="ok">${t("verdictYes")}</span>` : `<span class="no">${t("verdictNo")}</span>`}</span>`;
+    } else if (prog === "boot") html += `<span class="verdict">${t("bootDone")}</span>`;
+  }
+  return html;
+}
+
+function cellKind(addr) {
+  if (addr >= CYCLE_BOX) return "special";
+  const end = DATA.programs[prog].codeEnd;
+  if (addr < end) return addr % 2 === 0 ? "job" : "box";
+  return Object.prototype.hasOwnProperty.call(DATA.programs[prog].labels, addr) ? "num" : "";
+}
+
+function paintListing() {
+  const p = DATA.programs[prog], pc = sim.get("PC"), S = sim.get("S");
+  const now = (pc - S + 256) % 256;   // the job about to be read, or being worked on
+  const rows = [];
+  for (let a = 0; a < p.codeEnd; a += 2) {
+    const j = sim.mem[a] & 7, x = sim.mem[a + 1];
+    const tag = p.labels[a] ? `<span class="tag">${p.labels[a]}</span> ` : "";
+    const say = T[lang].jobsLong[j].split("{x}").join(boxName(x));
+    rows.push(`<div class="${a === now ? "here" : ""}"><span class="addr">${a}–${a + 1}</span><span class="op">${T[lang].jobs[j]}</span><span>${tag}<span class="pair">${sim.mem[a]} · ${x}</span> → ${say}</span></div>`);
+  }
+  for (const [addr, name] of Object.entries(p.labels)) {
+    if (+addr < p.codeEnd) continue;
+    rows.push(`<div><span class="addr">${addr}</span><span class="op muted">${name}</span><span class="muted">${t("numberRow", {v: sim.mem[addr]})}</span></div>`);
+  }
+  $("listing").innerHTML = rows.join("");
+  const here = $("listing").querySelector(".here");
+  if (here && running) here.scrollIntoView({block: "nearest"});
+}
+
+function paint() {
+  const out = sim.mem[LAMP_BOX];
+  lampEls.forEach((el, i) => el.classList.toggle("on", !!((out >> i) & 1)));
+  $("lampread").innerHTML = `<strong>${out}</strong> &nbsp; ${bin8(out)}`;
+  swEls.forEach((el, i) => { const on = !!((switches >> i) & 1); el.setAttribute("aria-pressed", on); el.setAttribute("aria-label", (1 << i) + (on ? " ✓" : "")); });
+  $("swread").textContent = `${switches}  ·  ${bin8(switches)}`;
+  for (const [port] of PARTS) {
+    const v = sim.get(port), pe = partEls[port];
+    pe.els.forEach((el, i) => el.classList.toggle("on", !!((v >> i) & 1)));
+    pe.val.innerHTML = port === "JOB" ? `<b>${v}</b> · ${T[lang].jobs[v]}` : `<b>${v}</b>`;
+  }
+  const jv = sim.get("JOB");
+  $("joblist").innerHTML = T[lang].jobs.map((n, i) => `<span class="${i === jv ? "on" : ""}">${i} ${n}</span>`).join("");
+  for (const [port] of FLAGS) flagEls[port].classList.toggle("on", !!sim.get(port));
+  const S = sim.get("S"); stepEls.forEach((el, i) => el.classList.toggle("on", S === i && !sim.get("H")));
+  const pc = sim.get("PC"), addr = sim.get("addr");
+  cells.forEach((d, i) => {
+    d.textContent = i === SW_BOX ? switches : sim.mem[i];
+    d.className = "c " + cellKind(i) + (i === addr && !sim.get("H") ? " here" : "") + (i === editing ? " ed" : "");
+    d.title = i === SW_BOX ? t("special254") : i === LAMP_BOX ? t("special255") : i === CYCLE_BOX ? t("special253") : (DATA.programs[prog].labels[i] || "");
+  });
+  paintListing();
+  $("tape").innerHTML = sim.tape.length ? sim.tape.slice(-60).map(v => `<span>${v}</span>`).join("") : `<span style="background:none;padding:0;color:var(--ink-soft)">${t("tapeEmpty")}</span>`;
+  $("story").innerHTML = storyHTML();
+  $("stats").innerHTML = `<span>${t("gatesWord")} <b>${NG}</b></span><span>${t("turns")} <b>${sim.cycles.toLocaleString()}</b></span><span>${t("jobsDone")} <b>${sim.jobs.toLocaleString()}</b></span>`;
+  if (sim.get("H")) running = false;
+  $("run").textContent = running ? t("stopBtn") : t("crank");
+}
+
+function turn() { try { tell(sim.clock()); } catch (e) { running = false; } }
+
+let last = 0, debt = 0;
+function frame(ts) {
+  if (running) {
+    const dt = last ? Math.min(ts - last, 100) : 16; debt += dt / 1000 * SPEEDS[$("speed").value];
+    let n = Math.min(Math.floor(debt), 4000); debt -= Math.floor(debt);
+    while (n-- > 0 && !sim.get("H")) turn();
+    paint();
+  }
+  last = ts; requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+$("run").addEventListener("click", () => { if (sim.get("H")) loadProgram(); running = !running; paint(); });
+$("oneturn").addEventListener("click", () => { running = false; if (!sim.get("H")) turn(); paint(); });
+$("onejob").addEventListener("click", () => { running = false; let k = 0; do { if (sim.get("H")) break; turn(); k++; } while (sim.get("S") !== 0 && k < 3); paint(); });
+$("reset").addEventListener("click", loadProgram);
+$("prog").addEventListener("change", loadProgram);
+$("year").addEventListener("change", loadProgram);
+
+function openEdit(addr) {
+  if (addr === SW_BOX) return;
+  running = false; editing = addr; $("editbox").hidden = false;
+  $("editlabel").textContent = t("editLabel", {b: addr}); $("editval").value = sim.mem[addr]; $("editval").focus(); paint();
+}
+$("editok").addEventListener("click", () => {
+  const v = parseInt($("editval").value.trim(), 10);
+  if (editing >= 0 && v >= 0 && v <= 255) { sim.mem[editing] = v; sim.set("mem_in", sim.readBox(sim.get("addr"))); sim.settle(); }
+  editing = -1; $("editbox").hidden = true; paint();
+});
+
+/* gate budget */
+function paintBudget() {
+  const max = Math.max(...DATA.budget.map(b => b[1]));
+  $("budget").innerHTML = DATA.budget.map(([k, n]) => `<div class="brow"><span>${T[lang].b[k] || k}</span><span class="num">${n}</span><span class="track"><span class="fill" style="display:block;width:${(100 * n / max).toFixed(1)}%"></span></span></div>`).join("");
+}
+
+/* language */
+function applyLang() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-t]").forEach(el => { el.innerHTML = t(el.dataset.t, {g: NG}); });
+  const sel = $("prog"), v = sel.value || "conformance";
+  sel.innerHTML = ["boot", "mirror", "adder", "conformance"].map(p => `<option value="${p}">${t("p_" + p)}</option>`).join("");
+  sel.value = v;
+  $("legend").innerHTML = [["--cell-job", "lgJob"], ["--cell-box", "lgBox"], ["--cell-num", "lgNum"], ["--cell-hot", "lgHere"]].map(([c, k]) => `<span><i style="background:var(${c})"></i>${t(k)}</span>`).join("") + `<span><i style="outline:1px dashed var(--ink-soft);outline-offset:-1px"></i>${t("lgSpecial")}</span>`;
+  if (lastStory) tell(lastStory);
+  paintBin(); paintBudget(); paintMini(); if (sim) paint();
+}
+
+applyLang();
+loadProgram();
+</script>
+
+</body>
+</html>
