@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Silicon Seed · Shield logo explorations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0b0c0b; color: #e8e6df; font-family: "IBM Plex Mono", monospace; }
+  main { max-width: 1220px; margin: auto; padding: 42px 24px 64px; }
+  .eyebrow { color: #ffb000; font-size: 12px; letter-spacing: .15em; text-transform: uppercase; }
+  h1 { margin: 12px 0 8px; font: 900 clamp(38px, 7vw, 72px)/.95 Archivo, sans-serif; font-variant-caps: small-caps; }
+  .intro { margin: 0 0 28px; color: #a3a79e; font-size: 14px; max-width: 68ch; line-height: 1.6; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #303430; border: 1px solid #303430; }
+  figure { margin: 0; min-width: 0; padding: 16px; background: #141614; }
+  figure.current { background: #1b2019; }
+  .number { font-size: 11px; letter-spacing: .12em; color: #ffb000; text-transform: uppercase; }
+  figure img { display: block; width: min(100%, 300px); height: 210px; object-fit: contain; margin: 10px auto; }
+  figcaption { display: grid; gap: 6px; min-height: 52px; }
+  figcaption strong { font: 800 20px/1 Archivo, sans-serif; font-variant-caps: small-caps; }
+  figcaption span { font-size: 12px; line-height: 1.45; color: #a3a79e; }
+  @media (max-width: 760px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } main { padding-inline: 16px; } }
+</style>
+</head>
+<body>
+<main>
+  <span class="eyebrow">Silicon Seed / identity study</span>
+  <h1>One shield, five paths.</h1>
+  <p class="intro">The current shield stays on the website. These five are proposals only. Choose a number if one should become the final logo.</p>
+  <div class="grid">
+    <figure class="current"><span class="number">Current · live</span><img src="../silicon-seed-site/logos/01-crystal.svg" alt="Current crystal shield logo"><figcaption><strong>Original</strong><span>The existing crystal-seed mark, unchanged.</span></figcaption></figure>
+    <figure><span class="number">Variation 1</span><img src="01-faceted-seed.svg" alt="Faceted seed shield"><figcaption><strong>Facet</strong><span>A cut-crystal structure held by a fine double border.</span></figcaption></figure>
+    <figure><span class="number">Variation 2</span><img src="02-halo-seed.svg" alt="Halo seed shield"><figcaption><strong>Halo</strong><span>A seed at the center of repeating growth rings.</span></figcaption></figure>
+    <figure><span class="number">Variation 3</span><img src="03-circuit-seed.svg" alt="Circuit seed shield"><figcaption><strong>Circuit</strong><span>The crystal connects to the machine around it.</span></figcaption></figure>
+    <figure><span class="number">Variation 4</span><img src="04-growing-seed.svg" alt="Growing seed shield"><figcaption><strong>Growth</strong><span>A branch emerges inside the protected seed.</span></figcaption></figure>
+    <figure><span class="number">Variation 5</span><img src="05-eight-seed.svg" alt="Eight-bit seed shield"><figcaption><strong>Eight</strong><span>Eight points reference the Seed-8 machine.</span></figcaption></figure>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 152" role="img" aria-labelledby="title">
+  <title id="title">Silicon Seed — halo shield</title>
+  <path d="M120 13 153 38 143 87 120 107 97 87 87 38Z" fill="none" stroke="#e8e6df" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M102 40c10-11 26-11 36 0m-42 9c10-17 38-18 48 0m-48 10c10 19 38 20 48 0m-42 9c10 12 26 12 36 0" fill="none" stroke="#e8e6df" stroke-opacity=".65" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M120 28c10 14 16 26 16 38 0 10-7 18-16 22-9-4-16-12-16-22 0-12 6-24 16-38Z" fill="#ffb000"/>
+  <path d="M120 39v40m-9-21 9 9 9-9" fill="none" stroke="#0b0c0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="120" y="138" fill="#e8e6df" text-anchor="middle" style="font-family:Archivo,'Arial Narrow',sans-serif;font-variant:small-caps;font-stretch:condensed;font-size:26px;font-weight:800;letter-spacing:.045em">Silicon Seed</text>
+</svg>

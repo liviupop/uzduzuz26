@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 152" role="img" aria-labelledby="title">
+  <title id="title">Silicon Seed — eight-bit shield</title>
+  <path d="M120 13 153 38 143 87 120 107 97 87 87 38Z" fill="none" stroke="#e8e6df" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M100 43h40M100 72h40" fill="none" stroke="#e8e6df" stroke-opacity=".52" stroke-width="1.3"/>
+  <path d="M120 29 136 43 131 72 120 87 109 72 104 43Z" fill="#ffb000"/>
+  <path d="M120 29v58m-16-44h32m-27 29h22" fill="none" stroke="#0b0c0b" stroke-width="1.3"/>
+  <g fill="#0b0c0b">
+    <circle cx="112" cy="48" r="2.5"/><circle cx="120" cy="48" r="2.5"/><circle cx="128" cy="48" r="2.5"/>
+    <circle cx="112" cy="57" r="2.5"/><circle cx="120" cy="57" r="2.5"/><circle cx="128" cy="57" r="2.5"/>
+    <circle cx="116" cy="66" r="2.5"/><circle cx="124" cy="66" r="2.5"/>
+  </g>
+  <text x="120" y="138" fill="#e8e6df" text-anchor="middle" style="font-family:Archivo,'Arial Narrow',sans-serif;font-variant:small-caps;font-stretch:condensed;font-size:26px;font-weight:800;letter-spacing:.045em">Silicon Seed</text>
+</svg>

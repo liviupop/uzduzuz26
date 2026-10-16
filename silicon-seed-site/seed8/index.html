@@ -118,6 +118,7 @@ input[type=number] { width: 7.5em; }
 select { max-width: calc(100vw - 72px); }
 .controls .field { min-width: 0; max-width: 100%; }
 input[type=range] { accent-color: var(--switch); width: 130px; }
+.speed-read { font-family: var(--display); font-size: 12px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
 button.act { font-family: var(--display); font-size: 13px; font-weight: 600; padding: 9px 13px; border-radius: 4px; border: 1px solid var(--switch); background: var(--switch); color: var(--switch-up); cursor: pointer; }
 button.act.ghost { background: transparent; color: var(--ink); border-color: var(--panel-edge); }
 
@@ -292,7 +293,8 @@ pre.src { font-family: var(--display); font-size: 12px; line-height: 1.5; backgr
         </div>
         <div class="field">
           <label class="label" for="speed" data-t="speedLabel"></label>
-          <input id="speed" type="range" min="0" max="6" value="4">
+          <input id="speed" type="range" min="0" max="6" value="2">
+          <output class="speed-read" id="speedread" for="speed"></output>
         </div>
         <button class="act" id="run" type="button"></button>
         <button class="act ghost" id="onejob" type="button" data-t="oneJob"></button>
@@ -771,7 +773,9 @@ for (let r = 0; r < 16; r++) {
 
 /* ---------------- running ---------------- */
 let sim, running = false, prog = "conformance", editing = -1, lastStory = null, lastStoryVars = null;
-const SPEEDS = [1, 3, 10, 40, 150, 600, 3000];
+// Watchable by default; faster rates remain available when deliberately selected.
+const SPEEDS = [0.5, 1, 2, 4, 12, 60, 600];
+function paintSpeed() { $("speedread").textContent = `${SPEEDS[$("speed").value]} / s`; }
 const yearValue = () => { let y = parseInt($("year").value, 10); return y >= 1 && y <= 65535 ? y : 1; };
 
 function loadProgram() {
@@ -785,7 +789,7 @@ function loadProgram() {
   else switches = 0;
   sim.switches = switches; sim.reset();
   $("src").textContent = DATA.programs[prog].src;
-  lastStory = null; running = false;
+  lastStory = null; running = false; debt = 0;
   paint();
 }
 
@@ -846,9 +850,17 @@ function paintListing() {
     if (+addr < p.codeEnd) continue;
     rows.push(`<div><span class="addr">${addr}</span><span class="op muted">${name}</span><span class="muted">${t("numberRow", {v: sim.mem[addr]})}</span></div>`);
   }
-  $("listing").innerHTML = rows.join("");
-  const here = $("listing").querySelector(".here");
-  if (here && running) here.scrollIntoView({block: "nearest"});
+  const listing = $("listing");
+  listing.innerHTML = rows.join("");
+  const here = listing.querySelector(".here");
+  if (here && running) {
+    // scrollIntoView also scrolls the document, making the whole page jump.
+    // Keep the highlighted instruction visible inside its own listing only.
+    const top = here.getBoundingClientRect().top - listing.getBoundingClientRect().top + listing.scrollTop;
+    if (top < listing.scrollTop) listing.scrollTop = top;
+    else if (top + here.offsetHeight > listing.scrollTop + listing.clientHeight)
+      listing.scrollTop = top + here.offsetHeight - listing.clientHeight;
+  }
 }
 
 function paint() {
@@ -886,7 +898,7 @@ let last = 0, debt = 0;
 function frame(ts) {
   if (running) {
     const dt = last ? Math.min(ts - last, 100) : 16; debt += dt / 1000 * SPEEDS[$("speed").value];
-    let n = Math.min(Math.floor(debt), 4000); debt -= Math.floor(debt);
+    let n = Math.min(Math.floor(debt), 4000); debt -= n;
     while (n-- > 0 && !sim.get("H")) turn();
     paint();
   }
@@ -894,7 +906,8 @@ function frame(ts) {
 }
 requestAnimationFrame(frame);
 
-$("run").addEventListener("click", () => { if (sim.get("H")) loadProgram(); running = !running; paint(); });
+$("run").addEventListener("click", () => { if (sim.get("H")) loadProgram(); running = !running; debt = 0; paint(); });
+$("speed").addEventListener("input", paintSpeed);
 $("oneturn").addEventListener("click", () => { running = false; if (!sim.get("H")) turn(); paint(); });
 $("onejob").addEventListener("click", () => { running = false; let k = 0; do { if (sim.get("H")) break; turn(); k++; } while (sim.get("S") !== 0 && k < 3); paint(); });
 $("reset").addEventListener("click", loadProgram);
@@ -931,6 +944,7 @@ function applyLang() {
 }
 
 applyLang();
+paintSpeed();
 loadProgram();
 </script>
 

@@ -101,9 +101,8 @@ a:hover { color: var(--lamp-on); }
 .site-home .readout { font-size: 16px; color: var(--soft); padding: 0 0 13px; }
 .site-home .readout b { font-family: var(--display); font-size: 30px; color: var(--lamp-on); }
 .site-home .yearbox figcaption { max-width: 75ch; color: var(--soft); }
-.site-home .logo-band { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-bottom: 1px solid var(--edge); }
-.site-home .logo-band img { display: block; width: 100%; height: auto; min-width: 0; padding: 16px 8px; border-right: 1px solid var(--edge); }
-.site-home .logo-band img:last-child { border-right: 0; }
+.site-home .logo-band { display: flex; justify-content: center; border-bottom: 1px solid var(--edge); }
+.site-home .logo-band img { display: block; width: min(100%, 280px); height: auto; padding: 20px 8px; }
 
 .site-home section { padding: 64px clamp(24px, 4vw, 64px); gap: 24px; border-top: 0; border-bottom: 1px solid var(--edge); }
 .site-home section > .label { display: block; font-size: 12px; color: var(--lamp-on); letter-spacing: .1em; }
@@ -182,8 +181,6 @@ a:hover { color: var(--lamp-on); }
   .site-home .hero-title { border-right: 0; border-bottom: 1px solid var(--edge); padding-block: 42px; }
   .site-home .hero h1 { font-size: clamp(80px, 16vw, 145px); }
   .site-home .hero-copy { padding-block: 36px 48px; }
-  .site-home .logo-band { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .site-home .logo-band img { border-bottom: 1px solid var(--edge); }
   .site-home #manifest { grid-template-columns: minmax(0, 1fr); }
   .site-home ol.steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -198,8 +195,6 @@ a:hover { color: var(--lamp-on); }
   .site-home section { padding-inline: 20px; }
   .site-home .lamprow { gap: 7px; }
   .site-home .lamprow small { font-size: 9px; }
-  .site-home .logo-band { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .site-home .logo-band img:last-child { grid-column: span 2; justify-self: center; max-width: 50%; }
   .site-home ol.steps { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

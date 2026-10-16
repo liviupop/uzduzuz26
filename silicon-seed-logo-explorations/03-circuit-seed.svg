@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 152" role="img" aria-labelledby="title">
+  <title id="title">Silicon Seed — circuit shield</title>
+  <path d="M120 13 153 38 143 87 120 107 97 87 87 38Z" fill="none" stroke="#e8e6df" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M96 48h17l7 7 7-7h17M100 70h14l6-6 6 6h14M120 22v14m0 47v14" fill="none" stroke="#e8e6df" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="96" cy="48" r="2.5" fill="#e8e6df"/><circle cx="144" cy="48" r="2.5" fill="#e8e6df"/>
+  <circle cx="100" cy="70" r="2.5" fill="#e8e6df"/><circle cx="140" cy="70" r="2.5" fill="#e8e6df"/>
+  <path d="M120 38 134 52 129 74 120 83 111 74 106 52Z" fill="#ffb000"/>
+  <path d="M106 52h28m-14-14v45m-9-9 9-22 9 22" fill="none" stroke="#0b0c0b" stroke-width="1.5" stroke-linejoin="round"/>
+  <text x="120" y="138" fill="#e8e6df" text-anchor="middle" style="font-family:Archivo,'Arial Narrow',sans-serif;font-variant:small-caps;font-stretch:condensed;font-size:26px;font-weight:800;letter-spacing:.045em">Silicon Seed</text>
+</svg>
